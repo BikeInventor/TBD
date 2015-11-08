@@ -7,21 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Railways
+namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TrainRoute
+    public partial class Train
     {
+        public Train()
+        {
+            this.TrainComposition = new HashSet<TrainComposition>();
+            this.TrainRoute = new HashSet<TrainRoute>();
+            this.Voyage = new HashSet<Voyage>();
+        }
+    
         public int Id { get; set; }
-        public int TrainId { get; set; }
-        public int StationId { get; set; }
-        public System.TimeSpan ArrivalTime { get; set; }
+        public int TrainNum { get; set; }
         public System.TimeSpan DepartureTime { get; set; }
-        public double Distance { get; set; }
+        public int DepartureStationID { get; set; }
+        public System.TimeSpan ArrivalTime { get; set; }
+        public int ArrivalStationID { get; set; }
     
         public virtual Station Station { get; set; }
-        public virtual Train Train { get; set; }
+        public virtual ICollection<TrainComposition> TrainComposition { get; set; }
+        public virtual ICollection<TrainRoute> TrainRoute { get; set; }
+        public virtual ICollection<Voyage> Voyage { get; set; }
     }
 }

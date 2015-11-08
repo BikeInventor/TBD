@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -86,93 +86,93 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="View\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Client.cs">
+    <Compile Include="Model\Client.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Employee.cs">
+    <Compile Include="Model\Employee.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logic\AdminFunctions.cs" />
-    <Compile Include="Logic\LoginWindowController.cs" />
-    <Compile Include="RailwayDataModel.Context.cs">
+    <Compile Include="Controller\AdminFunctions.cs" />
+    <Compile Include="Controller\LoginWindowController.cs" />
+    <Compile Include="Model\RailwayDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RailwayDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="RailwayDataModel.cs">
+    <Compile Include="Model\RailwayDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RailwayDataModel.Designer.cs">
+    <Compile Include="Model\RailwayDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Seat.cs">
+    <Compile Include="Model\Seat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Station.cs">
+    <Compile Include="Model\Station.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Table.cs">
+    <Compile Include="Model\Table.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ticket.cs">
+    <Compile Include="Model\Ticket.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Train.cs">
+    <Compile Include="Model\Train.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TrainComposition.cs">
+    <Compile Include="Model\TrainComposition.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TrainRoute.cs">
+    <Compile Include="Model\TrainRoute.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Voyage.cs">
+    <Compile Include="Model\Voyage.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Wagon.cs">
+    <Compile Include="Model\Wagon.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WagonSeat.cs">
+    <Compile Include="Model\WagonSeat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="View\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logic\Utils.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
+    <Compile Include="Controller\Utils.cs" />
+    <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\Metro\Metro.MSControls.Core.Implicit.xaml">
+    <Page Include="View\Themes\Metro\Metro.MSControls.Core.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Metro\Metro.MSControls.Toolkit.Implicit.xaml">
+    <Page Include="View\Themes\Metro\Metro.MSControls.Toolkit.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Metro\Styles.Shared.xaml">
+    <Page Include="View\Themes\Metro\Styles.Shared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Metro\Styles.WPF.xaml">
+    <Page Include="View\Themes\Metro\Styles.WPF.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Metro\Theme.Colors.xaml">
+    <Page Include="View\Themes\Metro\Theme.Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -201,19 +201,19 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EntityDeploy Include="RailwayDataModel.edmx">
+    <EntityDeploy Include="Model\RailwayDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RailwayDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="RailwayDataModel.Context.tt">
+    <None Include="Model\RailwayDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
       <LastGenOutput>RailwayDataModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="RailwayDataModel.edmx.diagram">
+    <None Include="Model\RailwayDataModel.edmx.diagram">
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
     </None>
-    <None Include="RailwayDataModel.tt">
+    <None Include="Model\RailwayDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
       <LastGenOutput>RailwayDataModel.cs</LastGenOutput>
@@ -223,14 +223,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RailwayData.mdf">
+    <Content Include="Model\RailwayData.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RailwayData_log.ldf">
+    <Content Include="Model\RailwayData_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>RailwayData.mdf</DependentUpon>
     </Content>
-    <Resource Include="Themes\Metro\HowToApplyTheme.txt" />
+    <Resource Include="View\Themes\Metro\HowToApplyTheme.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -252,6 +252,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

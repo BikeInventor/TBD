@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Railways
+namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Wagon
+    public partial class Seat
     {
-        public Wagon()
+        public Seat()
         {
-            this.TrainComposition = new HashSet<TrainComposition>();
             this.WagonSeat = new HashSet<WagonSeat>();
         }
     
         public int Id { get; set; }
-        public int WagonType { get; set; }
-        public int SeatsAmount { get; set; }
+        public int SeatType { get; set; }
     
-        public virtual ICollection<TrainComposition> TrainComposition { get; set; }
         public virtual ICollection<WagonSeat> WagonSeat { get; set; }
     }
 }

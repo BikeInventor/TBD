@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Railways
+namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Table
+    public partial class WagonSeat
     {
         public int Id { get; set; }
+        public int WagonId { get; set; }
+        public int SeatId { get; set; }
+        public int SeatNum { get; set; }
+    
+        public virtual Seat Seat { get; set; }
+        public virtual Wagon Wagon { get; set; }
     }
 }

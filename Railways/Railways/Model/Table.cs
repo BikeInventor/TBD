@@ -7,23 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Railways
+namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Station
+    public partial class Table
     {
-        public Station()
-        {
-            this.Train = new HashSet<Train>();
-            this.TrainRoute = new HashSet<TrainRoute>();
-        }
-    
         public int Id { get; set; }
-        public string StationName { get; set; }
-    
-        public virtual ICollection<Train> Train { get; set; }
-        public virtual ICollection<TrainRoute> TrainRoute { get; set; }
     }
 }

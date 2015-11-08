@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Railways
+namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Voyage
+    public partial class TrainComposition
     {
         public int Id { get; set; }
         public int TrainId { get; set; }
-        public System.DateTime Date { get; set; }
-        public int Status { get; set; }
-        public int TicketId { get; set; }
+        public int WagonId { get; set; }
+        public int WagonNum { get; set; }
     
-        public virtual Ticket Ticket { get; set; }
         public virtual Train Train { get; set; }
+        public virtual Wagon Wagon { get; set; }
     }
 }
