@@ -143,7 +143,7 @@
     <Compile Include="Model\WagonSeat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Page Include="ScheduleWindow.xaml">
+    <Page Include="View\ScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,7 +151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ScheduleWindow.xaml.cs">
+    <Compile Include="View\ScheduleWindow.xaml.cs">
       <DependentUpon>ScheduleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\App.xaml.cs">
