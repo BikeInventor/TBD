@@ -34,7 +34,7 @@ namespace Railways.Logic
         {
             using (RailwayDataEntities db = new RailwayDataEntities())
             {
-                var currentEmp = SystemObjects.EmpList.FindById(id);
+                var currentEmp = db.Employee.Find(id);
 
                 if (currentEmp == null)
                 {

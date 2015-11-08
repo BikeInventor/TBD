@@ -96,6 +96,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logic\AdminFunctions.cs" />
     <Compile Include="Logic\LoginWindowController.cs" />
     <Compile Include="RailwayDataModel.Context.cs">
       <AutoGen>True</AutoGen>
