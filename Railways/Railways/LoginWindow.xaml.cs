@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Railways.Logic;
 
 namespace Railways
 {
@@ -23,6 +24,13 @@ namespace Railways
         public MainWindow()
         {
             InitializeComponent();
+
+            AdminFunctions.RegisterEmployee("Иванов Иван Иванович", "123456", "0");
+        }
+
+        private void TryLogin(object sender, RoutedEventArgs e)
+        {
+            LoginWindowController.Login(idTextBox.Text, passwordBox.Password);
         }
     }
 }
