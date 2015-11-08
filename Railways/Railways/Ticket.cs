@@ -12,11 +12,21 @@ namespace Railways
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Ticket
     {
+        public Ticket()
+        {
+            this.Voyage = new HashSet<Voyage>();
+        }
+    
         public int Id { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public int ClientId { get; set; }
+        public int TrainId { get; set; }
+        public int WagonId { get; set; }
+        public int SeatId { get; set; }
+        public double Price { get; set; }
+    
+        public virtual Client Client { get; set; }
+        public virtual ICollection<Voyage> Voyage { get; set; }
     }
 }

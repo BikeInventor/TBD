@@ -12,11 +12,16 @@ namespace Railways
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Seat
     {
+        public Seat()
+        {
+            this.WagonSeat = new HashSet<WagonSeat>();
+        }
+    
         public int Id { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public int SeatType { get; set; }
+    
+        public virtual ICollection<WagonSeat> WagonSeat { get; set; }
     }
 }

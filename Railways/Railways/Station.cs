@@ -12,11 +12,18 @@ namespace Railways
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Station
     {
+        public Station()
+        {
+            this.Train = new HashSet<Train>();
+            this.TrainRoute = new HashSet<TrainRoute>();
+        }
+    
         public int Id { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public string StationName { get; set; }
+    
+        public virtual ICollection<Train> Train { get; set; }
+        public virtual ICollection<TrainRoute> TrainRoute { get; set; }
     }
 }

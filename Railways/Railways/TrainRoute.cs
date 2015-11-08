@@ -12,11 +12,16 @@ namespace Railways
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class TrainRoute
     {
         public int Id { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public int TrainId { get; set; }
+        public int StationId { get; set; }
+        public System.TimeSpan ArrivalTime { get; set; }
+        public System.TimeSpan DepartureTime { get; set; }
+        public double Distance { get; set; }
+    
+        public virtual Station Station { get; set; }
+        public virtual Train Train { get; set; }
     }
 }

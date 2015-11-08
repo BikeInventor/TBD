@@ -91,26 +91,56 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client.cs">
-      <DependentUpon>RailwayModel.tt</DependentUpon>
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
-      <DependentUpon>RailwayModel.tt</DependentUpon>
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Logic\LoginWindowController.cs" />
-    <Compile Include="RailwayModel.Context.cs">
+    <Compile Include="RailwayDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayModel.Context.tt</DependentUpon>
+      <DependentUpon>RailwayDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="RailwayModel.cs">
+    <Compile Include="RailwayDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayModel.tt</DependentUpon>
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RailwayModel.Designer.cs">
+    <Compile Include="RailwayDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayModel.edmx</DependentUpon>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Seat.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Station.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Table.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Train.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainComposition.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainRoute.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Voyage.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wagon.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WagonSeat.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -170,22 +200,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EntityDeploy Include="RailwayModel.edmx">
+    <EntityDeploy Include="RailwayDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RailwayModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>RailwayDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="RailwayModel.Context.tt">
+    <None Include="RailwayDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayModel.edmx</DependentUpon>
-      <LastGenOutput>RailwayModel.Context.cs</LastGenOutput>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+      <LastGenOutput>RailwayDataModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="RailwayModel.edmx.diagram">
-      <DependentUpon>RailwayModel.edmx</DependentUpon>
+    <None Include="RailwayDataModel.edmx.diagram">
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
     </None>
-    <None Include="RailwayModel.tt">
+    <None Include="RailwayDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayModel.edmx</DependentUpon>
-      <LastGenOutput>RailwayModel.cs</LastGenOutput>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+      <LastGenOutput>RailwayDataModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

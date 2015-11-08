@@ -24,8 +24,6 @@ namespace Railways
         public MainWindow()
         {
             InitializeComponent();
-
-            AdminFunctions.RegisterEmployee("Иванов Иван Иванович", "123456", "0");
         }
 
         private void TryLogin(object sender, RoutedEventArgs e)

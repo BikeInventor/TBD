@@ -12,11 +12,14 @@ namespace Railways
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class WagonSeat
     {
         public int Id { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public int WagonId { get; set; }
+        public int SeatId { get; set; }
+        public int SeatNum { get; set; }
+    
+        public virtual Seat Seat { get; set; }
+        public virtual Wagon Wagon { get; set; }
     }
 }
