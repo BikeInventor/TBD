@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Railways.Model;
+using Railways.Model.Context;
 
 namespace Railways.Logic
 {
@@ -33,15 +34,9 @@ namespace Railways.Logic
         /// <returns></returns>
         private static Boolean isCorrectAuthInfo(int id, String password)
         {
-            using (RailwayDataEntities db = new RailwayDataEntities())
-            {
-                var currentEmp = db.Employee.Find(id);
+            var currentEmp = Context.Employees.FindBy(emp => emp.Id == id) as Employee;
 
-                if (currentEmp == null)
-                {
-                    return false;
-                }
-                else if (Utils.CorrectHash(currentEmp.Password, password))
+                if (currentEmp == null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;
                 }
@@ -49,7 +44,6 @@ namespace Railways.Logic
                 {
                     return false;
                 }
-            }
         }
     }
 }

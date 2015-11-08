@@ -93,11 +93,25 @@
     <Compile Include="Model\Client.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Context\ClientContext.cs" />
+    <Compile Include="Model\Context\ContextBase.cs" />
+    <Compile Include="Model\Context\Context.cs" />
+    <Compile Include="Model\Context\EmployeeContext.cs" />
+    <Compile Include="Model\Context\SeatContext.cs" />
+    <Compile Include="Model\Context\StationContext.cs" />
+    <Compile Include="Model\Context\TicketContext.cs" />
+    <Compile Include="Model\Context\TrainCompositionContext.cs" />
+    <Compile Include="Model\Context\TrainContext.cs" />
+    <Compile Include="Model\Context\TrainRouteContext.cs" />
+    <Compile Include="Model\Context\VoyageContext.cs" />
+    <Compile Include="Model\Context\WagonContext.cs" />
+    <Compile Include="Model\Context\WagonSeatContext.cs" />
     <Compile Include="Model\Employee.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controller\AdminFunctions.cs" />
     <Compile Include="Controller\LoginWindowController.cs" />
+    <Compile Include="Model\Interfaces\IContext.cs" />
     <Compile Include="Model\RailwayDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
