@@ -23,7 +23,6 @@ namespace Railways
     {
         public MainWindow()
         {
-          //  AdminFunctions.RegisterEmployee("Иванов И.И.", "123456", "0");
             InitializeComponent();
         }
 
