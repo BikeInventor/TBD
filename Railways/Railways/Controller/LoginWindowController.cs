@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Railways.Model.Context;
+using System.Windows;
 
 namespace Railways.Logic
 {
@@ -59,9 +60,7 @@ namespace Railways.Logic
 
         private static void ShowError()
         {
-            Gat.Controls.MessageBoxView messageBox = new Gat.Controls.MessageBoxView();
-            Gat.Controls.MessageBoxViewModel vm = (Gat.Controls.MessageBoxViewModel)messageBox.FindResource("ViewModel");
-            vm.Show("Ошибка авторизации: направильный id или пароль", "Ошибка", Gat.Controls.MessageBoxButton.Ok, Gat.Controls.MessageBoxImage.Warning);
+            MessageBox.Show("Ошибка авторизации: направильный id или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
