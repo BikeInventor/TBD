@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Railways.Model;
 using Railways.Model.Context;
-using Gat.Controls.Framework;
+using System.Windows;
 
 namespace Railways.Logic
 {
@@ -36,7 +32,6 @@ namespace Railways.Logic
                 else
                 {
                     ShowError();
-                    System.Console.WriteLine("NOT OK!");
                 }
             }
             catch (Exception e)
@@ -52,8 +47,7 @@ namespace Railways.Logic
         private static Boolean CorrectAuthInfo(int id, String password)
         {
             Context.Initialize();
-            var currentEmp = Context.Employees.Repository.Find(id);
-
+            var currentEmp = Context.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
                 if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;
@@ -66,9 +60,7 @@ namespace Railways.Logic
 
         private static void ShowError()
         {
-            Gat.Controls.MessageBoxView messageBox = new Gat.Controls.MessageBoxView();
-            Gat.Controls.MessageBoxViewModel vm = (Gat.Controls.MessageBoxViewModel)messageBox.FindResource("ViewModel");
-            vm.Show("Ошибка авторизации: направильный id или пароль", "Ошибка", Gat.Controls.MessageBoxButton.Ok, Gat.Controls.MessageBoxImage.Warning);
+            MessageBox.Show("Ошибка авторизации: направильный id или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
