@@ -55,8 +55,8 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MetroWPF">
-      <HintPath>..\packages\WPF.Metro.1.0.1.1\lib\MetroWPF.dll</HintPath>
+    <Reference Include="Gat.Controls.MessageBox">
+      <HintPath>..\packages\MessageBox.2.0.1\lib\net45\Gat.Controls.MessageBox.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
