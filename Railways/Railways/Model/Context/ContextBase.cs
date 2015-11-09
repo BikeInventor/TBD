@@ -14,7 +14,7 @@ namespace Railways.Model.Context
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TContext"></typeparam>
-    class ContextBase<TEntity, TContext> : IContext<TEntity>, IDisposable
+    public abstract class ContextBase<TEntity, TContext> : IContext<TEntity>, IDisposable
         where TEntity : class
         where TContext : DbContext, new()
     {
@@ -34,11 +34,11 @@ namespace Railways.Model.Context
         /// </summary>
         public ContextBase()
         {
-            var property = typeof(TContext).GetProperty(typeof(TEntity).Name + "Set");
+            var property = typeof(TContext).GetProperty(typeof(TEntity).Name);
             if (property == null)
                 throw new InvalidOperationException(typeof(TEntity).Name + "Set not found");
 
-            Repository = (DbSet<TEntity>)property.GetValue(_entities, null);
+            Repository = (DbSet<TEntity>)property.GetMethod.Invoke(_entities, null);
             if (Repository == null)
                 throw new InvalidOperationException(typeof(TEntity).Name + " could not be casted to DbSet<" + typeof(TEntity).Name + ">");
         }
@@ -47,7 +47,7 @@ namespace Railways.Model.Context
         /// Поиск объекта по заданному условию
         /// </summary>
         /// <param name="predicate">Predicate</param>
-        /// <returns>Query of items which are valid to predicate</returns>
+        /// <returns>Список объектов, удовлетворяющих предикату</returns>
         public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
             return Repository.Where(predicate);

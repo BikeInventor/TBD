@@ -12,7 +12,6 @@ namespace Railways.Model.Context
     public static class Context
     {
         private static RailwayDataEntities _database;
-
         public static ClientContext Clients {get; private set;}
         public static EmployeeContext Employees { get; private set; }
         public static StationContext Stations { get; private set; }
@@ -25,11 +24,21 @@ namespace Railways.Model.Context
         public static WagonContext Wagons { get; private set; }
         public static WagonSeatContext WagonSeats { get; private set; }
 
-
-
-        private static Context()
+        public static void Initialize()
         {
             _database = new RailwayDataEntities();
+
+            Clients = new ClientContext();
+            Employees = new EmployeeContext();
+            Stations = new StationContext();
+            Seats = new SeatContext();
+            Tickets = new TicketContext();
+            TrainCompositions = new TrainCompositionContext();
+            Trains = new TrainContext();
+            TrainRoutes = new TrainRouteContext();
+            Voyages = new VoyageContext();
+            Wagons = new WagonContext();
+            WagonSeats = new WagonSeatContext();
 
             Clients.Repository = _database.Client;
             Employees.Repository = _database.Employee;

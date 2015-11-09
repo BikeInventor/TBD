@@ -17,11 +17,11 @@ namespace Railways.Logic
         /// <param name="password"></param>
         public static void Login(String id, String password)
         {
-           if (isCorrectAuthInfo(int.Parse(id), password))
+           if (CorrectAuthInfo(int.Parse(id), password))
            {
                System.Console.WriteLine("ОК!");
            }
-           else
+           else 
            {
                System.Console.WriteLine("NOT OK!");
            }
@@ -31,12 +31,13 @@ namespace Railways.Logic
         /// <summary>
         /// Проверка корректности id и пароля пользователя
         /// </summary>
-        /// <returns></returns>
-        private static Boolean isCorrectAuthInfo(int id, String password)
+        /// <returns>true, если существует пользователь с заданной парой id - пароль</returns>
+        private static Boolean CorrectAuthInfo(int id, String password)
         {
-            var currentEmp = Context.Employees.FindBy(emp => emp.Id == id) as Employee;
+            Context.Initialize();
+            var currentEmp = Context.Employees.Repository.Find(id);
 
-                if (currentEmp == null && (Utils.CorrectHash(currentEmp.Password, password)))
+                 if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;
                 }
