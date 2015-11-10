@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Railways.Logic;
+using Railways.Model;
 
 namespace Railways
 {
@@ -11,6 +12,7 @@ namespace Railways
         public MainWindow()
         {
             InitializeComponent();
+            TestDataLoader.AddTestTrain();
         }
 
         private void TryLogin(object sender, RoutedEventArgs e)

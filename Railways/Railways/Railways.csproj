@@ -95,7 +95,7 @@
     </Compile>
     <Compile Include="Model\Context\ClientContext.cs" />
     <Compile Include="Model\Context\ContextBase.cs" />
-    <Compile Include="Model\Context\Context.cs" />
+    <Compile Include="Model\Context\Contexts.cs" />
     <Compile Include="Model\Context\EmployeeContext.cs" />
     <Compile Include="Model\Context\SeatContext.cs" />
     <Compile Include="Model\Context\StationContext.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="Model\Table.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TestDataLoader.cs" />
     <Compile Include="Model\Ticket.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>

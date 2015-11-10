@@ -46,8 +46,8 @@ namespace Railways.Logic
         /// <returns>true, если существует пользователь с заданной парой id - пароль</returns>
         private static Boolean CorrectAuthInfo(int id, String password)
         {
-            Context.Initialize();
-            var currentEmp = Context.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
+            Contexts.Initialize();
+            var currentEmp = Contexts.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
                 if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;

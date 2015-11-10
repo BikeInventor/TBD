@@ -9,7 +9,7 @@ namespace Railways.Model.Context
     /// <summary>
     /// Класс, хранящий различные контексты базы данных
     /// </summary>
-    public static class Context
+    public static class Contexts
     {
         private static RailwayDataEntities _database;
         public static ClientContext Clients {get; private set;}
