@@ -67,6 +67,7 @@ namespace Railways.Model.Context
         public virtual void Add(TEntity entity)
         {
             Repository.Add(entity);
+            _entities.SaveChanges();
         }
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace Railways.Model.Context
         public virtual void Update(TEntity entity)
         {
             Repository.Attach(entity);
+            _entities.SaveChanges();
         }
 
         /// <summary>
@@ -84,13 +86,6 @@ namespace Railways.Model.Context
         public virtual void Remove(TEntity entity)
         {
             Repository.Remove(entity);
-        }
-
-        /// <summary>
-        /// Сохранение изменений в БД
-        /// </summary>
-        public virtual void SaveChanges()
-        {
             _entities.SaveChanges();
         }
 
