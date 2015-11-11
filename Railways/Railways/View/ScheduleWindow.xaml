@@ -8,7 +8,7 @@
             <TextBox HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Margin="50,0" Text="TextBox"/>
             <TextBox Height="23" TextWrapping="Wrap" Width="120" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="TextBox"/>
             <DatePicker Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button Content="OK" Width="75" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="OKe" Width="75" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
 
     </Grid>
