@@ -12,6 +12,15 @@ namespace Railways.Model.Context
     public static class Contexts
     {
         private static RailwayDataEntities _database;
+
+        public static RailwayDataEntities DataBase
+        {
+            get
+            {
+                return _database;
+            }
+        }
+
         public static ClientContext Clients {get; private set;}
         public static EmployeeContext Employees { get; private set; }
         public static StationContext Stations { get; private set; }

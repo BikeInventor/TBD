@@ -20,12 +20,10 @@ namespace Railways.Model
             deartureStation.StationName = "Станция2";
             Contexts.Stations.Add(deartureStation);
 
-
             var newTrain = new Train();
             newTrain.ArrivalStationID = 1;
             newTrain.DepartureStationID = 2;
-            newTrain.DepartureTime = DateTime.Now.TimeOfDay;
-            newTrain.TrainNum = 109;                             // заменить на VARCHAR
+            newTrain.TrainNum = 109;                             
             Contexts.Trains.Add(newTrain);
 
             var seat = new Seat();
@@ -47,7 +45,6 @@ namespace Railways.Model
             trainComposition.WagonId = 1;
             trainComposition.WagonNum = 1;
             Contexts.TrainCompositions.Add(trainComposition);
-
 
         }
     }

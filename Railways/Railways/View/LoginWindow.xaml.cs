@@ -12,7 +12,6 @@ namespace Railways
         public MainWindow()
         {
             InitializeComponent();
-            TestDataLoader.AddTestTrain();
         }
 
         private void TryLogin(object sender, RoutedEventArgs e)
