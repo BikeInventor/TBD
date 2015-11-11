@@ -60,7 +60,7 @@ namespace Railways.Model.Context
         public virtual void Add(TEntity entity)
         {
             Repository.Add(entity);
-            Contexts.DataBase.SaveChanges();
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Railways.Model.Context
         public virtual void Update(TEntity entity)
         {
             Repository.Attach(entity);
-            Contexts.DataBase.SaveChanges();
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Railways.Model.Context
         public virtual void Remove(TEntity entity)
         {
             Repository.Remove(entity);
-            Contexts.DataBase.SaveChanges();
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>

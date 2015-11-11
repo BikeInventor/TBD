@@ -26,7 +26,7 @@ namespace Railways.Logic
         {
             try
             {
-                Contexts.Initialize();
+                ContextKeeper.Initialize();
                 TestDataLoader.AddTestTrain();
 
                 if (CorrectAuthInfo(int.Parse(id), password))
@@ -50,7 +50,7 @@ namespace Railways.Logic
         /// <returns>true, если существует пользователь с заданной парой id - пароль</returns>
         private static Boolean CorrectAuthInfo(int id, String password)
         {
-            var currentEmp = Contexts.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
+            var currentEmp = ContextKeeper.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
                 if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;
