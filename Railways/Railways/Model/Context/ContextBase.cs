@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using Railways.Model.Interfaces;
 
+
 namespace Railways.Model.Context
 {
     /// <summary>
@@ -54,19 +55,12 @@ namespace Railways.Model.Context
         }
 
         /// <summary>
-        /// Возвращает все объекты
-        /// </summary>
-        public virtual IQueryable<TEntity> GetAll()
-        {
-            return Repository.AsQueryable();
-        }
-
-        /// <summary>
         /// Добавление нового объекта
         /// </summary>
         public virtual void Add(TEntity entity)
         {
             Repository.Add(entity);
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>
@@ -76,6 +70,7 @@ namespace Railways.Model.Context
         public virtual void Update(TEntity entity)
         {
             Repository.Attach(entity);
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>
@@ -84,14 +79,7 @@ namespace Railways.Model.Context
         public virtual void Remove(TEntity entity)
         {
             Repository.Remove(entity);
-        }
-
-        /// <summary>
-        /// Сохранение изменений в БД
-        /// </summary>
-        public virtual void SaveChanges()
-        {
-            _entities.SaveChanges();
+            ContextKeeper.DataBase.SaveChanges();
         }
 
         /// <summary>
@@ -101,6 +89,61 @@ namespace Railways.Model.Context
         {
             _entities.Dispose();
         }
+
+        #region Query
+
+        /// <summary>
+        /// Селекция по заданному условию
+        /// </summary>
+        /// <typeparam name="R"></typeparam>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public virtual IQueryable<R> Select<R>(Expression<Func<TEntity, R>> selector)
+        {
+            return Repository.Select(selector);
+        }
+
+        /// <summary>
+        /// Прокеция по заданному условию
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public virtual IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Repository.Where(predicate);
+        }
+
+        /// <summary>
+        /// Получение всех элементов
+        /// </summary>
+        /// <returns></returns>
+        public virtual IQueryable<TEntity> All()
+        {
+            return Repository.AsQueryable();
+        }
+
+        /// <summary>
+        /// Поиск первого элемента, соответствующего заданному предикату
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public virtual TEntity First(Expression<Func<TEntity, bool>> predicate = null)
+        {
+            return  predicate == null ? Repository.First() : Repository.First(predicate);
+        }
+
+        /// <summary>
+        /// Поиск последнего элемента, соответствующего заданному предикату
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public virtual TEntity Last(Expression<Func<TEntity, bool>> predicate = null)
+        {
+            return predicate == null ? Repository.Last() : Repository.Last(predicate);
+        }
+
+
+        #endregion
 
     }
 }

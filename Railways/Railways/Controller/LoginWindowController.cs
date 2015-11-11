@@ -2,6 +2,7 @@
 using System.Linq;
 using Railways.Model.Context;
 using System.Windows;
+using Railways.Model;
 
 namespace Railways.Logic
 {
@@ -25,6 +26,9 @@ namespace Railways.Logic
         {
             try
             {
+                ContextKeeper.Initialize();
+                TestDataLoader.AddTestTrain();
+
                 if (CorrectAuthInfo(int.Parse(id), password))
                 {
                     _isLoggedIn = true;
@@ -46,8 +50,7 @@ namespace Railways.Logic
         /// <returns>true, если существует пользователь с заданной парой id - пароль</returns>
         private static Boolean CorrectAuthInfo(int id, String password)
         {
-            Contexts.Initialize();
-            var currentEmp = Contexts.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
+            var currentEmp = ContextKeeper.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
                 if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
                 {
                     return true;

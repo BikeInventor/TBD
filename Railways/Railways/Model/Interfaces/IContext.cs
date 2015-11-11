@@ -12,7 +12,6 @@ namespace Railways.Model.Interfaces
         void Add(T entity);
         void Remove(T entity);
         void Update(T entity);
-        IQueryable<T> GetAll();
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
     }
 }
