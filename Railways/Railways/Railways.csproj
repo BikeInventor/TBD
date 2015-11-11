@@ -95,7 +95,7 @@
     </Compile>
     <Compile Include="Model\Context\ClientContext.cs" />
     <Compile Include="Model\Context\ContextBase.cs" />
-    <Compile Include="Model\Context\Contexts.cs" />
+    <Compile Include="Model\Context\ContextKeeper.cs" />
     <Compile Include="Model\Context\EmployeeContext.cs" />
     <Compile Include="Model\Context\SeatContext.cs" />
     <Compile Include="Model\Context\StationContext.cs" />
