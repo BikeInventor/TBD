@@ -28,6 +28,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SeatType" Type="int" />
+          <Property Name="Sold" Type="bit" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -324,6 +325,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SeatType" Type="Int32" />
           <NavigationProperty Name="WagonSeat" Relationship="Self.FK_WagonSeat_Seat" FromRole="Seat" ToRole="WagonSeat" />
+          <Property Name="Sold" Type="Boolean" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -628,6 +630,7 @@
           <EntitySetMapping Name="Seat">
             <EntityTypeMapping TypeName="RailwayDataModel.Seat">
               <MappingFragment StoreEntitySet="Seat">
+                <ScalarProperty Name="Sold" ColumnName="Sold" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SeatType" ColumnName="SeatType" />
               </MappingFragment>

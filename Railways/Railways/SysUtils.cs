@@ -5,8 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace Railways.Logic
+namespace Railways
 {
+    /// <summary>
+    /// Тип места в вагоне
+    /// </summary>
+    public enum SeatType
+    {
+        BERTH = 0,
+        COUPE = 1,
+        LUX = 2,
+    }
+
+    
+    
     public static class Utils
     {
 
@@ -41,5 +53,7 @@ namespace Railways.Logic
             }
             return false;
         }
+
+        
     }
 }
