@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище RailwayDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище RailwayDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="PassportNum" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PassportNum" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -27,14 +27,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SeatType" Type="int" Nullable="false" />
+          <Property Name="SeatType" Type="int" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StationName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StationName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Table">
           <Key>
@@ -47,72 +47,73 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="TrainId" Type="int" Nullable="false" />
-          <Property Name="WagonId" Type="int" Nullable="false" />
-          <Property Name="SeatId" Type="int" Nullable="false" />
-          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="TrainId" Type="int" />
+          <Property Name="WagonId" Type="int" />
+          <Property Name="SeatId" Type="int" />
+          <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="Train">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TrainNum" Type="int" Nullable="false" />
-          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="DepartureStationID" Type="int" Nullable="false" />
-          <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="ArrivalStationID" Type="int" Nullable="false" />
+          <Property Name="TrainNum" Type="varchar" MaxLength="10" />
+          <Property Name="DepartureTime" Type="datetime" />
+          <Property Name="DepartureStationID" Type="int" />
+          <Property Name="ArrivalTime" Type="datetime" />
+          <Property Name="ArrivalStationID" Type="int" />
+          <Property Name="Periodicity" Type="int" />
         </EntityType>
         <EntityType Name="TrainComposition">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TrainId" Type="int" Nullable="false" />
-          <Property Name="WagonId" Type="int" Nullable="false" />
-          <Property Name="WagonNum" Type="int" Nullable="false" />
+          <Property Name="TrainId" Type="int" />
+          <Property Name="WagonId" Type="int" />
+          <Property Name="WagonNum" Type="int" />
         </EntityType>
         <EntityType Name="TrainRoute">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TrainId" Type="int" Nullable="false" />
-          <Property Name="StationId" Type="int" Nullable="false" />
-          <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="Distance" Type="float" Nullable="false" />
+          <Property Name="TrainId" Type="int" />
+          <Property Name="StationId" Type="int" />
+          <Property Name="ArrivalTime" Type="datetime" />
+          <Property Name="DepartureTime" Type="datetime" />
+          <Property Name="Distance" Type="float" />
         </EntityType>
         <EntityType Name="Voyage">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TrainId" Type="int" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="TicketId" Type="int" Nullable="false" />
+          <Property Name="TrainId" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="TicketId" Type="int" />
         </EntityType>
         <EntityType Name="Wagon">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WagonType" Type="int" Nullable="false" />
-          <Property Name="SeatsAmount" Type="int" Nullable="false" />
+          <Property Name="WagonType" Type="int" />
+          <Property Name="SeatsAmount" Type="int" />
         </EntityType>
         <EntityType Name="WagonSeat">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WagonId" Type="int" Nullable="false" />
-          <Property Name="SeatId" Type="int" Nullable="false" />
-          <Property Name="SeatNum" Type="int" Nullable="false" />
+          <Property Name="WagonId" Type="int" />
+          <Property Name="SeatId" Type="int" />
+          <Property Name="SeatNum" Type="int" />
         </EntityType>
         <Association Name="FK_Ticket_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -133,7 +134,7 @@
 предупреждение 6035: В связи "FK_Ticket_WagonSeat" имеются столбцы, которые не являются частью ключа таблицы на первичной стороне связи. Связь исключена.
         <Association Name="FK_Ticket_WagonSeat" />-->
         <Association Name="FK_Train_Station">
-          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="Train" Type="Self.Train" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
@@ -145,7 +146,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainComposition_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="TrainComposition" Type="Self.TrainComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -157,7 +158,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainComposition_Wagon">
-          <End Role="Wagon" Type="Self.Wagon" Multiplicity="1" />
+          <End Role="Wagon" Type="Self.Wagon" Multiplicity="0..1" />
           <End Role="TrainComposition" Type="Self.TrainComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wagon">
@@ -169,7 +170,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainRoute_Station">
-          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="TrainRoute" Type="Self.TrainRoute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
@@ -181,7 +182,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainRoute_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="TrainRoute" Type="Self.TrainRoute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -193,7 +194,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voyage_Ticket">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
           <End Role="Voyage" Type="Self.Voyage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
@@ -205,7 +206,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voyage_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="Voyage" Type="Self.Voyage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -217,7 +218,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WagonSeat_Seat">
-          <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
+          <End Role="Seat" Type="Self.Seat" Multiplicity="0..1" />
           <End Role="WagonSeat" Type="Self.WagonSeat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Seat">
@@ -229,7 +230,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WagonSeat_Wagon">
-          <End Role="Wagon" Type="Self.Wagon" Multiplicity="1" />
+          <End Role="Wagon" Type="Self.Wagon" Multiplicity="0..1" />
           <End Role="WagonSeat" Type="Self.WagonSeat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wagon">
@@ -297,14 +298,14 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="RailwayDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RailwayDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PassportNum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_Client" FromRole="Client" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Employee">
@@ -321,7 +322,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SeatType" Type="Int32" Nullable="false" />
+          <Property Name="SeatType" Type="Int32" />
           <NavigationProperty Name="WagonSeat" Relationship="Self.FK_WagonSeat_Seat" FromRole="Seat" ToRole="WagonSeat" />
         </EntityType>
         <EntityType Name="Station">
@@ -329,7 +330,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Train" Relationship="Self.FK_Train_Station" FromRole="Station" ToRole="Train" />
           <NavigationProperty Name="TrainRoute" Relationship="Self.FK_TrainRoute_Station" FromRole="Station" ToRole="TrainRoute" />
         </EntityType>
@@ -344,11 +345,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="TrainId" Type="Int32" Nullable="false" />
-          <Property Name="WagonId" Type="Int32" Nullable="false" />
-          <Property Name="SeatId" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="TrainId" Type="Int32" />
+          <Property Name="WagonId" Type="Int32" />
+          <Property Name="SeatId" Type="Int32" />
+          <Property Name="Price" Type="Double" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Ticket_Client" FromRole="Ticket" ToRole="Client" />
           <NavigationProperty Name="Voyage" Relationship="Self.FK_Voyage_Ticket" FromRole="Ticket" ToRole="Voyage" />
         </EntityType>
@@ -357,24 +358,25 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrainNum" Type="Int32" Nullable="false" />
-          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="DepartureStationID" Type="Int32" Nullable="false" />
-          <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="ArrivalStationID" Type="Int32" Nullable="false" />
+          <Property Name="TrainNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DepartureTime" Type="DateTime" Precision="3" />
+          <Property Name="DepartureStationID" Type="Int32" />
+          <Property Name="ArrivalTime" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalStationID" Type="Int32" />
           <NavigationProperty Name="Station" Relationship="Self.FK_Train_Station" FromRole="Train" ToRole="Station" />
           <NavigationProperty Name="TrainComposition" Relationship="Self.FK_TrainComposition_Train" FromRole="Train" ToRole="TrainComposition" />
           <NavigationProperty Name="TrainRoute" Relationship="Self.FK_TrainRoute_Train" FromRole="Train" ToRole="TrainRoute" />
           <NavigationProperty Name="Voyage" Relationship="Self.FK_Voyage_Train" FromRole="Train" ToRole="Voyage" />
+          <Property Name="Periodicity" Type="Int32" />
         </EntityType>
         <EntityType Name="TrainComposition">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrainId" Type="Int32" Nullable="false" />
-          <Property Name="WagonId" Type="Int32" Nullable="false" />
-          <Property Name="WagonNum" Type="Int32" Nullable="false" />
+          <Property Name="TrainId" Type="Int32" />
+          <Property Name="WagonId" Type="Int32" />
+          <Property Name="WagonNum" Type="Int32" />
           <NavigationProperty Name="Train" Relationship="Self.FK_TrainComposition_Train" FromRole="TrainComposition" ToRole="Train" />
           <NavigationProperty Name="Wagon" Relationship="Self.FK_TrainComposition_Wagon" FromRole="TrainComposition" ToRole="Wagon" />
         </EntityType>
@@ -383,11 +385,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrainId" Type="Int32" Nullable="false" />
-          <Property Name="StationId" Type="Int32" Nullable="false" />
-          <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="Distance" Type="Double" Nullable="false" />
+          <Property Name="TrainId" Type="Int32" />
+          <Property Name="StationId" Type="Int32" />
+          <Property Name="ArrivalTime" Type="DateTime" Precision="3" />
+          <Property Name="DepartureTime" Type="DateTime" Precision="3" />
+          <Property Name="Distance" Type="Double" />
           <NavigationProperty Name="Station" Relationship="Self.FK_TrainRoute_Station" FromRole="TrainRoute" ToRole="Station" />
           <NavigationProperty Name="Train" Relationship="Self.FK_TrainRoute_Train" FromRole="TrainRoute" ToRole="Train" />
         </EntityType>
@@ -396,10 +398,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrainId" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="TicketId" Type="Int32" Nullable="false" />
+          <Property Name="TrainId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="TicketId" Type="Int32" />
           <NavigationProperty Name="Ticket" Relationship="Self.FK_Voyage_Ticket" FromRole="Voyage" ToRole="Ticket" />
           <NavigationProperty Name="Train" Relationship="Self.FK_Voyage_Train" FromRole="Voyage" ToRole="Train" />
         </EntityType>
@@ -408,8 +410,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WagonType" Type="Int32" Nullable="false" />
-          <Property Name="SeatsAmount" Type="Int32" Nullable="false" />
+          <Property Name="WagonType" Type="Int32" />
+          <Property Name="SeatsAmount" Type="Int32" />
           <NavigationProperty Name="TrainComposition" Relationship="Self.FK_TrainComposition_Wagon" FromRole="Wagon" ToRole="TrainComposition" />
           <NavigationProperty Name="WagonSeat" Relationship="Self.FK_WagonSeat_Wagon" FromRole="Wagon" ToRole="WagonSeat" />
         </EntityType>
@@ -418,14 +420,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WagonId" Type="Int32" Nullable="false" />
-          <Property Name="SeatId" Type="Int32" Nullable="false" />
-          <Property Name="SeatNum" Type="Int32" Nullable="false" />
+          <Property Name="WagonId" Type="Int32" />
+          <Property Name="SeatId" Type="Int32" />
+          <Property Name="SeatNum" Type="Int32" />
           <NavigationProperty Name="Seat" Relationship="Self.FK_WagonSeat_Seat" FromRole="WagonSeat" ToRole="Seat" />
           <NavigationProperty Name="Wagon" Relationship="Self.FK_WagonSeat_Wagon" FromRole="WagonSeat" ToRole="Wagon" />
         </EntityType>
         <Association Name="FK_Ticket_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -437,7 +439,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WagonSeat_Seat">
-          <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
+          <End Role="Seat" Type="Self.Seat" Multiplicity="0..1" />
           <End Role="WagonSeat" Type="Self.WagonSeat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Seat">
@@ -449,7 +451,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Train_Station">
-          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="Train" Type="Self.Train" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
@@ -461,7 +463,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainRoute_Station">
-          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="0..1" />
           <End Role="TrainRoute" Type="Self.TrainRoute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
@@ -473,7 +475,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voyage_Ticket">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
           <End Role="Voyage" Type="Self.Voyage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
@@ -485,7 +487,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainComposition_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="TrainComposition" Type="Self.TrainComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -497,7 +499,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainRoute_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="TrainRoute" Type="Self.TrainRoute" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -509,7 +511,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voyage_Train">
-          <End Role="Train" Type="Self.Train" Multiplicity="1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="0..1" />
           <End Role="Voyage" Type="Self.Voyage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Train">
@@ -521,7 +523,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrainComposition_Wagon">
-          <End Role="Wagon" Type="Self.Wagon" Multiplicity="1" />
+          <End Role="Wagon" Type="Self.Wagon" Multiplicity="0..1" />
           <End Role="TrainComposition" Type="Self.TrainComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wagon">
@@ -533,7 +535,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WagonSeat_Wagon">
-          <End Role="Wagon" Type="Self.Wagon" Multiplicity="1" />
+          <End Role="Wagon" Type="Self.Wagon" Multiplicity="0..1" />
           <End Role="WagonSeat" Type="Self.WagonSeat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wagon">
@@ -661,6 +663,7 @@
           <EntitySetMapping Name="Train">
             <EntityTypeMapping TypeName="RailwayDataModel.Train">
               <MappingFragment StoreEntitySet="Train">
+                <ScalarProperty Name="Periodicity" ColumnName="Periodicity" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TrainNum" ColumnName="TrainNum" />
                 <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />

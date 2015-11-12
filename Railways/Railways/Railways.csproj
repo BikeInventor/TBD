@@ -93,6 +93,9 @@
     <Compile Include="Model\Client.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Employee.cs">
+      <DependentUpon>RailwayDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Context\ClientContext.cs" />
     <Compile Include="Model\Context\ContextBase.cs" />
     <Compile Include="Model\Context\ContextKeeper.cs" />
@@ -106,26 +109,14 @@
     <Compile Include="Model\Context\VoyageContext.cs" />
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
-    <Compile Include="Model\Employee.cs">
-      <DependentUpon>RailwayDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controller\AdminFunctions.cs" />
     <Compile Include="Controller\LoginWindowController.cs" />
     <Compile Include="Model\Interfaces\IContext.cs" />
-    <Compile Include="Model\RailwayDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayDataModel.Context.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Model\TestDataLoader.cs" />
     <Compile Include="Model\RailwayDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\RailwayDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\Seat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
@@ -136,7 +127,6 @@
     <Compile Include="Model\Table.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\TestDataLoader.cs" />
     <Compile Include="Model\Ticket.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
@@ -158,6 +148,7 @@
     <Compile Include="Model\WagonSeat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="View\VoyageView.cs" />
     <Page Include="View\ScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +157,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Model\RailwayDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RailwayDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RailwayDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="View\ScheduleWindow.xaml.cs">
       <DependentUpon>ScheduleWindow.xaml</DependentUpon>
     </Compile>
@@ -227,18 +228,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RailwayDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\RailwayDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
-      <LastGenOutput>RailwayDataModel.Context.cs</LastGenOutput>
-    </None>
     <None Include="Model\RailwayDataModel.edmx.diagram">
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
-    </None>
-    <None Include="Model\RailwayDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
-      <LastGenOutput>RailwayDataModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +238,16 @@
   <ItemGroup>
     <Content Include="Model\RailwayData.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Model\RailwayDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+      <LastGenOutput>RailwayDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\RailwayDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+      <LastGenOutput>RailwayDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Model\RailwayData_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -15,10 +15,10 @@ namespace Railways.Model
     public partial class Voyage
     {
         public int Id { get; set; }
-        public int TrainId { get; set; }
-        public System.DateTime Date { get; set; }
-        public int Status { get; set; }
-        public int TicketId { get; set; }
+        public Nullable<int> TrainId { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<int> TicketId { get; set; }
     
         public virtual Ticket Ticket { get; set; }
         public virtual Train Train { get; set; }

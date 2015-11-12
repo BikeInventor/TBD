@@ -11,11 +11,11 @@ namespace Railways.Model
     {
         public static void AddTestTrain()
         {
-            /*
+            
             var arrivalStation = new Station();
-            arrivalStation.StationName = "Станция1";
+            arrivalStation.StationName = "Станция13";
             ContextKeeper.Stations.Add(arrivalStation);
-
+            /*
             var deartureStation = new Station();
             deartureStation.StationName = "Станция2";
             ContextKeeper.Stations.Add(deartureStation);

@@ -21,8 +21,8 @@ namespace Railways.Model
         }
     
         public int Id { get; set; }
-        public int WagonType { get; set; }
-        public int SeatsAmount { get; set; }
+        public Nullable<int> WagonType { get; set; }
+        public Nullable<int> SeatsAmount { get; set; }
     
         public virtual ICollection<TrainComposition> TrainComposition { get; set; }
         public virtual ICollection<WagonSeat> WagonSeat { get; set; }

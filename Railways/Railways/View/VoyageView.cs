@@ -15,7 +15,7 @@ namespace Railways.View
         public string ArrivalStation { get; private set; }
         public DateTime DepartureDate { get; private set; }
         public DateTime ArrivalDate { get; private set; }
-        public int Periodicity { get; private set; }
+        public int? Periodicity { get; private set; }
         public bool IsLuxSeatsAvailabe { get; private set; }
         public bool IsCoupeSeatsAvailable { get; private set; }     
         public bool IsBerthSeatsAvailable { get; private set; }

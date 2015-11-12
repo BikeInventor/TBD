@@ -20,11 +20,11 @@ namespace Railways.Model
         }
     
         public int Id { get; set; }
-        public int ClientId { get; set; }
-        public int TrainId { get; set; }
-        public int WagonId { get; set; }
-        public int SeatId { get; set; }
-        public double Price { get; set; }
+        public Nullable<int> ClientId { get; set; }
+        public Nullable<int> TrainId { get; set; }
+        public Nullable<int> WagonId { get; set; }
+        public Nullable<int> SeatId { get; set; }
+        public Nullable<double> Price { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual ICollection<Voyage> Voyage { get; set; }

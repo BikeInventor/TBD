@@ -15,11 +15,11 @@ namespace Railways.Model
     public partial class TrainRoute
     {
         public int Id { get; set; }
-        public int TrainId { get; set; }
-        public int StationId { get; set; }
-        public System.TimeSpan ArrivalTime { get; set; }
-        public System.TimeSpan DepartureTime { get; set; }
-        public double Distance { get; set; }
+        public Nullable<int> TrainId { get; set; }
+        public Nullable<int> StationId { get; set; }
+        public Nullable<System.DateTime> ArrivalTime { get; set; }
+        public Nullable<System.DateTime> DepartureTime { get; set; }
+        public Nullable<double> Distance { get; set; }
     
         public virtual Station Station { get; set; }
         public virtual Train Train { get; set; }

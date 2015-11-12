@@ -15,9 +15,9 @@ namespace Railways.Model
     public partial class WagonSeat
     {
         public int Id { get; set; }
-        public int WagonId { get; set; }
-        public int SeatId { get; set; }
-        public int SeatNum { get; set; }
+        public Nullable<int> WagonId { get; set; }
+        public Nullable<int> SeatId { get; set; }
+        public Nullable<int> SeatNum { get; set; }
     
         public virtual Seat Seat { get; set; }
         public virtual Wagon Wagon { get; set; }

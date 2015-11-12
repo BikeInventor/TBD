@@ -20,7 +20,7 @@ namespace Railways.Model
         }
     
         public int Id { get; set; }
-        public int SeatType { get; set; }
+        public Nullable<int> SeatType { get; set; }
     
         public virtual ICollection<WagonSeat> WagonSeat { get; set; }
     }

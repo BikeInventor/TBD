@@ -22,11 +22,12 @@ namespace Railways.Model
         }
     
         public int Id { get; set; }
-        public int TrainNum { get; set; }
-        public System.TimeSpan DepartureTime { get; set; }
-        public int DepartureStationID { get; set; }
-        public System.TimeSpan ArrivalTime { get; set; }
-        public int ArrivalStationID { get; set; }
+        public string TrainNum { get; set; }
+        public Nullable<System.DateTime> DepartureTime { get; set; }
+        public Nullable<int> DepartureStationID { get; set; }
+        public Nullable<System.DateTime> ArrivalTime { get; set; }
+        public Nullable<int> ArrivalStationID { get; set; }
+        public Nullable<int> Periodicity { get; set; }
     
         public virtual Station Station { get; set; }
         public virtual ICollection<TrainComposition> TrainComposition { get; set; }
