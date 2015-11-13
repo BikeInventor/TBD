@@ -38,7 +38,7 @@ namespace Railways.Logic
                     ShowError();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ShowError();
             }

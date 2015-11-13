@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Railways.Logic;
 using Railways.Model;
+using Railways.DebugTools;
 
 namespace Railways
 {
@@ -29,6 +30,13 @@ namespace Railways
                 var scheduleWindow = new ScheduleWindow();
                 scheduleWindow.Show();
             }
+        }
+
+        private void dataButton_Click(object sender, RoutedEventArgs e)
+        {
+            var entriesAdjustion = new EntriesAdjustionWindow();
+            entriesAdjustion.Show();
+            this.Close();
         }
     }
 }

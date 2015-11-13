@@ -90,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugTools\EntriesAdjustionWindow.xaml.cs">
+      <DependentUpon>EntriesAdjustionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\BusinessLogic.cs" />
     <Compile Include="Model\Client.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
@@ -149,7 +152,16 @@
     <Compile Include="Model\WagonSeat.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DebugTools\RailwayDataDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RailwayDataDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="View\VoyageView.cs" />
+    <Page Include="DebugTools\EntriesAdjustionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -231,6 +243,17 @@
     </EntityDeploy>
     <None Include="Model\RailwayDataModel.edmx.diagram">
       <DependentUpon>RailwayDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="DebugTools\RailwayDataDataSet.xsc">
+      <DependentUpon>RailwayDataDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DebugTools\RailwayDataDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RailwayDataDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DebugTools\RailwayDataDataSet.xss">
+      <DependentUpon>RailwayDataDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
