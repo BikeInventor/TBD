@@ -19,7 +19,14 @@ namespace Railways.Model
             this.Train = new HashSet<Train>();
             this.TrainRoute = new HashSet<TrainRoute>();
         }
-    
+
+        public Station(string stationName)
+        {
+            this.Train = new HashSet<Train>();
+            this.TrainRoute = new HashSet<TrainRoute>();
+            StationName = stationName;
+        }
+
         public int Id { get; set; }
         public string StationName { get; set; }
     

@@ -18,6 +18,13 @@ namespace Railways.Model
         public Nullable<int> TrainId { get; set; }
         public Nullable<int> WagonId { get; set; }
         public Nullable<int> WagonNum { get; set; }
+
+        public TrainComposition(Nullable<int> trainId, Nullable<int> wagonId, Nullable<int> wagonNum)
+        {
+            TrainId = trainId;
+            WagonId = wagonId;
+            WagonNum = wagonNum;
+        }
     
         public virtual Train Train { get; set; }
         public virtual Wagon Wagon { get; set; }

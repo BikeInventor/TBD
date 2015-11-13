@@ -19,6 +19,14 @@ namespace Railways.Model
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> TicketId { get; set; }
+
+        public Voyage(Nullable<int> trainId, Nullable<System.DateTime> _date, Nullable<int> status, Nullable<int> ticketId)
+        {
+            TrainId = trainId;
+            Date = _date;
+            Status = status;
+            TicketId = ticketId;
+        }
     
         public virtual Ticket Ticket { get; set; }
         public virtual Train Train { get; set; }

@@ -18,6 +18,21 @@ namespace Railways.Model
         {
             this.Voyage = new HashSet<Voyage>();
         }
+
+        public Ticket(Nullable<int> clientId
+            , Nullable<int> trainId
+            , Nullable<int> wagonId
+            , Nullable<int> seatId
+            , Nullable<double> price)
+        {
+            this.Voyage = new HashSet<Voyage>();
+
+            ClientId = clientId;
+            TrainId = trainId;
+            WagonId = wagonId;
+            SeatId = seatId;
+            Price = price;
+        }
     
         public int Id { get; set; }
         public Nullable<int> ClientId { get; set; }

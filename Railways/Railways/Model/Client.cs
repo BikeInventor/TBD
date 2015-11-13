@@ -18,6 +18,13 @@ namespace Railways.Model
         {
             this.Ticket = new HashSet<Ticket>();
         }
+
+        public Client(string fullName, string passportNum)
+        {
+            this.Ticket = new HashSet<Ticket>();
+            FullName = fullName;
+            PassportNum = passportNum;
+        }
     
         public int Id { get; set; }
         public string FullName { get; set; }

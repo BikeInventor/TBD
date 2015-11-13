@@ -14,6 +14,13 @@ namespace Railways.Model
     
     public partial class Employee
     {
+        public Employee(string password, string fullName, int adminRights)
+        {
+            Password = password;
+            FullName = fullName;
+            AdminRights = adminRights;
+        }
+
         public int Id { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
