@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BusinessLogic.cs" />
     <Compile Include="Model\Client.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>

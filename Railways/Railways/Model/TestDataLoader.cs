@@ -11,11 +11,28 @@ namespace Railways.Model
     {
         public static void AddTestTrain()
         {
-            
-            var arrivalStation = new Station();
-            arrivalStation.StationName = "Станция13";
-            ContextKeeper.Stations.Add(arrivalStation);
             /*
+            var seat = new Seat();
+            seat.SeatType = (int)WagonType.BERTH;
+            seat.Sold = false;
+
+            var seat1 = new Seat();
+            seat1.SeatType = (int)WagonType.BERTH;
+            seat1.Sold = false;
+            var seat2 = new Seat();
+            seat2.SeatType = (int)WagonType.COUPE;
+            seat2.Sold = true;
+            var seat3 = new Seat();
+            seat3.SeatType = (int)WagonType.BERTH;
+            seat3.Sold = true;
+            var seat4 = new Seat();
+            seat4.SeatType = (int)WagonType.LUX;
+            seat4.Sold = false;
+            var seat5 = new Seat();
+            seat5.SeatType = (int)WagonType.COUPE;
+            seat5.Sold = false;
+            
+
             var deartureStation = new Station();
             deartureStation.StationName = "Станция2";
             ContextKeeper.Stations.Add(deartureStation);
