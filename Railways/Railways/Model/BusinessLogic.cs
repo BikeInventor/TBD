@@ -47,7 +47,7 @@ namespace Railways.Model
         /// <param name="trainId"></param>
         /// <param name="seatType"></param>
         /// <returns></returns>
-        public static double CalculatePrice(float voyageDistance, WagonType seatType)
+        public static double CalculatePrice(double voyageDistance, WagonType seatType)
         {
 
             double basePrice = _kilometerPrice * voyageDistance;
@@ -64,7 +64,7 @@ namespace Railways.Model
                     }
                 case WagonType.LUX:
                     {
-                        return basePrice * voyageDistance * (double)PriceCoefficients.LUX;
+                        return basePrice * (double)PriceCoefficients.LUX;
                     }
                 default:
                     {
