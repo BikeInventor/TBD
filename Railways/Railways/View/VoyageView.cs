@@ -52,14 +52,14 @@ namespace Railways.View
             SetPrice(train.Id);
         }
         /// <summary>
-        /// Установка цен на места заданного типа для данного поезда
+        /// Установка цен на места заданного типа для данной поездки
         /// </summary>
         /// <param name="trainId"></param>
         private void SetPrice(int trainId)
         {
-
            var VoyageDistance = (double)ContextKeeper.TrainRoutes
                 .Where(trainRoute => trainRoute.Id == trainId)
+                //TODO: дистанция до станции, соответсвующей Voyage
                 .Select(trainRoute => trainRoute.Distance).First();
 
            this.BerthPrice = BusinessLogic.CalculatePrice(VoyageDistance, WagonType.BERTH);

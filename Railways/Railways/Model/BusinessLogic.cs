@@ -68,7 +68,7 @@ namespace Railways.Model
                     }
                 default:
                     {
-                        return basePrice * voyageDistance;
+                        return basePrice;
                     }
             }
 
