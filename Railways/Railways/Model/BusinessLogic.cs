@@ -16,11 +16,22 @@ namespace Railways.Model
         COUPE = 1,
         LUX = 2,
     }
+
     /// <summary>
     /// Бизнес-логика системы
     /// </summary>
     public class BusinessLogic
     {
+        /// <summary>
+        /// Коэффициенты для рассчёта цены на конкретный тип места
+        /// </summary>
+        private enum PriceCoefficients
+        {
+            BERTH = 1,
+            COUPE = 1.5,
+            LUX = 2,
+        }
+
         private static double _kilometerPrice;
         /// <summary>
         /// Цена за километр поездки
@@ -36,28 +47,28 @@ namespace Railways.Model
         /// <param name="trainId"></param>
         /// <param name="seatType"></param>
         /// <returns></returns>
-        public static double CalculatePrice(int trainId, WagonType seatType)
+        public static double CalculatePrice(float voyageDistance, WagonType seatType)
         {
-            var distance = (double)ContextKeeper.TrainRoutes
-                .Where(trainRoute => trainRoute.Id == trainId)
-                .Select(trainRoute => trainRoute.Distance).First();
+
+            double basePrice = _kilometerPrice * voyageDistance;
+
             switch (seatType)
             {
                 case WagonType.BERTH:
                     {
-                        return _kilometerPrice * distance;
+                        return basePrice * (double)PriceCoefficients.BERTH;
                     }
                 case WagonType.COUPE:
                     {
-                        return _kilometerPrice * distance * 1.5;
+                        return basePrice * (double)PriceCoefficients.COUPE;
                     }
                 case WagonType.LUX:
                     {
-                        return _kilometerPrice * distance * 2;
+                        return basePrice * voyageDistance * (double)PriceCoefficients.LUX;
                     }
                 default:
                     {
-                        return _kilometerPrice * distance;
+                        return basePrice * voyageDistance;
                     }
             }
 

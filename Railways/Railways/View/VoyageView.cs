@@ -57,9 +57,14 @@ namespace Railways.View
         /// <param name="trainId"></param>
         private void SetPrice(int trainId)
         {
-            this.BerthPrice=BusinessLogic.CalculatePrice(trainId, WagonType.BERTH);
-            this.CoupePrice = BusinessLogic.CalculatePrice(trainId, WagonType.BERTH);
-            this.LuxPrice = BusinessLogic.CalculatePrice(trainId, WagonType.BERTH);
+
+           var VoyageDistance = (double)ContextKeeper.TrainRoutes
+                .Where(trainRoute => trainRoute.Id == trainId)
+                .Select(trainRoute => trainRoute.Distance).First();
+
+           this.BerthPrice = BusinessLogic.CalculatePrice(VoyageDistance, WagonType.BERTH);
+           this.CoupePrice = BusinessLogic.CalculatePrice(VoyageDistance, WagonType.COUPE);
+           this.LuxPrice = BusinessLogic.CalculatePrice(VoyageDistance, WagonType.LUX);
         }
 
         /// <summary>
