@@ -11,33 +11,14 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Train
+
+    public partial class Train : Interfaces.IEntity
     {
         public Train()
         {
             this.TrainComposition = new HashSet<TrainComposition>();
             this.TrainRoute = new HashSet<TrainRoute>();
             this.Voyage = new HashSet<Voyage>();
-        }
-
-        public Train(string trainNum
-            , Nullable<System.DateTime> departureTime
-            , Nullable<int> departureStationId
-            , Nullable<System.DateTime> arrivalTime
-            , Nullable<int> arrivalStationId
-            , Nullable<int> periodicity)
-        {
-            this.TrainComposition = new HashSet<TrainComposition>();
-            this.TrainRoute = new HashSet<TrainRoute>();
-            this.Voyage = new HashSet<Voyage>();
-
-            TrainNum = trainNum;
-            DepartureTime = departureTime;
-            DepartureStationID = departureStationId;
-            ArrivalTime = arrivalTime;
-            ArrivalStationID = arrivalStationId;
-            Periodicity = periodicity;
         }
     
         public int Id { get; set; }

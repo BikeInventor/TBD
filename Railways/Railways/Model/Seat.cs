@@ -11,21 +11,14 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Seat
+
+    public partial class Seat : Interfaces.IEntity
     {
         public Seat()
         {
             this.WagonSeat = new HashSet<WagonSeat>();
         }
-
-        public Seat(Nullable<int> seatType, Nullable<bool> sold)
-        {
-            this.WagonSeat = new HashSet<WagonSeat>();
-            SeatType = seatType;
-            Sold = sold;
-        }
-
+    
         public int Id { get; set; }
         public Nullable<int> SeatType { get; set; }
         public Nullable<bool> Sold { get; set; }

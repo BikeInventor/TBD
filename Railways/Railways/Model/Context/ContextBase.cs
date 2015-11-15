@@ -16,7 +16,7 @@ namespace Railways.Model.Context
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TContext"></typeparam>
     public abstract class ContextBase<TEntity, TContext> : IContext<TEntity>, IDisposable
-        where TEntity : class
+        where TEntity : class, IEntity
         where TContext : DbContext, new()
     {
         /// <summary>
@@ -69,7 +69,12 @@ namespace Railways.Model.Context
         /// <param name="entity"></param>
         public virtual void Update(TEntity entity)
         {
-            Repository.Attach(entity);
+            var _entity = Repository.Find(entity.Id);
+            if (_entity == null)
+            {
+                throw new NotImplementedException("Элемент с id " + entity.Id + " не найден в контексте");
+            }
+            _entities.Entry(entity).CurrentValues.SetValues(entity);
             ContextKeeper.DataBase.SaveChanges();
         }
 

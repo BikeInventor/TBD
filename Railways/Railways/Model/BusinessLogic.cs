@@ -23,14 +23,18 @@ namespace Railways.Model
     public class BusinessLogic
     {
         /// <summary>
-        /// Коэффициенты для рассчёта цены на конкретный тип места
+        /// Множители для рассчёта цены на конкретный тип места
         /// </summary>
-        private enum PriceCoefficients
+        private enum PriceMultiplyers
         {
-            BERTH = 1,
-            COUPE = 1.5,
-            LUX = 2,
+            BERTH = 2,
+            COUPE = 3,
+            LUX = 4,
         }
+        /// <summary>
+        /// Коэффициент для рассчёта цены на конретный тип места
+        /// </summary>
+        private static double priceCoefficient = 0.5;
 
         private static double _kilometerPrice;
         /// <summary>
@@ -50,21 +54,21 @@ namespace Railways.Model
         public static double CalculatePrice(double voyageDistance, WagonType seatType)
         {
 
-            double basePrice = _kilometerPrice * voyageDistance;
+            double basePrice = _kilometerPrice * voyageDistance * priceCoefficient;
 
             switch (seatType)
             {
                 case WagonType.BERTH:
                     {
-                        return basePrice * (double)PriceCoefficients.BERTH;
+                        return basePrice * (double)PriceMultiplyers.BERTH;
                     }
                 case WagonType.COUPE:
                     {
-                        return basePrice * (double)PriceCoefficients.COUPE;
+                        return basePrice * (double)PriceMultiplyers.COUPE;
                     }
                 case WagonType.LUX:
                     {
-                        return basePrice * (double)PriceCoefficients.LUX;
+                        return basePrice * (double)PriceMultiplyers.LUX;
                     }
                 default:
                     {

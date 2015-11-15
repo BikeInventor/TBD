@@ -12,18 +12,11 @@ namespace Railways.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class Client : Interfaces.IEntity
     {
         public Client()
         {
             this.Ticket = new HashSet<Ticket>();
-        }
-
-        public Client(string fullName, string passportNum)
-        {
-            this.Ticket = new HashSet<Ticket>();
-            FullName = fullName;
-            PassportNum = passportNum;
         }
     
         public int Id { get; set; }

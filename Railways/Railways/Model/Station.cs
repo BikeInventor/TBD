@@ -11,22 +11,15 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Station
+
+    public partial class Station : Interfaces.IEntity
     {
         public Station()
         {
             this.Train = new HashSet<Train>();
             this.TrainRoute = new HashSet<TrainRoute>();
         }
-
-        public Station(string stationName)
-        {
-            this.Train = new HashSet<Train>();
-            this.TrainRoute = new HashSet<TrainRoute>();
-            StationName = stationName;
-        }
-
+    
         public int Id { get; set; }
         public string StationName { get; set; }
     

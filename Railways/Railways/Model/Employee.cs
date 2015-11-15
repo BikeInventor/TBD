@@ -11,17 +11,9 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Employee
-    {
-        public Employee() { }
-        public Employee(string password, string fullName, int adminRights)
-        {
-            Password = password;
-            FullName = fullName;
-            AdminRights = adminRights;
-        }
 
+    public partial class Employee : Interfaces.IEntity
+    {
         public int Id { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }

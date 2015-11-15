@@ -11,8 +11,8 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class TrainRoute
+
+    public partial class TrainRoute : Interfaces.IEntity
     {
         public int Id { get; set; }
         public Nullable<int> TrainId { get; set; }
@@ -20,19 +20,6 @@ namespace Railways.Model
         public Nullable<System.DateTime> ArrivalTime { get; set; }
         public Nullable<System.DateTime> DepartureTime { get; set; }
         public Nullable<double> Distance { get; set; }
-
-        public TrainRoute(Nullable<int> trainId
-            , Nullable<int> stationId
-            , Nullable<System.DateTime> arrivalTime
-            , Nullable<System.DateTime> departureTime
-            , Nullable<double> distance)
-        {
-            TrainId = trainId;
-            StationId = stationId;
-            ArrivalTime = arrivalTime;
-            DepartureTime = departureTime;
-
-        }
     
         public virtual Station Station { get; set; }
         public virtual Train Train { get; set; }
