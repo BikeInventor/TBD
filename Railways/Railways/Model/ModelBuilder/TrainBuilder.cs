@@ -7,6 +7,9 @@ using Railways.Model.Context;
 
 namespace Railways.Model.ModelBuilder
 {
+    /// <summary>
+    /// Количество мест в вагоне, в зависимости от его типа
+    /// </summary>
     public enum WagonSeatsAmount
     {
         BERTH = 54,
@@ -32,7 +35,32 @@ namespace Railways.Model.ModelBuilder
             trainComposition.WagonNum = GetWagonNumber(trainId);
             trainComposition.WagonId = wagon.Id;
             ContextKeeper.TrainCompositions.Add(trainComposition);
+
+            AddSeatsToWagon(wagon.Id, wagonType);
         }
+
+        /// <summary>
+        /// Добавление мест определённого типа к заданному вагона
+        /// </summary>
+        /// <param name="wagonId"></param>
+        /// <param name="wagonType"></param>
+        private static void AddSeatsToWagon(int wagonId, WagonType wagonType)
+        {
+            for (int i = 0; i < GetSeatsAmount(wagonType); i++)
+            {
+                var seat = new Seat();
+                seat.Sold = false;
+                ContextKeeper.Seats.Add(seat);
+
+                var wagonSeat = new WagonSeat();
+                wagonSeat.WagonId = wagonId;
+                wagonSeat.SeatNum = GetSeatNumber(wagonId);
+                wagonSeat.SeatId = seat.Id;
+                ContextKeeper.WagonSeats.Add(wagonSeat);
+            }
+
+        }
+
 
         /// <summary>
         /// Получение очередного номера вагона заданного поезда
@@ -47,14 +75,7 @@ namespace Railways.Model.ModelBuilder
                 .Select(composition => composition.WagonNum)
                 .Max();
 
-            if (lastWagonNumber == null)
-            {
-                return 0;
-            }
-            else
-            {
-                return (int)lastWagonNumber++;
-            }
+            return (lastWagonNumber == null) ? 1 : (int)lastWagonNumber++;
         }
 
         /// <summary>
@@ -80,6 +101,34 @@ namespace Railways.Model.ModelBuilder
                     }
             }
             return (int)WagonSeatsAmount.BERTH;
+        }
+
+        /// <summary>
+        /// Получение очередного номера места заданного вагона
+        /// </summary>
+        /// <param name="trainId"></param>
+        /// <returns></returns>
+        private static int GetSeatNumber(int wagonId)
+        {
+            var lastSeatNumber =
+                ContextKeeper.WagonSeats
+                .Where(seat => seat.WagonId == wagonId)
+                .Select(seat => seat.SeatNum)
+                .Max();
+
+            return (lastSeatNumber == null) ? 1 : (int)lastSeatNumber++;
+        }
+
+        /// <summary>
+        /// Получение количества вагонов заданного поезда
+        /// </summary>
+        /// <param name="trainId"></param>
+        /// <returns></returns>
+        public static int GetWagonsCount(int trainId)
+        {
+            return ContextKeeper.TrainCompositions
+                .Where(composition => composition.TrainId == trainId)
+                .Count();
         }
     }
 }

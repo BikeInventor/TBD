@@ -24,8 +24,8 @@ namespace Railways.Logic
         /// <param name="password"></param>
         public static void Login(String id, String password)
         {
-            try
-            {
+          //  try
+          //  {
                 ContextKeeper.Initialize();
                 TestDataLoader.AddTestTrain();
 
@@ -37,11 +37,11 @@ namespace Railways.Logic
                 {
                     ShowError();
                 }
-            }
-            catch (Exception)
-            {
-                ShowError();
-            }
+           // }
+          //  catch (Exception)
+          //  {
+           //     ShowError();
+           // }
         }
 
         /// <summary>
