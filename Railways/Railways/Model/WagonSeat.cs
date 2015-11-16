@@ -14,7 +14,7 @@ namespace Railways.Model
 
     public partial class WagonSeat : Interfaces.IEntity
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public Nullable<int> WagonId { get; set; }
         public Nullable<int> SeatId { get; set; }
         public Nullable<int> SeatNum { get; set; }

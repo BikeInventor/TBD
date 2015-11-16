@@ -117,6 +117,7 @@
     <Compile Include="Controller\LoginWindowController.cs" />
     <Compile Include="Model\Interfaces\IContext.cs" />
     <Compile Include="Model\Interfaces\IEntity.cs" />
+    <Compile Include="Model\ModelBuilder\TrainBuilder.cs" />
     <Compile Include="Model\TestDataLoader.cs" />
     <Compile Include="Model\RailwayDataModel.cs">
       <AutoGen>True</AutoGen>
