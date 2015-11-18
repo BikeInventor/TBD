@@ -4,18 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Railways.Model.Context;
-
+using Railways.Model.ModelBuilder;
 namespace Railways.Model.Logic
 {
-    /// <summary>
-    /// Тип места в вагоне
-    /// </summary>
-    public enum WagonType
-    {
-        BERTH = 0,
-        COUPE = 1,
-        LUX = 2,
-    }
+
 
     /// <summary>
     /// Бизнес-логика системы

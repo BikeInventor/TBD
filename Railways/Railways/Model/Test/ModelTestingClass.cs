@@ -11,7 +11,10 @@ namespace Railways.Model.Test
         public static void AddEmployee()
         {
             Model.Context.ContextKeeper.Initialize();
-            Railways.Model.Logic.AdminFunctions.RegisterEmployee("Никита Евгенич", "1", "1");
+            //Railways.Model.Logic.AdminFunctions.RegisterEmployee("Никита Евгенич", "1", "1");
+
+
+            Model.ModelBuilder.TrainBuilder.AddWagonToTrain(3, WagonType.LUX);
         }
     }
 }

@@ -37,7 +37,8 @@ namespace Railways.Model.Context
         public static void Initialize()
         {
             _database = new RailwayDataModelContainer();
-
+            _database.Database.Connection.Open();
+            
             Clients = new ClientContext();
             Employees = new EmployeeContext();
             Stations = new StationContext();

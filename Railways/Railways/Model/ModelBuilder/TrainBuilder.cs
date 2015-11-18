@@ -5,19 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Railways.Model.Context;
 
-/*
+/// <summary>
+/// Тип места в вагоне
+/// </summary>
+public enum WagonType
+{
+    BERTH = 0,
+    COUPE = 1,
+    LUX = 2,
+}
+
+/// <summary>
+/// Количество мест в вагоне, в зависимости от его типа
+/// </summary>
+public enum WagonSeatsAmount
+{
+    BERTH = 54,
+    COUPE = 36,
+    LUX = 18,
+}
 
 namespace Railways.Model.ModelBuilder
 {
-    /// <summary>
-    /// Количество мест в вагоне, в зависимости от его типа
-    /// </summary>
-    public enum WagonSeatsAmount
-    {
-        BERTH = 54,
-        COUPE = 36,
-        LUX = 18,
-    }
+
     public static class TrainBuilder
     {
         /// <summary>
@@ -28,15 +38,14 @@ namespace Railways.Model.ModelBuilder
         public static void AddWagonToTrain(int trainId, WagonType wagonType)
         {
             var wagon = new Wagon();
-            wagon.WagonType = (int)wagonType;
-            wagon.SeatsAmount = GetSeatsAmount(wagonType);
+            wagon.WagonType = (byte)wagonType;
+            wagon.WagonNum = GetWagonNumber(trainId);
             ContextKeeper.Wagons.Add(wagon);
 
-            var trainComposition = new TrainComposition();
-            trainComposition.TrainId = trainId;
-            trainComposition.WagonNum = GetWagonNumber(trainId);
-            trainComposition.WagonId = wagon.Id;
-            ContextKeeper.TrainCompositions.Add(trainComposition);
+            var trainWagon = new TrainWagon();
+            trainWagon.WagonId = wagon.Id;
+            trainWagon.TrainId = trainId;
+            ContextKeeper.TrainWagons.Add(trainWagon);
 
             AddSeatsToWagon(wagon.Id, wagonType);
         }
@@ -51,12 +60,11 @@ namespace Railways.Model.ModelBuilder
             for (int i = 0; i < GetSeatsAmount(wagonType); i++)
             {
                 var seat = new Seat();
-                seat.Sold = false;
+                seat.SeatNum = GetSeatNumber(wagonId);
                 ContextKeeper.Seats.Add(seat);
 
                 var wagonSeat = new WagonSeat();
                 wagonSeat.WagonId = wagonId;
-                wagonSeat.SeatNum = GetSeatNumber(wagonId);
                 wagonSeat.SeatId = seat.Id;
                 ContextKeeper.WagonSeats.Add(wagonSeat);
             }
@@ -69,15 +77,24 @@ namespace Railways.Model.ModelBuilder
         /// </summary>
         /// <param name="trainId"></param>
         /// <returns></returns>
-        private static int GetWagonNumber(int trainId)
+        private static byte GetWagonNumber(int trainId)
         {
-            var lastWagonNumber =
-                ContextKeeper.TrainCompositions
-                .Where(composition => composition.TrainId == trainId)
-                .Select(composition => composition.WagonNum)
-                .Max();
+            byte defaultNumber = 1;
 
-            return (lastWagonNumber == null) ? 1 : (int)lastWagonNumber++;
+            var allWagons = ContextKeeper.TrainWagons.Where(tw => tr)
+
+
+            var wagonsOfTrainIds = ContextKeeper.TrainWagons
+                    .Where(tw => tw.TrainId == trainId)
+                    .Select(tw => tw.Id);
+
+            var lastWagonNumber = ContextKeeper.Wagons
+                .Where(wagon =>  wagonsOfTrainIds
+                .Contains(wagon.Id))
+                .Select(wagon => wagon.WagonNum)
+                .Max();
+    
+            return (lastWagonNumber > 0) ? (byte)lastWagonNumber : defaultNumber;
         }
 
         /// <summary>
@@ -110,15 +127,21 @@ namespace Railways.Model.ModelBuilder
         /// </summary>
         /// <param name="trainId"></param>
         /// <returns></returns>
-        private static int GetSeatNumber(int wagonId)
+        private static byte GetSeatNumber(int wagonId)
         {
-            var lastSeatNumber =
-                ContextKeeper.WagonSeats
-                .Where(seat => seat.WagonId == wagonId)
+            byte defaultNumber = 1;
+
+            var seatsOfWagonIds = ContextKeeper.WagonSeats
+                .Where(ws => ws.WagonId == wagonId)
+                .Select(id => id.Id);
+
+            var lastSeatNumber = ContextKeeper.Seats
+                .Where(seat => seatsOfWagonIds
+                .Contains(seat.Id))
                 .Select(seat => seat.SeatNum)
                 .Max();
 
-            return (lastSeatNumber == null) ? 1 : (int)lastSeatNumber++;
+            return (lastSeatNumber > 0) ? (byte)lastSeatNumber : defaultNumber;
         }
 
         /// <summary>
@@ -128,11 +151,10 @@ namespace Railways.Model.ModelBuilder
         /// <returns></returns>
         public static int GetWagonsCount(int trainId)
         {
-            return ContextKeeper.TrainCompositions
-                .Where(composition => composition.TrainId == trainId)
+            return ContextKeeper.TrainWagons
+                .Where(tw => tw.TrainId == trainId)
                 .Count();
         }
     }
 }
 
-*/
