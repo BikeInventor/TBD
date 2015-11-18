@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Railways.Model.ModelBuilder
 {
-    class VoyageBuilder
+    public static class TripBuilder
     {
+        
     }
 }

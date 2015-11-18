@@ -81,9 +81,6 @@ namespace Railways.Model.ModelBuilder
         {
             byte defaultNumber = 1;
 
-            var allWagons = ContextKeeper.TrainWagons.Where(tw => tr)
-
-
             var wagonsOfTrainIds = ContextKeeper.TrainWagons
                     .Where(tw => tw.TrainId == trainId)
                     .Select(tw => tw.Id);

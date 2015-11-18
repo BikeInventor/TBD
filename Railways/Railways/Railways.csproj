@@ -108,7 +108,7 @@
     <Compile Include="Model\Context\VoyageContext.cs" />
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
-    <Compile Include="Model\ModelBuilder\VoyageBuilder.cs" />
+    <Compile Include="Model\ModelBuilder\TripBuilder.cs" />
     <Compile Include="Model\Test\ModelTestingClass.cs" />
     <Compile Include="Model\TrainWagon.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
