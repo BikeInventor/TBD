@@ -108,7 +108,7 @@
     <Compile Include="Model\Context\VoyageContext.cs" />
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
-    <Compile Include="Model\ModelBuilder\TripBuilder.cs" />
+    <Compile Include="Model\ModelBuilder\TripInfo.cs" />
     <Compile Include="Model\Test\ModelTestingClass.cs" />
     <Compile Include="Model\TrainWagon.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
@@ -179,7 +179,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Logic\SysUtils.cs" />
+    <Compile Include="Model\Logic\Utils.cs" />
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

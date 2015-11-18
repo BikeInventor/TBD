@@ -42,6 +42,17 @@ namespace Railways
             return false;
         }
 
+        /// <summary>
+        /// Приобразование результата сложения даты и сдвига даты в минутах в вид "ЧЧ:ММ"
+        /// </summary>
+        /// <param name="departureDateTime"></param>
+        /// <param name="TimeOffset"></param>
+        /// <returns></returns>
+        public static String FormatDateOffset(DateTime departureDateTime, int? timeOffset)
+        {
+            return String.Format("t: {0:t}", departureDateTime.AddMinutes((double)timeOffset));
+        }
+
         
     }
 }

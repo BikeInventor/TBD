@@ -83,8 +83,16 @@ namespace Railways.Model.Context
         /// </summary>
         public virtual void Remove(TEntity entity)
         {
-            Repository.Remove(entity);
-            ContextKeeper.DataBase.SaveChanges();
+            try
+            {
+                Repository.Remove(entity);
+                ContextKeeper.DataBase.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e); 
+                throw; 
+            }
         }
 
         /// <summary>

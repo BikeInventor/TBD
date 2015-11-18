@@ -51,6 +51,39 @@ namespace Railways.Model.ModelBuilder
         }
 
         /// <summary>
+        /// Удаление последнего вагона, принадлежащего заданному поезду
+        /// </summary>
+        /// <param name="trainId"></param>
+        public static void DeleteLastWagonFromTrain(int trainId)
+        {
+            var lastWagonId =  ContextKeeper.TrainWagons
+                    .Where(tw => tw.TrainId == trainId)
+                    .Select(tw => tw.Id)
+                    .Max();
+
+            var lastWagon = ContextKeeper.Wagons.First(wagon => wagon.Id == lastWagonId);
+            DeleteWagonSeats(lastWagon.Id);  
+            ContextKeeper.Wagons.Remove(lastWagon);  
+        }
+
+        /// <summary>
+        /// Удаление мест, принадлежащих поезду
+        /// </summary>
+        /// <param name="wagonId"></param>
+        private static void DeleteWagonSeats(int wagonId)
+        {
+            var seatsOfWagonIds = ContextKeeper.WagonSeats
+                    .Where(ws => ws.WagonId == wagonId)
+                    .Select(id => id.Id);
+
+            var seatsOfWagon = ContextKeeper.Seats
+                .Where(seat => seatsOfWagonIds.Contains(seat.Id))
+                .ToList();
+
+            seatsOfWagon.ForEach(seat => ContextKeeper.Seats.Remove(seat));
+        }
+
+        /// <summary>
         /// Добавление мест определённого типа к заданному вагона
         /// </summary>
         /// <param name="wagonId"></param>
@@ -85,13 +118,14 @@ namespace Railways.Model.ModelBuilder
                     .Where(tw => tw.TrainId == trainId)
                     .Select(tw => tw.Id);
 
+
             var lastWagonNumber = ContextKeeper.Wagons
                 .Where(wagon =>  wagonsOfTrainIds
                 .Contains(wagon.Id))
                 .Select(wagon => wagon.WagonNum)
                 .Max();
     
-            return (lastWagonNumber > 0) ? (byte)lastWagonNumber : defaultNumber;
+            return (lastWagonNumber > 0) ? (byte)lastWagonNumber++ : defaultNumber;
         }
 
         /// <summary>
@@ -138,7 +172,7 @@ namespace Railways.Model.ModelBuilder
                 .Select(seat => seat.SeatNum)
                 .Max();
 
-            return (lastSeatNumber > 0) ? (byte)lastSeatNumber : defaultNumber;
+            return (lastSeatNumber > 0) ? (byte)lastSeatNumber++ : defaultNumber;
         }
 
         /// <summary>
