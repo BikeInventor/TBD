@@ -11,12 +11,19 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Employee : Interfaces.IEntity
     {
+        public Employee()
+        {
+            this.Ticket = new HashSet<Ticket>();
+        }
+    
         public int Id { get; set; }
-        public string Password { get; set; }
         public string FullName { get; set; }
-        public int AdminRights { get; set; }
+        public Nullable<byte> UserRights { get; set; }
+        public string Password { get; set; }
+    
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

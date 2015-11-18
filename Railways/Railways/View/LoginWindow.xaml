@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Railways.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Авторизация" Height="243" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="WindowClosing">
+        Title="Авторизация" Height="243" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="WindowClosing" Loaded="Window_Loaded">
     <Grid Margin="0,0,0,-2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
@@ -14,7 +14,7 @@
         <Label Content="Пароль:" Grid.Column="1" HorizontalAlignment="Left" Margin="15,105,0,0" VerticalAlignment="Top" Height="38" Width="83" Background="#FF5C7CE8" FontSize="18" Foreground="#FFF3F2EB"/>
         <Button Content="Войти" Click="TryLogin" Grid.Column="1" Margin="174,157,10,0" FontSize="18" Height="36" VerticalAlignment="Top"/>
         <PasswordBox Name ="passwordBox" Grid.Column="1" Margin="98,105,10,0" VerticalAlignment="Top" Height="38" FontSize="18"/>
-        <Button x:Name="dataButton" Content="Данные" Grid.Column="1" HorizontalAlignment="Left" Margin="15,163,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.173,-0.1" Click="dataButton_Click"/>
+        <Button x:Name="dataButton" Click ="DoTestActions" Content="Тест" Grid.Column="1" HorizontalAlignment="Left" Margin="15,163,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.173,-0.1"/>
 
     </Grid>
 </Window>

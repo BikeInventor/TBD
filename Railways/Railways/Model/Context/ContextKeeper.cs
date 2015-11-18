@@ -11,9 +11,9 @@ namespace Railways.Model.Context
     /// </summary>
     public static class ContextKeeper
     {
-        private static RailwayDataEntities _database;
+        private static RailwayDataModelContainer _database;
 
-        public static RailwayDataEntities DataBase
+        public static RailwayDataModelContainer DataBase
         {
             get
             {
@@ -26,40 +26,44 @@ namespace Railways.Model.Context
         public static StationContext Stations { get; private set; }
         public static SeatContext Seats { get; private set; }
         public static TicketContext Tickets { get; private set; }
-        public static TrainCompositionContext TrainCompositions { get; private set; }
+        public static TrainWagonContext TrainWagons { get; private set; }
         public static TrainContext Trains { get; private set; }
-        public static TrainRouteContext TrainRoutes { get; private set; }
+        public static RouteContext Routes { get; private set; }
         public static VoyageContext Voyages { get; private set; }
+        public static VoyageRouteContext VoyageRoutes { get; private set; }
         public static WagonContext Wagons { get; private set; }
         public static WagonSeatContext WagonSeats { get; private set; }
 
         public static void Initialize()
         {
-            _database = new RailwayDataEntities();
+            _database = new RailwayDataModelContainer();
 
             Clients = new ClientContext();
             Employees = new EmployeeContext();
             Stations = new StationContext();
             Seats = new SeatContext();
             Tickets = new TicketContext();
-            TrainCompositions = new TrainCompositionContext();
+            TrainWagons = new TrainWagonContext();
             Trains = new TrainContext();
-            TrainRoutes = new TrainRouteContext();
+            Routes = new RouteContext();
+            VoyageRoutes = new VoyageRouteContext();
             Voyages = new VoyageContext();
             Wagons = new WagonContext();
             WagonSeats = new WagonSeatContext();
 
-            Clients.Repository = _database.Client;
-            Employees.Repository = _database.Employee;
-            Stations.Repository = _database.Station;
-            Seats.Repository = _database.Seat;
-            Tickets.Repository = _database.Ticket;
-            TrainCompositions.Repository = _database.TrainComposition;
-            Trains.Repository = _database.Train;
-            TrainRoutes.Repository = _database.TrainRoute;
-            Voyages.Repository = _database.Voyage;
-            Wagons.Repository = _database.Wagon;
-            WagonSeats.Repository = _database.WagonSeat;
+
+            Clients.Repository = _database.ClientSet;
+            Employees.Repository = _database.EmployeeSet;
+            Stations.Repository = _database.StationSet;
+            Seats.Repository = _database.SeatSet;
+            Tickets.Repository = _database.TicketSet;
+            TrainWagons.Repository = _database.TrainWagonSet;
+            Trains.Repository = _database.TrainSet;
+            VoyageRoutes.Repository = _database.VoyageRouteSet;
+            Routes.Repository = _database.RouteSet;
+            Voyages.Repository = _database.VoyageSet;
+            Wagons.Repository = _database.WagonSet;
+            WagonSeats.Repository = _database.WagonSeatSet;
         }
     }
 }

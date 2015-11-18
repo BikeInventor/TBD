@@ -35,7 +35,7 @@ namespace Railways.Model.Context
         /// </summary>
         public ContextBase()
         {
-            var property = typeof(TContext).GetProperty(typeof(TEntity).Name);
+            var property = typeof(TContext).GetProperty(typeof(TEntity).Name + "Set");
             if (property == null)
                 throw new InvalidOperationException(typeof(TEntity).Name + "Set not found");
 

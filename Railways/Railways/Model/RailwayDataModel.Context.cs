@@ -13,10 +13,10 @@ namespace Railways.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RailwayDataEntities : DbContext
+    public partial class RailwayDataModelContainer : DbContext
     {
-        public RailwayDataEntities()
-            : base("name=RailwayDataEntities")
+        public RailwayDataModelContainer()
+            : base("name=RailwayDataModelContainer")
         {
         }
     
@@ -25,17 +25,17 @@ namespace Railways.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<Seat> Seat { get; set; }
-        public virtual DbSet<Station> Station { get; set; }
-        public virtual DbSet<Table> Table { get; set; }
-        public virtual DbSet<Ticket> Ticket { get; set; }
-        public virtual DbSet<Train> Train { get; set; }
-        public virtual DbSet<TrainComposition> TrainComposition { get; set; }
-        public virtual DbSet<TrainRoute> TrainRoute { get; set; }
-        public virtual DbSet<Voyage> Voyage { get; set; }
-        public virtual DbSet<Wagon> Wagon { get; set; }
-        public virtual DbSet<WagonSeat> WagonSeat { get; set; }
+        public virtual DbSet<Employee> EmployeeSet { get; set; }
+        public virtual DbSet<Client> ClientSet { get; set; }
+        public virtual DbSet<Seat> SeatSet { get; set; }
+        public virtual DbSet<Wagon> WagonSet { get; set; }
+        public virtual DbSet<Train> TrainSet { get; set; }
+        public virtual DbSet<Station> StationSet { get; set; }
+        public virtual DbSet<WagonSeat> WagonSeatSet { get; set; }
+        public virtual DbSet<TrainWagon> TrainWagonSet { get; set; }
+        public virtual DbSet<Route> RouteSet { get; set; }
+        public virtual DbSet<Voyage> VoyageSet { get; set; }
+        public virtual DbSet<VoyageRoute> VoyageRouteSet { get; set; }
+        public virtual DbSet<Ticket> TicketSet { get; set; }
     }
 }

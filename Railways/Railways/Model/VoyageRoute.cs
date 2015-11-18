@@ -12,8 +12,13 @@ namespace Railways.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Table
+    public partial class VoyageRoute : Interfaces.IEntity
     {
         public int Id { get; set; }
+        public Nullable<int> RouteId { get; set; }
+        public Nullable<int> VoyageId { get; set; }
+    
+        public virtual Route Route { get; set; }
+        public virtual Voyage Voyage { get; set; }
     }
 }

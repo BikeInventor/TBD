@@ -11,17 +11,25 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-
-    public partial class TrainRoute : Interfaces.IEntity
-    {
-        public int Id { get; set; }
-        public Nullable<int> TrainId { get; set; }
-        public Nullable<int> StationId { get; set; }
-        public Nullable<System.DateTime> ArrivalTime { get; set; }
-        public Nullable<System.DateTime> DepartureTime { get; set; }
-        public Nullable<double> Distance { get; set; }
     
+    public partial class Route : Interfaces.IEntity
+    {
+        public Route()
+        {
+            this.Voyage_Route = new HashSet<VoyageRoute>();
+            this.Ticket = new HashSet<Ticket>();
+            this.Ticket1 = new HashSet<Ticket>();
+        }
+    
+        public int Id { get; set; }
+        public Nullable<double> Distance { get; set; }
+        public Nullable<int> DepartureTimeOffset { get; set; }
+        public Nullable<int> ArrivalTimeOffset { get; set; }
+        public Nullable<int> StationId { get; set; }
+    
+        public virtual ICollection<VoyageRoute> Voyage_Route { get; set; }
         public virtual Station Station { get; set; }
-        public virtual Train Train { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
+        public virtual ICollection<Ticket> Ticket1 { get; set; }
     }
 }

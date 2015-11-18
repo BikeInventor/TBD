@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Railways.Model.Context;
 using Railways.Model;
 
-namespace Railways.Logic
+namespace Railways.Model.Logic
 {
     public static class AdminFunctions
     {
@@ -14,13 +15,9 @@ namespace Railways.Logic
             var newEmp = new Employee();
             newEmp.FullName = fullName;
             newEmp.Password = Utils.EncryptString(password);
-            newEmp.AdminRights = int.Parse(adminRights);
+            newEmp.UserRights = byte.Parse(adminRights);
 
-            using (RailwayDataEntities db = new RailwayDataEntities())
-            {
-                db.Employee.Add(newEmp);
-                db.SaveChanges();
-            }
+            ContextKeeper.Employees.Add(newEmp);
         }
     }
 }

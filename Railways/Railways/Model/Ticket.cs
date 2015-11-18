@@ -11,22 +11,21 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Ticket : Interfaces.IEntity
     {
-        public Ticket()
-        {
-            this.Voyage = new HashSet<Voyage>();
-        }
-    
         public int Id { get; set; }
-        public Nullable<int> ClientId { get; set; }
-        public Nullable<int> TrainId { get; set; }
-        public Nullable<int> WagonId { get; set; }
         public Nullable<int> SeatId { get; set; }
+        public Nullable<int> ClientId { get; set; }
+        public Nullable<int> EmployeeId { get; set; }
         public Nullable<double> Price { get; set; }
+        public Nullable<int> DepartureRouteId { get; set; }
+        public Nullable<int> ArrivalRouteId { get; set; }
     
+        public virtual Seat Seat { get; set; }
         public virtual Client Client { get; set; }
-        public virtual ICollection<Voyage> Voyage { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Route Route { get; set; }
+        public virtual Route Route1 { get; set; }
     }
 }

@@ -24,10 +24,9 @@ namespace Railways.Logic
         /// <param name="password"></param>
         public static void Login(String id, String password)
         {
-          //  try
-          //  {
+            try
+            {
                 ContextKeeper.Initialize();
-                TestDataLoader.AddTestTrain();
 
                 if (CorrectAuthInfo(int.Parse(id), password))
                 {
@@ -35,13 +34,13 @@ namespace Railways.Logic
                 }
                 else
                 {
-                    ShowError();
+                    ShowError("");
                 }
-           // }
-          //  catch (Exception)
-          //  {
-           //     ShowError();
-           // }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
         }
 
         /// <summary>
@@ -61,9 +60,10 @@ namespace Railways.Logic
                 }
         }
 
-        private static void ShowError()
+        private static void ShowError(String message)
         {
-            MessageBox.Show("Ошибка авторизации: направильный id или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Ошибка авторизации: направильный id или пароль\n" + message, 
+                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

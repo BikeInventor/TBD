@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Railways.Model.Context
 {
     /// <summary>
-    /// Контекст клиента с репозиторием "ClientSet"
+    /// Контекст клиента
     /// </summary>
-    public class ClientContext : ContextBase<Client, RailwayDataEntities>
+    public class ClientContext : ContextBase<Client, RailwayDataModelContainer>
     {
     }
 }

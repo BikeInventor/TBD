@@ -11,18 +11,19 @@ namespace Railways.Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Seat : Interfaces.IEntity
     {
         public Seat()
         {
-            this.WagonSeat = new HashSet<WagonSeat>();
+            this.Wagon_Seat = new HashSet<WagonSeat>();
+            this.Ticket = new HashSet<Ticket>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> SeatType { get; set; }
-        public Nullable<bool> Sold { get; set; }
+        public Nullable<int> SeatNum { get; set; }
     
-        public virtual ICollection<WagonSeat> WagonSeat { get; set; }
+        public virtual ICollection<WagonSeat> Wagon_Seat { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

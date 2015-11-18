@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using Railways.Logic;
 using Railways.Model;
-using Railways.DebugTools;
 
 namespace Railways
 {
@@ -32,11 +31,14 @@ namespace Railways
             }
         }
 
-        private void dataButton_Click(object sender, RoutedEventArgs e)
+        private void DoTestActions(object sender, RoutedEventArgs e)
         {
-            var entriesAdjustion = new EntriesAdjustionWindow();
-            entriesAdjustion.Show();
-            this.Close();
+            Model.Test.ModelTestingClass.AddEmployee();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
     }
 }

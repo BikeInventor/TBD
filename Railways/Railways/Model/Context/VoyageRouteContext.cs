@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Railways.Model.Context
 {
     /// <summary>
-    /// Контекст места 
+    /// Контекст пути следования поезда 
     /// </summary>
-    public class SeatContext : ContextBase<Seat, RailwayDataModelContainer>
+    public class VoyageRouteContext : ContextBase<VoyageRoute, RailwayDataModelContainer>
     {
     }
 }
