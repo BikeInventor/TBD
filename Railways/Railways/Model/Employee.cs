@@ -25,5 +25,6 @@ namespace Railways.Model
         public string Password { get; set; }
     
         public virtual ICollection<Ticket> Ticket { get; set; }
+
     }
 }
