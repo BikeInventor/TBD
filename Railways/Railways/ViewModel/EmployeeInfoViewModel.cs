@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight.Command;
 using Railways.Model.Logic;
 using Railways.Model.Context;
 using Microsoft.Practices.ServiceLocation;
+using Railways.ViewModel.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Railways.ViewModel
 {
@@ -32,8 +34,7 @@ namespace Railways.ViewModel
         private void AddEmployee(EmployeeInfoWindow window)
         {
             AdminFunctions.RegisterEmployee(FullName, Password, UserRights.ToString());
-
-
+            Messenger.Default.Send(new RefreshEmployeeListMessage());
             window.Close();
         }
     }
