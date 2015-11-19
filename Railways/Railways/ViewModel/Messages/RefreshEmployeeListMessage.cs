@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Railways.ViewModel.Messages
 {
     /// <summary>
-    /// Класс сообщения для взамиодействия AdminViewModel и EmployeeInfoViewModel
+    /// Класс сообщения для взаимодействия AdminViewModel и EmployeeInfoViewModel
     /// </summary>
     public class RefreshEmployeeListMessage
     {
