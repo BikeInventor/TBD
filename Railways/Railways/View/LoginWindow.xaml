@@ -59,12 +59,13 @@
                 FontWeight="Normal"/>
 
         <Button Content="Войти" 
+                Click="TryLogin"
                 Grid.Column="1" 
                 HorizontalAlignment="Left" 
                 Margin="20,278,0,0" 
                 VerticalAlignment="Top" 
                 Width="208" Height="33" 
-                FontSize="16" 
+                FontSize="18" 
                 FontWeight="Normal" 
                 Background="#FF26C357" 
                 BorderBrush="#FF0E550B"/>

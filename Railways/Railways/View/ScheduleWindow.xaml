@@ -2,15 +2,61 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
-        Title="ScheduleWindow" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
+        Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0">
-            <TextBox HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Margin="50,0" Text="TextBox"/>
-            <TextBox Height="23" TextWrapping="Wrap" Width="120" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="TextBox"/>
-            <DatePicker Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button Content="OKe" Width="75" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="410*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="163*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="-10,30,10,0" Height="36" Grid.ColumnSpan="3">
+
+            <TextBox 
+                wpf:TextFieldAssist.HintOpacity="0.8"
+			    wpf:TextFieldAssist.Hint="Откуда" Background="Transparent" 
+                HorizontalAlignment="Center" 
+                Height="36" TextWrapping="Wrap" 
+                VerticalAlignment="Center" 
+                Width="190" 
+                Margin="50,0" BorderBrush="{DynamicResource AccentColorBrush3}" FontSize="16"/>
+
+            <TextBox 
+                wpf:TextFieldAssist.HintOpacity="0.8"
+			    wpf:TextFieldAssist.Hint="Куда" Background="Transparent" 
+                Height="36" 
+                TextWrapping="Wrap" 
+                Width="193" Margin="0,0" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16"/>
+
+            <DatePicker 
+                wpf:TextFieldAssist.HintOpacity="1"
+			    wpf:TextFieldAssist.Hint="Когда" 
+                Margin="50,0" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="126" Height="34" Foreground="Black" FontSize="16"/>
+            <Button 
+                Content="Найти билеты" 
+                Width="136" Margin="20,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"/>
         </StackPanel>
+        <ListView Grid.Column="1" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Controls:MetroWindow>
