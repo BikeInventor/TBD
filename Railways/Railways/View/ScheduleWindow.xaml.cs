@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Railways.Logic;
+using MahApps.Metro.Controls;
+
 
 namespace Railways
 {
     /// <summary>
     /// Логика взаимодействия для ScheduleWindow.xaml
     /// </summary>
-    public partial class ScheduleWindow : Window
+    public partial class ScheduleWindow : MetroWindow
     {
         public ScheduleWindow()
         {

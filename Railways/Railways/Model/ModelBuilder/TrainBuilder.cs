@@ -186,6 +186,40 @@ namespace Railways.Model.ModelBuilder
                 .Where(tw => tw.TrainId == trainId)
                 .Count();
         }
+
+        /// <summary>
+        /// Получение всех вагонов заданного поезда
+        /// </summary>
+        /// <param name="trainId"></param>
+        /// <returns></returns>
+        public static IQueryable<Wagon> GetWagonsOfTrain(int trainId)
+        {
+            var wagonsOfTrain = ContextKeeper.TrainWagons
+                .Where(tw => tw.TrainId == trainId).Select(tw => tw.WagonId);
+            var wagons = ContextKeeper.Wagons
+                .Where(wagon => wagonsOfTrain.Contains(wagon.Id));
+            return wagons;
+        }
+
+        /// <summary>
+        /// Получение всех мест заданного вагона
+        /// </summary>
+        /// <param name="wagonId"></param>
+        /// <returns></returns>
+        public static IQueryable<Seat> GetSeatsOfWagon(int wagonId)
+        {
+            var seatsOfTrain = ContextKeeper.WagonSeats
+                .Where(ws => ws.WagonId == wagonId).Select(ws => ws.SeatId);
+            var seats = ContextKeeper.Seats
+                .Where(seat => seatsOfTrain.Contains(seat.Id));
+            return seats;
+        }
+
+        public static IQueryable<Ticket> GetTicketsOfSeat(int seatId)
+        {
+            return ContextKeeper.Tickets.Where(t => t.SeatId == seatId);
+        }
+
     }
 }
 

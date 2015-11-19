@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using Railways.Logic;
 using Railways.Model;
-
+using MahApps.Metro.Controls;
 namespace Railways
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
