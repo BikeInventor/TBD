@@ -45,6 +45,19 @@
 			wpf:TextFieldAssist.Hint="Пароль" Background="Transparent" 
             VerticalAlignment="Top" FontSize="16"/>
 
+        <ComboBox 
+            SelectedIndex ="{Binding UserRights}"
+            Grid.Column="1" 
+            Margin="0,207,10,39" 
+            Grid.Row="1" 
+            wpf:TextFieldAssist.HintOpacity="0.8"
+			wpf:TextFieldAssist.Hint="Уровень прав доступа" Background="Transparent" 
+            HorizontalAlignment="Right" Width="275" FontSize="16">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+        </ComboBox>
+
         <Button Content="Сохранить" 
                 Command="{Binding RegisterEmployee}"
                 CommandParameter="{Binding ElementName=EmpWindow}"
@@ -55,23 +68,17 @@
                 VerticalAlignment="Top" 
                 Width="156" 
                 Height="40"/>
-
-        <ComboBox 
-            SelectedIndex ="{Binding UserRights}"
-            Grid.Column="1" 
-            Margin="0,207,10,39" 
-            Grid.Row="1" 
-            wpf:TextFieldAssist.HintOpacity="0.8"
-			wpf:TextFieldAssist.Hint="Уровень прав" Background="Transparent" 
-            HorizontalAlignment="Right" Width="275" FontSize="16">
-            <ComboBoxItem Content="0"/>
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
-        </ComboBox>
+        
         <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" Text="Данные сотрудника" Margin="0,18,0,229"/>
         <Image 
             Source="Resources/account.png"
-            Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="5,83,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30"/>
+            Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="10,82,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30"/>
+        <Image 
+        	Source="Resources/key.png"
+        	Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="10,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="25"/>
+        <Image 
+        	Source="Resources/rights.png"
+        	Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="5,213,0,0" Grid.Row="1" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.547,0.462"/>
 
     </Grid>
 </Controls:MetroWindow>
