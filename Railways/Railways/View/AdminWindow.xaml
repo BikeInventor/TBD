@@ -1,0 +1,57 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:admin="clr-namespace:Railways.ViewModel"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    mc:Ignorable="d" x:Class="Railways.AdminWindow"
+        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    <Window.DataContext>
+        <admin:AdminViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="410*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="265*"/>
+            <RowDefinition Height="12*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="-10,0,10,0" Height="36" Grid.ColumnSpan="3" Grid.Row="1"/>
+        <TabControl Grid.Column="1" HorizontalAlignment="Left" Width="820" Grid.Row="1" Margin="0,0,0,10">
+            <TabItem Header="Сотрудники" FontSize="16">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="619*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView HorizontalAlignment="Left" 
+                              Width="810"
+                              ItemsSource="{Binding EmployeeList}" Margin="0,0,0,122" Grid.ColumnSpan="2"
+                              SelectedIndex="{Binding SelectedIndex}"
+                              >
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FullName}" Width = "300"/>
+                                <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Password}" Width = "300"/>
+                                <GridViewColumn Header="Права доступа" DisplayMemberBinding="{Binding UserRights}" Width = "207"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Separator Margin="0,299,0,72" HorizontalAlignment="Right" Width="810"/>
+                    <Button Content="Зарегистрировать сотрудника"  Command ="{Binding RegisterEmployee}" HorizontalAlignment="Left" Margin="10,399,0,0" VerticalAlignment="Top" Width="300" Height="47" FontSize="18" FontWeight="Normal"/>
+                    <Button Content="Удалить сотрудника" Command ="{Binding DeleteEmployee}" HorizontalAlignment="Left" Margin="500,399,0,0" VerticalAlignment="Top" Width="300" Height="47" FontSize="18" FontWeight="Normal" RenderTransformOrigin="0.255,0.425"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Поезда" FontSize="16">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Controls:MetroWindow>

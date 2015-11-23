@@ -826,7 +826,7 @@
         <EntityTypeShape EntityType="RailwayDataModel.Seat" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayDataModel.Wagon" Width="1.5" PointX="4.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayDataModel.Train" Width="1.5" PointX="0.5" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RailwayDataModel.Station" Width="1.5" PointX="10" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RailwayDataModel.Station" Width="1.5" PointX="10" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayDataModel.WagonSeat" Width="1.5" PointX="6.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayDataModel.TrainWagon" Width="1.5" PointX="2.125" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RailwayDataModel.Route" Width="1.875" PointX="7.25" PointY="5.5" IsExpanded="true" />
