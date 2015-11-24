@@ -230,7 +230,13 @@
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Messages\RefreshEmployeeListMessage.cs" />
+    <Compile Include="ViewModel\Messages\RefreshTrainListMessage.cs" />
+    <Compile Include="ViewModel\Messages\SendTrainInfoMessage.cs" />
+    <Compile Include="ViewModel\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />
+    <Compile Include="View\TrainInfoWindow.xaml.cs">
+      <DependentUpon>TrainInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -288,6 +294,10 @@
     <Page Include="View\Themes\Metro\Theme.Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TrainInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

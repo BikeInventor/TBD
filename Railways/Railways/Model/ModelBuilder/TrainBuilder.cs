@@ -220,6 +220,20 @@ namespace Railways.Model.ModelBuilder
             return ContextKeeper.Tickets.Where(t => t.SeatId == seatId);
         }
 
+        //public bool SeatIsFree(IQueryable<Ticket> ticketsOfSeat, Route neededArrRoute, Route neededDepRoute)
+        //{
+        //    ticketsOfSeat.ToList().ForEach(ticket => 
+        //    {
+        //        var arrRoute = ticket.Route;
+        //        var depRoute = ticket.Route1;
+
+        //        var voyageRoute = 
+
+        //        //var voyage = ContextKeeper.Voyages.Where(voyage => voyage.
+                
+        //    });
+        //}
+
     }
 }
 
