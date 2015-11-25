@@ -185,8 +185,10 @@
     </Compile>
     <Compile Include="Model\Logic\AdminFunctions.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\Converters\IntToUserRoleConverter.cs" />
     <Compile Include="ViewModel\EmployeeInfoViewModel.cs" />
-    <Compile Include="ViewModel\LoginWindowController.cs" />
+    <Compile Include="ViewModel\Converters\IntToWagonTypeConverter.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Model\Employee.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>

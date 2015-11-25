@@ -53,9 +53,8 @@
             wpf:TextFieldAssist.HintOpacity="0.8"
 			wpf:TextFieldAssist.Hint="Уровень прав доступа" Background="Transparent" 
             HorizontalAlignment="Right" Width="275" FontSize="16">
-            <ComboBoxItem Content="0"/>
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="Кассир"/>
+            <ComboBoxItem Content="Администратор"/>
         </ComboBox>
 
         <Button Content="Сохранить" 

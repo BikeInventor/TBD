@@ -4,14 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-                                   
+        xmlns:admin="clr-namespace:Railways.ViewModel"
+                      
         Title="Авторизация" 
-        Height="400" 
+        Height="365.672" 
         Width="300" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
-        Closing="WindowClosing" 
-        Loaded="Window_Loaded"
         Background="#FFF3F3F3"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto" 
@@ -19,6 +18,9 @@
         FontSize="15" WindowTitleBrush="#FF26C35F" WindowTransitionsEnabled="False"
         >
     
+    <Window.DataContext>
+        <admin:LoginViewModel/>
+    </Window.DataContext>
 
     <Grid Margin="0,0,0,-2">
         <Grid.ColumnDefinitions>
@@ -28,6 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Name ="idTextBox" 
+                 Text="{Binding Id}"
                  wpf:TextFieldAssist.HintOpacity="0.8" 
                  wpf:TextFieldAssist.Hint="ID" 
                  Background="Transparent" 
@@ -46,30 +49,16 @@
 			wpf:TextFieldAssist.Hint="Пароль" Background="Transparent" 
             Height="38" FontSize="18"/>
 
-        <Button x:Name="dataButton" 
-                Click ="DoTestActions" 
-                Content="Тест" 
-                Grid.Column="1" 
-                HorizontalAlignment="Left" 
-                Margin="89,332,0,0" 
-                VerticalAlignment="Top" Width="80" 
-                RenderTransformOrigin="-0.173,-0.1" 
-                Background="#FF26C357" 
-                BorderBrush="#FF0E550B" 
-                FontWeight="Normal"/>
-
         <Button Content="Войти" 
-                Click="TryLogin"
+                Command="{Binding LoginCmd}"
+                CommandParameter="{Binding ElementName=passwordBox}"
                 Grid.Column="1" 
-                HorizontalAlignment="Left" 
-                Margin="20,278,0,0" 
-                VerticalAlignment="Top" 
-                Width="208" Height="33" 
+                Margin="20,286,20,21" Height="Auto" 
                 FontSize="18" 
                 FontWeight="Normal" 
                 Background="#FF26C357" 
                 BorderBrush="#FF0E550B"/>
-        
+
         <Viewbox Grid.Column="1" 
                  Height="116" 
                  Margin="63,29,63,0"            
@@ -78,7 +67,7 @@
                 Height="100" 
                 Width="100"
                 Source = "Resources\RWLogo.png"
-                />               
+                />
         </Viewbox>
 
 

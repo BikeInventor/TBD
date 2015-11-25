@@ -35,7 +35,7 @@ namespace Railways.Model.ModelBuilder
         /// </summary>
         /// <param name="trainId"></param>
         /// <param name="wagonType"></param>
-        public static void AddWagonToTrain(int trainId, WagonType wagonType)
+        public static async Task AddWagonToTrain(int trainId, WagonType wagonType)
         {
             var wagon = new Wagon();
             wagon.WagonType = (byte)wagonType;
@@ -46,8 +46,8 @@ namespace Railways.Model.ModelBuilder
             trainWagon.WagonId = wagon.Id;
             trainWagon.TrainId = trainId;
             ContextKeeper.TrainWagons.Add(trainWagon);
+            await Task.Run(() => AddSeatsToWagonAsync(wagon.Id, wagonType));
 
-            AddSeatsToWagon(wagon.Id, wagonType);
         }
 
         /// <summary>
@@ -56,14 +56,13 @@ namespace Railways.Model.ModelBuilder
         /// <param name="trainId"></param>
         public static void DeleteLastWagonFromTrain(int trainId)
         {
-            var lastWagonId =  ContextKeeper.TrainWagons
+            var wagons = ContextKeeper.TrainWagons
                     .Where(tw => tw.TrainId == trainId)
-                    .Select(tw => tw.Id)
-                    .Max();
+                    .Select(tw => tw.WagonId);
+            var lastWagonId = wagons.Max();
+            var lastWagon = ContextKeeper.TrainWagons.First(w => w.WagonId == lastWagonId);
 
-            var lastWagon = ContextKeeper.Wagons.First(wagon => wagon.Id == lastWagonId);
-            DeleteWagonSeats(lastWagon.Id);  
-            ContextKeeper.Wagons.Remove(lastWagon);  
+            ContextKeeper.TrainWagons.Remove(lastWagon); 
         }
 
         /// <summary>
@@ -84,24 +83,40 @@ namespace Railways.Model.ModelBuilder
         }
 
         /// <summary>
+        /// Удаление всех вагонов заданного поезда
+        /// </summary>
+        /// <param name="trainId"></param>
+        public static void DeleteTrainWithWagons(int trainId)
+        {
+            var wagonsOfTrain = ContextKeeper.TrainWagons
+                    .Where(tw => tw.TrainId == trainId);
+
+            wagonsOfTrain.ToList().ForEach(wag => ContextKeeper.TrainWagons.Remove(wag));
+
+            ContextKeeper.Trains.Remove(ContextKeeper.Trains.First(train => train.Id == trainId));
+        }
+
+        /// <summary>
         /// Добавление мест определённого типа к заданному вагона
         /// </summary>
         /// <param name="wagonId"></param>
         /// <param name="wagonType"></param>
-        private static void AddSeatsToWagon(int wagonId, WagonType wagonType)
+        private static Task AddSeatsToWagonAsync(int wagonId, WagonType wagonType)
         {
-            for (int i = 0; i < GetSeatsAmount(wagonType); i++)
+            return Task.Run(() =>
             {
-                var seat = new Seat();
-                seat.SeatNum = GetSeatNumber(wagonId);
-                ContextKeeper.Seats.Add(seat);
+                for (int i = 0; i < GetSeatsAmount(wagonType); i++)
+                {
+                    var seat = new Seat();
+                    seat.SeatNum = i + 1;
+                    ContextKeeper.Seats.Add(seat);
 
-                var wagonSeat = new WagonSeat();
-                wagonSeat.WagonId = wagonId;
-                wagonSeat.SeatId = seat.Id;
-                ContextKeeper.WagonSeats.Add(wagonSeat);
-            }
-
+                    var wagonSeat = new WagonSeat();
+                    wagonSeat.WagonId = wagonId;
+                    wagonSeat.SeatId = seat.Id;
+                    ContextKeeper.WagonSeats.Add(wagonSeat);
+                }
+            });            
         }
 
 
@@ -112,20 +127,17 @@ namespace Railways.Model.ModelBuilder
         /// <returns></returns>
         private static byte GetWagonNumber(int trainId)
         {
-            byte defaultNumber = 1;
 
             var wagonsOfTrainIds = ContextKeeper.TrainWagons
                     .Where(tw => tw.TrainId == trainId)
                     .Select(tw => tw.Id);
 
-
-            var lastWagonNumber = ContextKeeper.Wagons
-                .Where(wagon =>  wagonsOfTrainIds
+            var lastWagonNumber = 1 + ContextKeeper.Wagons
+                .Where(wagon => wagonsOfTrainIds
                 .Contains(wagon.Id))
-                .Select(wagon => wagon.WagonNum)
-                .Max();
-    
-            return (lastWagonNumber > 0) ? (byte)lastWagonNumber++ : defaultNumber;
+                .Count();
+                  
+            return (byte)lastWagonNumber;
         }
 
         /// <summary>

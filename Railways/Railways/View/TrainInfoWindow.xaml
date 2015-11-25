@@ -1,4 +1,4 @@
-﻿<Window x:Class="Railways.View.TrainInfoWindow"
+﻿<Controls:MetroWindow x:Class="Railways.View.TrainInfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -6,40 +6,79 @@
         xmlns:admin="clr-namespace:Railways.ViewModel"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         mc:Ignorable="d"
-        Title="TrainInfoWindow" Height="400" Width="420">
+        Name="trainWin"
+        Title="Информация о поезде" Height="286" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <admin:TrainInfoViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <conv:IntToWagonTypeConverter x:Key="IntToWagonTypeConverter" />
+    </Window.Resources>
     <Grid>
-        <TextBlock TextWrapping="Wrap" FontSize="18" TextAlignment="Center" Text="Информация о поезде" Margin="85,10,85,326"/>
         <TextBox 
-        	Text="{Binding FullName}" 
+        	Text="{Binding TrainNum}" 
         	Height="39"
-        	Margin="27,76,251,0" 
+        	Margin="17,35,261,0" 
         	TextWrapping="Wrap" 
-        	wpf:TextFieldAssist.HintOpacity="0.8"
-        	wpf:TextFieldAssist.Hint="Номер поезда" Background="Transparent" 
-        	VerticalAlignment="Top" FontSize="16"/>
+        	wpf:TextFieldAssist.HintOpacity="0.5"
+        	wpf:TextFieldAssist.Hint="Номер" Background="Transparent" 
+        	VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.83,0.615"/>
+
         <ListView 
-            ItemsSource=""
-            HorizontalAlignment="Left" Height="192" Margin="168,76,0,0" VerticalAlignment="Top" Width="204" BorderBrush="Black">
+            ItemsSource="{Binding WagonList}"
+            HorizontalAlignment="Left" Height="137" Margin="165,42,0,0" VerticalAlignment="Top" Width="182" BorderBrush="Black">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding WagonNum}" Width = "70"/>
+                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding WagonType, Converter={StaticResource IntToWagonTypeConverter}}" Width = "93"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="27,310,0,0" VerticalAlignment="Top" Width="145"/>
-        <Button Content="Отмена" Margin="230,310,40,28" Height="Auto"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="27,228,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.302,-0.029" FontSize="20" Height="40"/>
-        <Button Content="–" HorizontalAlignment="Left" Margin="102,228,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.302,-0.029" FontSize="20" Height="40"/>
-        <TextBlock TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Text="Список вагонов" Margin="168,44,10,299"/>
-        <ComboBox 
+        <Button 
+            Content="Сохранить" 
+            Command="{Binding SaveTrainInfoCmd}"
+            CommandParameter="{Binding ElementName=trainWin}" 
+            Margin="200,208,0,0" 
+            VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1"/>
+        <Button 
+            Command="{Binding AddWagonCmd}"
+            Content="+" 
+            HorizontalAlignment="Left"
+            Margin="20,139,0,0" 
+            VerticalAlignment="Top" 
+            Width="45" 
+            RenderTransformOrigin="0.302,-0.029"
+            FontSize="20" 
+            Height="40"/>
+        <Button 
+            Command="{Binding DeleteWagonCmd}"
+            Content="–" 
             HorizontalAlignment="Left" 
-            Margin="27,165,0,0" 
+            Margin="85,139,0,0" 
+            VerticalAlignment="Top" 
+            Width="45" 
+            RenderTransformOrigin="0.302,-0.029" 
+            FontSize="20" 
+            Height="40"/>
+        <TextBlock TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Text="Список вагонов" Margin="176,1,2,342"/>
+        <ComboBox 
+            SelectedIndex ="{Binding SelectedWagonType}"
+            HorizontalAlignment="Left" 
+            Margin="17,95,0,0" 
             VerticalAlignment="Top" 
             Width="120"
-            wpf:TextFieldAssist.HintOpacity="0.8"
-        	wpf:TextFieldAssist.Hint="Тип вагона" Background="Transparent"  
+            wpf:TextFieldAssist.HintOpacity="0.5"
+        	wpf:TextFieldAssist.Hint="Тип" Background="Transparent"  
             FontSize="16" Height="39"
-            />
+            >
+            <ComboBoxItem Content="Плацкарт" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="Купе" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="Люкс" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" Margin="165,16,0,0" TextWrapping="Wrap" FontSize="16" Text="Список вагонов:" VerticalAlignment="Top" Width="204"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" FontSize="16" Text="Номер поезда:" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="17,74,0,0" TextWrapping="Wrap" FontSize="16" Text="Тип вагона:" VerticalAlignment="Top" Width="120"/>
     </Grid>
-</Window>
+</Controls:MetroWindow>

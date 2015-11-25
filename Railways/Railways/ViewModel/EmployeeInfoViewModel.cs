@@ -20,11 +20,7 @@ namespace Railways.ViewModel
         public String Password { get; set; }
         public String UserRights { get; set; }
 
-        public RelayCommand<EmployeeInfoWindow> RegisterEmployee
-        {
-            get;
-            private set;
-        }
+        public RelayCommand<EmployeeInfoWindow> RegisterEmployee {get; private set;}
 
         public EmployeeInfoViewModel()
         {
@@ -34,7 +30,6 @@ namespace Railways.ViewModel
         private void AddEmployee(EmployeeInfoWindow window)
         {
             AdminFunctions.RegisterEmployee(FullName, Password, UserRights.ToString());
-            Messenger.Default.Send(new RefreshEmployeeListMessage());
             window.Close();
         }
     }
