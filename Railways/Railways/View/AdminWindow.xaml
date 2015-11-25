@@ -7,10 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d" x:Class="Railways.AdminWindow"
+    xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Window.DataContext>
         <admin:AdminViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <conv:IntToUserRoleConverter x:Key="IntToUserRoleConverter" />
+    </Window.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19*"/>
@@ -33,12 +39,12 @@
                               ItemsSource="{Binding EmployeeList}" Margin="0,0,0,122" Grid.ColumnSpan="2"
                               SelectedIndex="{Binding EmployeeSelectedIndex}"
                               >
-
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FullName}" Width = "300"/>
-                                <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Password}" Width = "300"/>
-                                <GridViewColumn Header="Права доступа" DisplayMemberBinding="{Binding UserRights}" Width = "207"/>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width = "50"/>
+                                <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FullName}" Width = "285"/>
+                                <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Password}" Width = "285"/>
+                                <GridViewColumn Header="Права доступа" DisplayMemberBinding="{Binding UserRights, Converter={StaticResource IntToUserRoleConverter}}" Width = "187"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -57,7 +63,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width = "300"/>
-                                <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNum}" Width = "300"/>
+                                <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNum}" Width = "502"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

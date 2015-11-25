@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace Railways.View
 {
     /// <summary>
     /// Логика взаимодействия для TrainInfoWindow.xaml
     /// </summary>
-    public partial class TrainInfoWindow : Window
+    public partial class TrainInfoWindow : MetroWindow
     {
         public TrainInfoWindow()
         {

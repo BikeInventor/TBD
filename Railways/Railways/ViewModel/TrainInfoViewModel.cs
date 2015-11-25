@@ -12,14 +12,42 @@ using System.Collections.ObjectModel;
 using Railways.ViewModel.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using Railways.Model.ModelBuilder;
+using Railways.View;
+using System.Windows.Data;
 
 
 namespace Railways.ViewModel
 {
-    class TrainInfoViewModel
+    public class TrainInfoViewModel : ViewModelBase
     {
         private String _trainNum;
-        public String TrainName { get; set; }
+
+        private String _selectedWagonType;
+
+        public String SelectedWagonType
+        {
+            get
+            {
+                return _selectedWagonType;
+            }
+            set
+            {
+                _selectedWagonType = value;
+                RaisePropertyChanged("SelectedWagonType");
+            }
+        }
+        public String TrainNum
+        {
+            get 
+            {
+                return _trainNum;
+            }
+            set
+            {
+                _trainNum = value;
+                RaisePropertyChanged("TrainNum");
+            }
+        }
 
         private List<Wagon> _wagonList;
 
@@ -33,22 +61,20 @@ namespace Railways.ViewModel
             get { return _obsWagonList; }
             set { _obsWagonList = value; }
         }
-        public int WagonSelectedIndex { get; set; }
         public RelayCommand AddWagonCmd { get; private set; }
         public RelayCommand DeleteWagonCmd { get; private set; }
-        public RelayCommand SaveTrainInfoCmd { get; private set; }
+        public RelayCommand<TrainInfoWindow> SaveTrainInfoCmd { get; private set; }
 
         public TrainInfoViewModel()
         {
+            SaveTrainInfoCmd = new RelayCommand<TrainInfoWindow>(this.SaveTrainInfo);
+
             ContextKeeper.Initialize();
             _wagonList = new List<Wagon>();
             _obsWagonList = new ObservableCollection<Wagon>();
 
-            RefreshWagonList();
             AddWagonCmd = new RelayCommand(() => AddWagon());
             DeleteWagonCmd = new RelayCommand(() => DeleteWagon());
-
-            SaveTrainInfoCmd = new RelayCommand(() => SaveTrainInfo());
 
             Messenger.Default.Register<SendTrainInfoMessage>(this, (msg) =>
             {
@@ -61,19 +87,58 @@ namespace Railways.ViewModel
         {
             this._trainToEdit = ContextKeeper.Trains.First(train => train.Id == trainId);
             isEditMode = true;
-            this._trainNum = _trainToEdit.TrainNum;
+            this.TrainNum = _trainToEdit.TrainNum;
+            RefreshWagonsList();
         }
-
         public void RefreshWagonsList()
         {
+            this.WagonList.Clear();
             var wagons = TrainBuilder.GetWagonsOfTrain(_trainToEdit.Id);
-            wagons.ToList().ForEach(wagon => this._wagonList.Add(wagon));
+            wagons.ToList().ForEach(wagon => this.WagonList.Add(wagon));
+        }
+        public async Task AddWagon() 
+        {
+            if (_trainToEdit == null)
+            {
+                _trainToEdit = new Train();
+                _trainToEdit.TrainNum = TrainNum;
+                ContextKeeper.Trains.Add(_trainToEdit);
+            }
+            System.Console.WriteLine(SelectedWagonType);
+            WagonType wType = (WagonType)int.Parse(SelectedWagonType);
+            try
+            {
+                await TrainBuilder.AddWagonToTrain(_trainToEdit.Id, wType);
+                RefreshWagonsList();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Жди, пока добавится предыдущий");
+            }
+
+        }
+        public void DeleteWagon() 
+        {
+            if (WagonList.Count != 0 && _trainToEdit != null)
+            {
+                TrainBuilder.DeleteLastWagonFromTrain(_trainToEdit.Id);
+                RefreshWagonsList();
+            }
+        }
+        public void SaveTrainInfo(TrainInfoWindow window) 
+        {
+            if (_trainToEdit == null)
+            {
+                _trainToEdit = new Train();
+                _trainToEdit.TrainNum = TrainNum;
+                ContextKeeper.Trains.Add(_trainToEdit);
+            }
+            _trainToEdit.TrainNum = TrainNum;
+            ContextKeeper.Trains.Update(_trainToEdit);
+            window.Close();
         }
 
-        public void AddWagon() { }
-        public void DeleteWagon() { }
-        public void SaveTrainInfo() { }
-        public void RefreshWagonList() { }
-
     }
+
 }
+

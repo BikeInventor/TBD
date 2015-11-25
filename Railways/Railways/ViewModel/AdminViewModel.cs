@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using Railways.ViewModel.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using Railways.View;
+using Railways.Model.ModelBuilder;
 
 namespace Railways.ViewModel
 {
@@ -24,7 +25,21 @@ namespace Railways.ViewModel
 
         private ObservableCollection<Employee> _obsEmpList;
         public int EmployeeSelectedIndex { get; set; }
-        public int TrainSelectedIndex { get; set; }
+        
+        private int _trainSelectedIndex = -1;
+
+        public int TrainSelectedIndex {
+            get
+            {
+                return _trainSelectedIndex;
+            }
+            set 
+            {
+                _trainSelectedIndex = value;
+                RaisePropertyChanged("TrainSelectedIndex");
+            } 
+        }
+
         public RelayCommand RegisterEmployeeCmd
         {
             get;
@@ -111,6 +126,7 @@ namespace Railways.ViewModel
         {
             var empInfo = new EmployeeInfoWindow(); 
             empInfo.Show();
+            empInfo.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshEmployeeList());
         }
 
         private void DeleteEmployee()
@@ -132,15 +148,9 @@ namespace Railways.ViewModel
 
         private void AddTrain()
         {
-            //var trainInfo = new EmployeeInfoWindow();
-            //trainInfo.Show();
-            for (int i = 0; i < 20; i++)
-            {
-                var newTrain = new Train();
-                newTrain.TrainNum = "1" + i.ToString() + "C";
-                ContextKeeper.Trains.Add(newTrain);
-            }
-            RefreshTrainList();
+            var trainInfoWin = new TrainInfoWindow();
+            trainInfoWin.Show();
+            trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a,b) => RefreshTrainList());
         }
 
         private void DeleteTrain()
@@ -148,7 +158,8 @@ namespace Railways.ViewModel
             if (TrainSelectedIndex >= 0)
             {
                 var trainToDelete = TrainList[TrainSelectedIndex];
-                ContextKeeper.Trains.Remove(trainToDelete);
+                TrainSelectedIndex = -1;
+                TrainBuilder.DeleteTrainWithWagons(trainToDelete.Id);
                 RefreshTrainList();
             }
         }
@@ -157,6 +168,7 @@ namespace Railways.ViewModel
             var selectedTrainId = TrainList[TrainSelectedIndex].Id;
             var trainInfoWin = new TrainInfoWindow();
             trainInfoWin.Show();
+            trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshTrainList());
             Messenger.Default.Send(new SendTrainInfoMessage(selectedTrainId));
         }
     }
