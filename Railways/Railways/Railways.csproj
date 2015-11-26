@@ -232,9 +232,8 @@
     <Compile Include="Model\Wagon.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Messages\RefreshEmployeeListMessage.cs" />
-    <Compile Include="ViewModel\Messages\RefreshTrainListMessage.cs" />
-    <Compile Include="ViewModel\Messages\SendTrainInfoMessage.cs" />
+    <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
+    <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />

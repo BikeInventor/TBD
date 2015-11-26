@@ -80,7 +80,7 @@ namespace Railways.ViewModel
             DeleteWagonCmd = new RelayCommand(() => DeleteWagon());
             EditVoyageCmd = new RelayCommand(() => EditVoyage());
 
-            Messenger.Default.Register<SendTrainInfoMessage>(this, (msg) =>
+            Messenger.Default.Register<TrainInfoMessage>(this, (msg) =>
             {
                 SetWagonInfo(msg.TrainId);
             });
@@ -153,7 +153,7 @@ namespace Railways.ViewModel
             }
             var voyageEditWin = new VoyageEditWindow();
             voyageEditWin.Show();
-            Messenger.Default.Send(new SendTrainInfoMessage(_trainToEdit.Id));
+            Messenger.Default.Send(new TrainOfVoyageMessage(_trainToEdit.Id));
         }
 
     }

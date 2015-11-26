@@ -191,7 +191,7 @@ namespace Railways.ViewModel
                 var trainInfoWin = new TrainInfoWindow();
                 trainInfoWin.Show();
                 trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshTrainList());
-                Messenger.Default.Send(new SendTrainInfoMessage(selectedTrainId));
+                Messenger.Default.Send(new TrainInfoMessage(selectedTrainId));
             }         
         }
 

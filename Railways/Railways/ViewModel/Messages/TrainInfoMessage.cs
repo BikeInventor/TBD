@@ -7,10 +7,10 @@ using Railways.Model;
 
 namespace Railways.ViewModel.Messages
 {
-    public class SendTrainInfoMessage
+    public class TrainInfoMessage
     {
         public int TrainId { get; set; }
-        public SendTrainInfoMessage(int trainId)
+        public TrainInfoMessage(int trainId)
         {
             this.TrainId = trainId;
         }

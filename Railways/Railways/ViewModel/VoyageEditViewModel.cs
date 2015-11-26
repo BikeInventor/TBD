@@ -19,20 +19,56 @@ namespace Railways.ViewModel
 {
     public class VoyageEditViewModel : ViewModelBase
     {
-        private String _voyageNum;
+        private String _trainNum;
         private Voyage _voyage;
-        public String VoyageNum
+        private String _periodicity;
+        private DateTime _departureDate;
+        private DateTime _generateToDate;
+
+
+
+        public String TrainNum
         {
-            get { return _voyageNum; }
-            set 
+            get { return _trainNum; }
+            set
             {
-                _voyageNum = value;
-                RaisePropertyChanged("VoyageNum");
+                _trainNum = value;
+                RaisePropertyChanged("TrainNum");
             }
         }
+        public String Periodicity
+        {
+            get { return _periodicity; }
+            set 
+            {
+                _periodicity = value;
+                RaisePropertyChanged("Periodicity");
+            }
+        }
+        public DateTime DepartureDate
+        {
+            get { return _departureDate; }
+            set
+            {
+                _departureDate = value;
+                RaisePropertyChanged("DepartureDate");
+            }
+        }
+        public DateTime GenerateToDate
+        {
+            get { return _generateToDate; }
+            set
+            {
+                _generateToDate = value;
+                RaisePropertyChanged("GenerateToDate");
+            }
+        }
+        
         public VoyageEditViewModel()
         {
-            Messenger.Default.Register<SendTrainInfoMessage>(this, (msg) =>
+            ContextKeeper.Initialize();
+
+            Messenger.Default.Register<TrainOfVoyageMessage>(this, (msg) =>
             {
                 SetVoyageInfo(msg.TrainId);
             });
@@ -41,7 +77,13 @@ namespace Railways.ViewModel
         private void SetVoyageInfo(int trainId) 
         {
             this._voyage = VoyageBuilder.GetVoyageOfTrain(trainId);
-            this.VoyageNum = "№ рейса: " + _voyage.Id.ToString();
+            this.TrainNum = "Номер поезда: " + ContextKeeper.Trains
+                .Where(train => train.Id == trainId)
+                .Select(train => train.TrainNum)
+                .First();
+            this.Periodicity = this._voyage.Periodicity.ToString();
+            if (this._voyage.DepartureDateTime != null) 
+                this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
         }
 
     }
