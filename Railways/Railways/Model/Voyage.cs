@@ -21,7 +21,7 @@ namespace Railways.Model
     
         public int Id { get; set; }
         public Nullable<byte> Periodicity { get; set; }
-        public System.DateTime DepartureDateTime { get; set; }
+        public Nullable<System.DateTime> DepartureDateTime { get; set; }
         public Nullable<int> TrainId { get; set; }
     
         public virtual Train Train { get; set; }

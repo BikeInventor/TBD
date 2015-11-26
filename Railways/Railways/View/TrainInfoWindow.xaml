@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         mc:Ignorable="d"
         Name="trainWin"
-        Title="Информация о поезде" Height="286" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Информация о поезде" Height="319" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="#FF144114">
     <Window.DataContext>
         <admin:TrainInfoViewModel/>
     </Window.DataContext>
@@ -28,7 +28,7 @@
 
         <ListView 
             ItemsSource="{Binding WagonList}"
-            HorizontalAlignment="Left" Height="137" Margin="165,42,0,0" VerticalAlignment="Top" Width="182" BorderBrush="Black">
+            HorizontalAlignment="Left" Height="189" Margin="165,42,0,0" VerticalAlignment="Top" Width="182" BorderBrush="Black">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding WagonNum}" Width = "70"/>
@@ -40,7 +40,7 @@
             Content="Сохранить" 
             Command="{Binding SaveTrainInfoCmd}"
             CommandParameter="{Binding ElementName=trainWin}" 
-            Margin="200,208,0,0" 
+            Margin="200,249,0,0" 
             VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1"/>
         <Button 
             Command="{Binding AddWagonCmd}"
@@ -80,5 +80,11 @@
         <TextBlock HorizontalAlignment="Left" Margin="165,16,0,0" TextWrapping="Wrap" FontSize="16" Text="Список вагонов:" VerticalAlignment="Top" Width="204"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,18,0,0" TextWrapping="Wrap" FontSize="16" Text="Номер поезда:" VerticalAlignment="Top" Width="120"/>
         <TextBlock HorizontalAlignment="Left" Margin="17,74,0,0" TextWrapping="Wrap" FontSize="16" Text="Тип вагона:" VerticalAlignment="Top" Width="120"/>
+        <Button 
+        	Content="Рейс" 
+        	Command="{Binding EditVoyageCmd}"
+        	CommandParameter="{Binding ElementName=trainWin}" 
+        	Margin="20,199,0,0" 
+        	VerticalAlignment="Top" HorizontalAlignment="Left" Width="110" RenderTransformOrigin="0.476,-1"/>
     </Grid>
 </Controls:MetroWindow>

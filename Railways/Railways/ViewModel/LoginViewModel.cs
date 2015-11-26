@@ -40,10 +40,12 @@ namespace Railways.ViewModel
         /// </summary>
         /// <param name="id"></param>
         /// <param name="password"></param>
-        public void TryLogin(object pBox)
+        public async void TryLogin(object pBox)
         {
             try
             {
+                ShowMsgAsync();
+
                 var passwordBox = pBox as PasswordBox;
                 var password = passwordBox.Password;
 
@@ -119,6 +121,15 @@ namespace Railways.ViewModel
 
                 return false;
             }
+        }
+
+        private Task ShowMsgAsync()
+        {
+            return Task.Run(() =>
+            {
+                var metroWin = Application.Current.MainWindow as MetroWindow;
+                metroWin.ShowMessageAsync("This is the title", "Some message");
+            });
         }
 
     }

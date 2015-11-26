@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/18/2015 16:25:56
--- Generated from EDMX file: D:\Mine\Учёба\WorkPlace\TBD_CP\Railways\Railways\Model\RailwayDataModel.edmx
+-- Date Created: 11/25/2015 22:51:38
+-- Generated from EDMX file: D:\Work\TBD_CP\Railways\Railways\Model\RailwayDataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [D:\Mine\Учёба\WorkPlace\TBD_CP\Railways\Railways\Model\RailwayDB.mdf];
+USE [D:\Work\TBD_CP\Railways\Railways\Model\RailwayDB.mdf];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -178,7 +178,7 @@ GO
 CREATE TABLE [dbo].[VoyageSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Periodicity] tinyint  NULL,
-    [DepartureDateTime] datetime  NOT NULL,
+    [DepartureDateTime] datetime  NULL,
     [TrainId] int  NULL
 );
 GO

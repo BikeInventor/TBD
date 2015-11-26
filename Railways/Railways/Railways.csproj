@@ -173,6 +173,7 @@
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
     <Compile Include="Model\ModelBuilder\TripInfo.cs" />
+    <Compile Include="Model\ModelBuilder\VoyageBuilder.cs" />
     <Compile Include="Model\Test\ModelTestingClass.cs" />
     <Compile Include="Model\TrainWagon.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
@@ -235,9 +236,13 @@
     <Compile Include="ViewModel\Messages\RefreshTrainListMessage.cs" />
     <Compile Include="ViewModel\Messages\SendTrainInfoMessage.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
+    <Compile Include="ViewModel\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />
     <Compile Include="View\TrainInfoWindow.xaml.cs">
       <DependentUpon>TrainInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VoyageEditWindow.xaml.cs">
+      <DependentUpon>VoyageEditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -298,6 +303,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TrainInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VoyageEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,9 +396,6 @@
     </Resource>
     <Resource Include="View\Resources\account.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\RWLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\RWLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

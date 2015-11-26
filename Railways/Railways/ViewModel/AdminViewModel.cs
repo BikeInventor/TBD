@@ -13,6 +13,7 @@ using Railways.ViewModel.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using Railways.View;
 using Railways.Model.ModelBuilder;
+using System.Windows.Controls;
 
 namespace Railways.ViewModel
 {
@@ -26,8 +27,10 @@ namespace Railways.ViewModel
         private ObservableCollection<Employee> _obsEmpList;
         public int EmployeeSelectedIndex { get; set; }
         
-        private int _trainSelectedIndex = -1;
-
+        private int _trainSelectedIndex;
+        /// <summary>
+        /// Индекс выделенного в списке поезда
+        /// </summary>
         public int TrainSelectedIndex {
             get
             {
@@ -39,13 +42,11 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("TrainSelectedIndex");
             } 
         }
-
         public RelayCommand RegisterEmployeeCmd
         {
             get;
             private set;
         }
-
         public RelayCommand DeleteEmployeeCmd
         {
             get;
@@ -66,7 +67,16 @@ namespace Railways.ViewModel
             get;
             private set;
         }
-
+        public RelayCommand<object> EmployeeSearchStringChangedCmd
+        {
+            get;
+            private set;
+        }
+        public RelayCommand<object> TrainSearchStringChangedCmd
+        {
+            get;
+            private set;
+        }
         public ObservableCollection<Employee> EmployeeList
         {
             get
@@ -99,22 +109,17 @@ namespace Railways.ViewModel
 
             RegisterEmployeeCmd = new RelayCommand(() => AddEmployee());                   
             DeleteEmployeeCmd = new RelayCommand(() => DeleteEmployee());
+            EmployeeSearchStringChangedCmd = new RelayCommand<object>(this.FilterEmployeeList);
+            TrainSearchStringChangedCmd = new RelayCommand<object>(this.FilterTrainList);
 
             RegisterTrainCmd = new RelayCommand(() => AddTrain());
             DeleteTrainCmd = new RelayCommand(() => DeleteTrain());
             EditTrainCmd = new RelayCommand(() => EditTrain());
-
-            Messenger.Default.Register<RefreshEmployeeListMessage>(this, (msg) =>
-            {
-                RefreshEmployeeList();
-            });
-
-            Messenger.Default.Register<RefreshTrainListMessage>(this, (msg) =>
-            {
-                RefreshTrainList();
-            });
         }
 
+        /// <summary>
+        /// Обновление списка сотрудников
+        /// </summary>
         public void RefreshEmployeeList()
         {
             _employeeList = ContextKeeper.Employees.All().ToList();
@@ -122,6 +127,9 @@ namespace Railways.ViewModel
             _employeeList.ForEach(emp => _obsEmpList.Add(emp));
         }
 
+        /// <summary>
+        /// Добавление сотрудника
+        /// </summary>
         private void AddEmployee()
         {
             var empInfo = new EmployeeInfoWindow(); 
@@ -129,6 +137,9 @@ namespace Railways.ViewModel
             empInfo.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshEmployeeList());
         }
 
+        /// <summary>
+        /// Удаление сотрудника из списка
+        /// </summary>
         private void DeleteEmployee()
         {
             if (EmployeeSelectedIndex >= 0)
@@ -138,21 +149,27 @@ namespace Railways.ViewModel
                 RefreshEmployeeList();
             }
         }
-
+        /// <summary>
+        /// Обновление списка поездов
+        /// </summary>
         public void RefreshTrainList()
         {
             _trainList = ContextKeeper.Trains.All().ToList();
             _obsTrainList.Clear();
             _trainList.ForEach(train => _obsTrainList.Add(train));
         }
-
+        /// <summary>
+        /// Добавление поезда
+        /// </summary>
         private void AddTrain()
         {
             var trainInfoWin = new TrainInfoWindow();
             trainInfoWin.Show();
             trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a,b) => RefreshTrainList());
         }
-
+        /// <summary>
+        /// Удаление поезда из списка
+        /// </summary>
         private void DeleteTrain()
         {
             if (TrainSelectedIndex >= 0)
@@ -163,13 +180,68 @@ namespace Railways.ViewModel
                 RefreshTrainList();
             }
         }
+        /// <summary>
+        /// Открытие окна с данными конкретного поезда для их редактирования
+        /// </summary>
         private void EditTrain() 
         {
-            var selectedTrainId = TrainList[TrainSelectedIndex].Id;
-            var trainInfoWin = new TrainInfoWindow();
-            trainInfoWin.Show();
-            trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshTrainList());
-            Messenger.Default.Send(new SendTrainInfoMessage(selectedTrainId));
+            if (TrainSelectedIndex >= 0)
+            {
+                var selectedTrainId = TrainList[TrainSelectedIndex].Id;
+                var trainInfoWin = new TrainInfoWindow();
+                trainInfoWin.Show();
+                trainInfoWin.Closing += new System.ComponentModel.CancelEventHandler((a, b) => RefreshTrainList());
+                Messenger.Default.Send(new SendTrainInfoMessage(selectedTrainId));
+            }         
         }
+
+        /// <summary>
+        /// Фильтрация списка сотрудников в соответствии с заданными условиями
+        /// </summary>
+        /// <param name="searchTextBox"></param>
+        public void FilterEmployeeList(object searchTextBox)
+        {
+            var textBox = searchTextBox as TextBox;
+            var searchString = textBox.Text;
+
+            if (searchString != null && searchString != "")
+            {
+                _employeeList = ContextKeeper.Employees
+                    .Where(emp => emp.FullName.Contains(searchString) 
+                        || emp.Id.ToString().Contains(searchString))
+                .ToList();
+                _obsEmpList.Clear();
+                _employeeList.ForEach(emp => _obsEmpList.Add(emp));
+            }
+            else
+            {
+                RefreshEmployeeList();
+            }
+        }
+        /// <summary>
+        /// Фильтрация списка поездов в соответствии с заданными условиями
+        /// </summary>
+        /// <param name="searchTextBox"></param>
+        public void FilterTrainList(object searchTextBox)
+        {
+            var textBox = searchTextBox as TextBox;
+            var searchString = textBox.Text;
+
+            if (searchString != null && searchString != "")
+            {
+                _trainList = ContextKeeper.Trains
+                    .Where(train => train.TrainNum
+                        .Contains(searchString) 
+                        || train.Id.ToString().Contains(searchString))
+                            .ToList();
+                _obsTrainList.Clear();
+                _trainList.ForEach(train => _obsTrainList.Add(train));
+            }
+            else
+            {
+                RefreshTrainList();
+            }
+        }
+
     }
 }

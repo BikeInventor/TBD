@@ -5,9 +5,8 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         xmlns:admin="clr-namespace:Railways.ViewModel"
-                      
         Title="Авторизация" 
-        Height="365.672" 
+        Height="366" 
         Width="300" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
@@ -15,7 +14,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto" 
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        FontSize="15" WindowTitleBrush="#FF26C35F" WindowTransitionsEnabled="False"
+        FontSize="15" WindowTitleBrush="#FF26C35F" WindowTransitionsEnabled="False" Icon="Resources/RWLogo.png"
         >
     
     <Window.DataContext>

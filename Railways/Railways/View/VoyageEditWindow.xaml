@@ -1,0 +1,133 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    mc:Ignorable="d" x:Class="Railways.View.VoyageEditWindow"
+        Title="Рейс" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="321*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <TextBlock 
+                HorizontalAlignment="Left" 
+                TextWrapping="Wrap" FontSize="16" 
+                Text = "{Binding VoyageNum}" 
+                VerticalAlignment="Center" 
+                Width="150" 
+                Height="36" Margin="20,0,50,0"/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" Text="Периодичность:" VerticalAlignment="Center" Width="142"/>
+            <TextBox 
+            	wpf:TextFieldAssist.HintOpacity="0.5"
+            	wpf:TextFieldAssist.Hint="Кол-во дней" Background="Transparent" 
+            	Height="36" 
+            	TextWrapping="Wrap" 
+            	Width="110" Margin="5,0,10,0" 
+            	HorizontalAlignment="Center" 
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" Text="дней" VerticalAlignment="Center" Width="45" Margin="0"/>
+            <DatePicker 
+            	wpf:TextFieldAssist.HintOpacity="1"
+            	wpf:TextFieldAssist.Hint="Дата отправления" 
+            	Margin="50,0,0,0" 
+            	VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="185" Height="34" Foreground="Black" FontSize="16" Panel.ZIndex="3" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <CheckBox 
+        		Content="Генерировать до" 
+        		Height="36" Margin="360,0,20,0" 
+        		Width="150" 
+        		RenderTransformOrigin="0.5,0.5" 
+        		VerticalAlignment="Center" 
+        		HorizontalAlignment="Center" 
+        		FontSize="16" 
+        		BorderBrush="{DynamicResource AccentColorBrush4}" Background="{DynamicResource AccentColorBrush4}" UseLayoutRounding="False" Controls:ControlsHelper.FocusBorderBrush="{DynamicResource AccentColorBrush4}" Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource AccentColorBrush4}" BorderThickness="2" IsChecked="True"/>
+            <DatePicker 
+        		wpf:TextFieldAssist.HintOpacity="1"
+        		wpf:TextFieldAssist.Hint="До заданной даты" 
+        		Margin="50,0,0,0" 
+        		HorizontalAlignment="Right" 
+        		VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="187" Height="34" Foreground="Black" FontSize="16"/>
+        </StackPanel>
+        <ListView Grid.Column="1" Grid.Row="3">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Станция" DisplayMemberBinding="{Binding Id}" Width = "200"/>
+                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding FullName}" Width = "150"/>
+                    <GridViewColumn Header="Время отправки" DisplayMemberBinding="{Binding Password}" Width = "150"/>
+                    <GridViewColumn Header="Расстояние до этой станции" DisplayMemberBinding="{Binding Password}" Width = "250"/>
+                </GridView>
+            </ListView.View>
+            <StackPanel Height="100" Width="100"/>
+        </ListView>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Orientation="Horizontal" Width="787" Height="36">
+            <TextBox 
+        		wpf:TextFieldAssist.HintOpacity="0.5"
+        		wpf:TextFieldAssist.Hint="Станция" Background="Transparent" 
+        		Height="36" 
+        		TextWrapping="Wrap" 
+        		Width="200" Margin="0" 
+        		HorizontalAlignment="Center" 
+        		VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            <TextBox 
+            	wpf:TextFieldAssist.HintOpacity="0.5"
+            	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
+            	Height="36" 
+            	TextWrapping="Wrap" 
+            	Width="150" Margin="0" 
+            	HorizontalAlignment="Center" 
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            <TextBox 
+            	wpf:TextFieldAssist.HintOpacity="0.5"
+            	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
+            	Height="36" 
+            	TextWrapping="Wrap" 
+            	Width="150" Margin="0" 
+            	HorizontalAlignment="Center" 
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            <TextBox 
+            	wpf:TextFieldAssist.HintOpacity="0.5"
+            	wpf:TextFieldAssist.Hint="Расстояние" Background="Transparent" 
+            	Height="36" 
+            	TextWrapping="Wrap" 
+            	Width="284" Margin="0" 
+            	HorizontalAlignment="Center" 
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0,1,0,0" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button 
+        		Content="Добавить" 
+        		Command="{Binding SaveTrainInfoCmd}"
+        		CommandParameter="{Binding ElementName=trainWin}" 
+        		VerticalAlignment="Center" HorizontalAlignment="Center" Width="147" RenderTransformOrigin="0.476,-1" Margin="10,0,20,0"/>
+            <Button 
+            	Content="Удалить" 
+            	Command="{Binding SaveTrainInfoCmd}"
+            	CommandParameter="{Binding ElementName=trainWin}" 
+            	VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1" Margin="20,0,0,0"/>
+        </StackPanel>
+        <Button 
+        	Content="Сохранить" 
+        	Command="{Binding SaveTrainInfoCmd}"
+        	CommandParameter="{Binding ElementName=trainWin}" 
+        	Margin="630,10,0,0" 
+        	VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1" Grid.Column="1" Grid.Row="6"/>
+
+    </Grid>
+</Controls:MetroWindow>

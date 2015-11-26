@@ -3,12 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:admin="clr-namespace:Railways.ViewModel"
+        xmlns:admin="clr-namespace:Railways.ViewModel" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d" x:Class="Railways.AdminWindow"
     xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
-        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
     <Window.DataContext>
         <admin:AdminViewModel/>
     </Window.DataContext>
@@ -30,14 +32,14 @@
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="-10,0,10,0" Height="36" Grid.ColumnSpan="3" Grid.Row="1"/>
         <TabControl Grid.Column="1" HorizontalAlignment="Left" Width="820" Grid.Row="1" Margin="0,0,0,34">
             <TabItem Header="Сотрудники" FontSize="16">
-                <Grid Background="White" Margin="0,36,0,-36">
+                <Grid Background="White" Margin="0,-2,0,-36">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="619*"/>
                     </Grid.ColumnDefinitions>
                     <ListView HorizontalAlignment="Left" 
                               Width="810"
-                              ItemsSource="{Binding EmployeeList}" Margin="0,0,0,122" Grid.ColumnSpan="2"
-                              SelectedIndex="{Binding EmployeeSelectedIndex}"
+                              ItemsSource="{Binding EmployeeList}" Margin="0,0,0,122"
+                              SelectedIndex="{Binding EmployeeSelectedIndex}" Height="320" VerticalAlignment="Bottom"
                               >
                         <ListView.View>
                             <GridView>
@@ -48,17 +50,31 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Separator Margin="0,299,0,106" HorizontalAlignment="Right" Width="810"/>
-                    <Button Content="Зарегистрировать сотрудника"  Command ="{Binding RegisterEmployeeCmd}" HorizontalAlignment="Left" Margin="0,370,0,0" VerticalAlignment="Top" Width="300" Height="47" FontSize="18" FontWeight="Normal"/>
-                    <Button Content="Удалить сотрудника" Command ="{Binding DeleteEmployeeCmd}" HorizontalAlignment="Left" Margin="510,370,0,0" VerticalAlignment="Top" Width="300" Height="47" FontSize="18" FontWeight="Normal" RenderTransformOrigin="0.255,0.425"/>
+                    <Separator Margin="0,392,0,71" HorizontalAlignment="Right" Width="810" RenderTransformOrigin="0.494,1.704"/>
+                    <Button Content="Зарегистрировать сотрудника"  Command ="{Binding RegisterEmployeeCmd}" HorizontalAlignment="Left" Margin="0,0,0,19" Width="300" Height="47" FontSize="18" FontWeight="Normal" VerticalAlignment="Bottom"/>
+                    <Button Content="Удалить сотрудника" Command ="{Binding DeleteEmployeeCmd}" HorizontalAlignment="Left" Margin="510,0,0,19" Width="300" Height="47" FontSize="18" FontWeight="Normal" RenderTransformOrigin="0.255,0.425" VerticalAlignment="Bottom"/>
+                    <TextBox 
+                        wpf:TextFieldAssist.HintOpacity="0.5"
+			            wpf:TextFieldAssist.Hint="Быстрый поиск..." Background="Transparent" Margin="40,0,0,447" 
+                        Name="EmployeeSearchString"
+                        TextWrapping="Wrap" 
+                        FontSize="16" 
+                        BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <cmd:EventToCommand Command="{Binding EmployeeSearchStringChangedCmd}" CommandParameter="{Binding ElementName=EmployeeSearchString}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Поезда" FontSize="16">
                 <Grid Background="White" Margin="0,0,0,-24">
                     <ListView HorizontalAlignment="Left" 
                               Width="810"
-                              ItemsSource="{Binding TrainList}" Margin="0,0,0,100" Grid.ColumnSpan="2"
-                              SelectedIndex="{Binding TrainSelectedIndex}"
+                              ItemsSource="{Binding TrainList}" Margin="0,0,0,100"
+                              SelectedIndex="{Binding TrainSelectedIndex}" Height="330" VerticalAlignment="Bottom"
                               >
                         <ListView.View>
                             <GridView>
@@ -71,6 +87,19 @@
                     <Button  Command ="{Binding RegisterTrainCmd}" HorizontalAlignment="Left" Margin="10,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Добавить"/>
                     <Button Content="Удалить"  Command ="{Binding DeleteTrainCmd}" HorizontalAlignment="Left" Margin="600,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal"/>
                     <Button  Command ="{Binding EditTrainCmd}" HorizontalAlignment="Left" Margin="300,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Редактировать" RenderTransformOrigin="-0.075,0.766"/>
+                    <TextBox 
+                    	wpf:TextFieldAssist.HintOpacity="0.5"
+                    	wpf:TextFieldAssist.Hint="Быстрый поиск..." Background="Transparent" Margin="40,0,0,435" 
+                    	x:Name="TrainSearchString"
+                    	TextWrapping="Wrap" 
+                    	FontSize="16" 
+                    	BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <cmd:EventToCommand Command="{Binding TrainSearchStringChangedCmd}" CommandParameter="{Binding ElementName=TrainSearchString}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                 </Grid>
             </TabItem>
         </TabControl>

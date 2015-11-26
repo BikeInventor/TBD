@@ -149,7 +149,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Periodicity" Type="tinyint" Nullable="true" />
-    <Property Name="DepartureDateTime" Type="datetime" Nullable="false" />
+    <Property Name="DepartureDateTime" Type="datetime" Nullable="true" />
     <Property Name="TrainId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="VoyageRouteSet">
@@ -493,7 +493,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Periodicity" Type="Byte" Nullable="true" />
-          <Property Name="DepartureDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="DepartureDateTime" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Train" Relationship="RailwayDataModel.TrainVoyage" FromRole="Voyage" ToRole="Train" />
           <Property Name="TrainId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Voyage_Route" Relationship="RailwayDataModel.VoyageVoyage_Route" FromRole="Voyage" ToRole="Voyage_Route" />

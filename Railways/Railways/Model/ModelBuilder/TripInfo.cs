@@ -43,8 +43,8 @@ namespace Railways.Model.ModelBuilder
             this.DepartureStation = _depRoute.Station.StationName;
             this.ArrivalStation = _depRoute.Station.StationName;
 
-            this.ArrivalTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _arRoute.ArrivalTimeOffset);
-            this.DepartureTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _depRoute.ArrivalTimeOffset);
+         //   this.ArrivalTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _arRoute.ArrivalTimeOffset);
+         //   this.DepartureTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _depRoute.ArrivalTimeOffset);
 
             CalculatePrice();
         }
