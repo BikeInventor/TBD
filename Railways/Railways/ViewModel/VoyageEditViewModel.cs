@@ -24,9 +24,13 @@ namespace Railways.ViewModel
         private String _periodicity;
         private DateTime _departureDate;
         private DateTime _generateToDate;
+        private String _stationName;
+        private String _arrivalTime;
+        private String _departureTime;
+        private String _distance;
 
-
-
+        private ObservableCollection<Route> _obsRoutesOfVoyage;
+ 
         public String TrainNum
         {
             get { return _trainNum; }
@@ -63,10 +67,47 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("GenerateToDate");
             }
         }
+        public String StationName
+        {
+            get { return _stationName; }
+            set
+            {
+                _stationName = value;
+                RaisePropertyChanged("StationName");
+            }
+        }
+        public String ArrivalTime
+        {
+            get { return _arrivalTime; }
+            set 
+            { 
+                _arrivalTime = value;
+                RaisePropertyChanged("ArrivalTime");
+            }
+        }
+        public String DepartureTime
+        {
+            get { return _departureTime; }
+            set
+            {
+                _departureTime = value;
+                RaisePropertyChanged("DepartureTime");
+            }
+        }
+        public String Distance
+        {
+            get { return _distance; }
+            set
+            {
+                _distance = value;
+                RaisePropertyChanged("ArrivalTimeDistance");
+            }
+        }
         
         public VoyageEditViewModel()
         {
             ContextKeeper.Initialize();
+            _obsRoutesOfVoyage = new ObservableCollection<Route>();
 
             Messenger.Default.Register<TrainOfVoyageMessage>(this, (msg) =>
             {
@@ -85,6 +126,8 @@ namespace Railways.ViewModel
             if (this._voyage.DepartureDateTime != null) 
                 this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
         }
+
+
 
     }
 }

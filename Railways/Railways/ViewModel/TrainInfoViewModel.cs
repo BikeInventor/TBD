@@ -49,8 +49,6 @@ namespace Railways.ViewModel
             }
         }
 
-        private List<Wagon> _wagonList;
-
         private ObservableCollection<Wagon> _obsWagonList;
 
         private bool isEditMode = false;
@@ -73,7 +71,6 @@ namespace Railways.ViewModel
             SelectedWagonType = "0";
 
             ContextKeeper.Initialize();
-            _wagonList = new List<Wagon>();
             _obsWagonList = new ObservableCollection<Wagon>();
 
             AddWagonCmd = new RelayCommand(() => AddWagon());
