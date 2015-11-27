@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        xmlns:validation="clr-namespace:Railways.ViewModel.Validation"
         xmlns:admin="clr-namespace:Railways.ViewModel"
         Title="Авторизация" 
         Height="366" 
@@ -29,7 +30,6 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Name ="idTextBox" 
-                 Text="{Binding Id}"
                  wpf:TextFieldAssist.HintOpacity="0.8" 
                  wpf:TextFieldAssist.Hint="ID" 
                  Background="Transparent" 
@@ -38,7 +38,15 @@
                  TextWrapping="Wrap" 
                  Height="38" 
                  VerticalAlignment="Top" 
-                 FontSize="18"/>
+                 FontSize="18" MaxLines="1" MaxLength="6">
+            <TextBox.Text>
+                <Binding Path="Id" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:IdValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <PasswordBox Name ="passwordBox"
             Grid.Column="1" 

@@ -235,9 +235,16 @@
     <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
+    <Compile Include="ViewModel\Validation\IdValidation.cs" />
+    <Compile Include="ViewModel\Validation\DistanceValidation.cs" />
+    <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
     <Compile Include="ViewModel\Validation\StationValidation.cs" />
+    <Compile Include="ViewModel\Validation\TimeSpanValidation.cs" />
     <Compile Include="ViewModel\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />
+    <Compile Include="View\SeatSetWindow.xaml.cs">
+      <DependentUpon>SeatSetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TrainInfoWindow.xaml.cs">
       <DependentUpon>TrainInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -282,6 +289,10 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\SeatSetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Themes\Metro\Metro.MSControls.Core.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

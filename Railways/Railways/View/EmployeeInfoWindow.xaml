@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:validation="clr-namespace:Railways.ViewModel.Validation"
         xmlns:admin="clr-namespace:Railways.ViewModel"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -24,7 +25,6 @@
             <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
         <TextBox 
-            Text="{Binding FullName}"
             Grid.Column="1" 
             Height="50"
             Margin="35,76,10,0" 
@@ -32,7 +32,15 @@
             TextWrapping="Wrap" 
             wpf:TextFieldAssist.HintOpacity="0.8"
 			wpf:TextFieldAssist.Hint="ФИО" Background="Transparent" 
-            VerticalAlignment="Top" FontSize="16"/>
+            VerticalAlignment="Top" FontSize="16">
+            <TextBox.Text>
+                <Binding Path="FullName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:FullNameValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBox 
             Text="{Binding Password}"

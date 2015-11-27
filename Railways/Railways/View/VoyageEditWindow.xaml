@@ -116,29 +116,51 @@
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
             	Height="36" 
-                Text="{Binding ArrivalTime}"
             	TextWrapping="Wrap" 
             	Width="150" Margin="0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
+                <TextBox.Text>
+                    <Binding Path="ArrivalTime" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:TimeSpanValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
             <TextBox 
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
             	Height="36" 
-                Text="{Binding DepartureTime}"
             	TextWrapping="Wrap" 
             	Width="150" Margin="0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
+                <TextBox.Text>
+                    <Binding Path="DepartureTime" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:TimeSpanValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBox 
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="Расстояние" Background="Transparent" 
             	Height="36" 
-                Text="{Binding Distance}"
             	TextWrapping="Wrap" 
             	Width="284" Margin="0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1"/>
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
+                <TextBox.Text>
+                    <Binding Path="Distance" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:DistanceValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="0,1,0,0" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Top" Orientation="Horizontal">
             <Button 

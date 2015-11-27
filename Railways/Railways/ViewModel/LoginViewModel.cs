@@ -44,8 +44,6 @@ namespace Railways.ViewModel
         {
             try
             {
-                ShowMsgAsync();
-
                 var passwordBox = pBox as PasswordBox;
                 var password = passwordBox.Password;
 
@@ -55,7 +53,7 @@ namespace Railways.ViewModel
                     if (!_isConnected) return;
                 }
 
-                if (CorrectAuthInfo(int.Parse(Id), password))
+                if (CorrectAuthInfo(int.Parse(Id), password) && String.IsNullOrEmpty(this.Id))
                 {
                     LogIn(int.Parse(Id));
                 }

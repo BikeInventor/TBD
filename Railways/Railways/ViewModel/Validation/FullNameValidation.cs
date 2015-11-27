@@ -8,13 +8,13 @@ using System.Windows.Controls;
 
 namespace Railways.ViewModel.Validation
 {
-    public class StationValidation:  ValidationRule
+    public class FullNameValidation : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            if (!Regex.IsMatch(value.ToString(), @"^[А-Яа-я -]+$") && !String.IsNullOrEmpty(value.ToString()))
+            if (!Regex.IsMatch(value.ToString(), @"^[а-яА-Я\s]") && !String.IsNullOrEmpty(value.ToString()))
             {
-                return new ValidationResult(false, "Неверный формат названия станции!"); 
+                return new ValidationResult(false, "Неверный формат ФИО!\n");
             }
             return new ValidationResult(true, null);
         }

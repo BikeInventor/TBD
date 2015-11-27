@@ -9,16 +9,18 @@
         Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="410*"/>
-            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="163*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="435*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="11*"/>
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="-10,30,10,0" Height="36" Grid.ColumnSpan="3">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
 
             <TextBox 
                 wpf:TextFieldAssist.HintOpacity="0.8"
@@ -27,36 +29,46 @@
                 Height="36" TextWrapping="Wrap" 
                 VerticalAlignment="Center" 
                 Width="190" 
-                Margin="50,0" BorderBrush="{DynamicResource AccentColorBrush3}" FontSize="16"/>
+                Margin="10,0, 25, 0" 
+                BorderBrush="{DynamicResource AccentColorBrush4}" 
+                FontSize="16"/>
 
             <TextBox 
                 wpf:TextFieldAssist.HintOpacity="0.8"
 			    wpf:TextFieldAssist.Hint="Куда" Background="Transparent" 
                 Height="36" 
                 TextWrapping="Wrap" 
-                Width="193" Margin="0,0" 
+                Width="193" 
+                Margin="25,0,25,0" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16"/>
+                VerticalAlignment="Center" 
+                BorderBrush="{DynamicResource AccentColorBrush4}" 
+                FontSize="16"/>
 
             <DatePicker 
                 wpf:TextFieldAssist.HintOpacity="1"
 			    wpf:TextFieldAssist.Hint="Когда" 
-                Margin="50,0" 
+                Margin="25,0,25,0"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="126" Height="34" Foreground="Black" FontSize="16"/>
             <Button 
                 Content="Найти билеты" 
-                Width="136" Margin="20,2" 
+                Width="136" Margin="75,0,0,0" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"/>
         </StackPanel>
-        <ListView Grid.Column="1" Grid.Row="1">
+        <ListView Grid.Column="1" Grid.Row="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button 
+        	Content="Выбрать" 
+        	Width="136" Margin="712,12,10,10" 
+        	HorizontalAlignment="Center" 
+        	VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
 
     </Grid>
 </Controls:MetroWindow>
