@@ -32,7 +32,7 @@
             TextWrapping="Wrap" 
             wpf:TextFieldAssist.HintOpacity="0.8"
 			wpf:TextFieldAssist.Hint="ФИО" Background="Transparent" 
-            VerticalAlignment="Top" FontSize="16">
+            VerticalAlignment="Top" FontSize="16" MaxLines="1" MaxLength="100">
             <TextBox.Text>
                 <Binding Path="FullName" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -51,7 +51,7 @@
             TextWrapping="Wrap" 
             wpf:TextFieldAssist.HintOpacity="0.8"
 			wpf:TextFieldAssist.Hint="Пароль" Background="Transparent" 
-            VerticalAlignment="Top" FontSize="16"/>
+            VerticalAlignment="Top" FontSize="16" MaxLength="12" MaxLines="1"/>
 
         <ComboBox 
             SelectedIndex ="{Binding UserRights}"

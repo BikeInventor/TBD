@@ -54,7 +54,7 @@
             VerticalAlignment="Top"
             wpf:TextFieldAssist.HintOpacity="0.8"
 			wpf:TextFieldAssist.Hint="Пароль" Background="Transparent" 
-            Height="38" FontSize="18"/>
+            Height="38" FontSize="18" MaxLength="12"/>
 
         <Button Content="Войти" 
                 Command="{Binding LoginCmd}"

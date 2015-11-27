@@ -66,7 +66,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-
+                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,450" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Поезда" FontSize="16">
@@ -100,6 +100,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
+                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,438" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
                 </Grid>
             </TabItem>
         </TabControl>

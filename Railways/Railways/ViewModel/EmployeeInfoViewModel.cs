@@ -29,6 +29,8 @@ namespace Railways.ViewModel
 
         private void AddEmployee(EmployeeInfoWindow window)
         {
+            if (String.IsNullOrEmpty(this.FullName) || String.IsNullOrEmpty(this.Password)) 
+                return;
             AdminFunctions.RegisterEmployee(FullName, Password, UserRights.ToString());
             window.Close();
         }
