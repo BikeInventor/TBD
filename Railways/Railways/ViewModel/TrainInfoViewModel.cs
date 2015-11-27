@@ -62,7 +62,7 @@ namespace Railways.ViewModel
         public RelayCommand AddWagonCmd { get; private set; }
         public RelayCommand DeleteWagonCmd { get; private set; }
         public RelayCommand<TrainInfoWindow> SaveTrainInfoCmd { get; private set; }
-        public RelayCommand EditVoyageCmd { get; private set; }
+        public RelayCommand<TrainInfoWindow> EditVoyageCmd { get; private set; }
 
         public TrainInfoViewModel()
         {
@@ -75,7 +75,7 @@ namespace Railways.ViewModel
 
             AddWagonCmd = new RelayCommand(() => AddWagon());
             DeleteWagonCmd = new RelayCommand(() => DeleteWagon());
-            EditVoyageCmd = new RelayCommand(() => EditVoyage());
+            EditVoyageCmd = new RelayCommand<TrainInfoWindow>(this.EditVoyage);
 
             Messenger.Default.Register<TrainInfoMessage>(this, (msg) =>
             {
@@ -138,7 +138,7 @@ namespace Railways.ViewModel
             ContextKeeper.Trains.Update(_trainToEdit);
             window.Close();
         }
-        private void EditVoyage()
+        private void EditVoyage(TrainInfoWindow window)
         {
             if (_trainToEdit == null) return;
             var voyage = VoyageBuilder.GetVoyageOfTrain(_trainToEdit.Id);
@@ -152,6 +152,7 @@ namespace Railways.ViewModel
             var voyageEditWin = new VoyageEditWindow();
             voyageEditWin.Show();
             Messenger.Default.Send(new TrainOfVoyageMessage(_trainToEdit.Id));
+            window.Close();
         }
 
     }
