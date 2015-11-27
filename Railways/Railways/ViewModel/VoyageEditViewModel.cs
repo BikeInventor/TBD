@@ -30,6 +30,11 @@ namespace Railways.ViewModel
         private String _distance;
 
         private ObservableCollection<Route> _obsRoutesOfVoyage;
+        public ObservableCollection<Route> ObsRoutesOfVoyage
+        {
+            get { return _obsRoutesOfVoyage; }
+            set { _obsRoutesOfVoyage = value; }
+        }
  
         public String TrainNum
         {
@@ -58,6 +63,7 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("DepartureDate");
             }
         }
+        
         public DateTime GenerateToDate
         {
             get { return _generateToDate; }
@@ -100,19 +106,28 @@ namespace Railways.ViewModel
             set
             {
                 _distance = value;
-                RaisePropertyChanged("ArrivalTimeDistance");
+                RaisePropertyChanged("Distance");
             }
         }
+
+        public RelayCommand AddRouteCmd { get; private set; }
+        public RelayCommand DeleteRouteCmd { get; private set; }
+        public RelayCommand<VoyageEditWindow> SaveVoyageInfoCmd { get; private set; }
         
         public VoyageEditViewModel()
         {
             ContextKeeper.Initialize();
             _obsRoutesOfVoyage = new ObservableCollection<Route>();
+            
+            AddRouteCmd = new RelayCommand(() => AddRouteToVoyage());
+            DeleteRouteCmd = new RelayCommand(() => DeleteRouteFromVoyage());
+            SaveVoyageInfoCmd = new RelayCommand<VoyageEditWindow>(this.SaveVoyageInfo);
 
             Messenger.Default.Register<TrainOfVoyageMessage>(this, (msg) =>
             {
                 SetVoyageInfo(msg.TrainId);
             });
+            
         }
 
         private void SetVoyageInfo(int trainId) 
@@ -122,12 +137,89 @@ namespace Railways.ViewModel
                 .Where(train => train.Id == trainId)
                 .Select(train => train.TrainNum)
                 .First();
-            this.Periodicity = this._voyage.Periodicity.ToString();
-            if (this._voyage.DepartureDateTime != null) 
-                this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
+            this.Periodicity = (this._voyage.Periodicity - 1).ToString();
+            this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
+            RefreshRoutesOfVoyage();
         }
 
+        private void RefreshRoutesOfVoyage()
+        {
+            this.ObsRoutesOfVoyage.Clear();
+            var routes = VoyageBuilder.GetRoutesOfVoyage(this._voyage.Id);
+            if (routes != null)
+            {
+                routes.ToList().ForEach(route => ObsRoutesOfVoyage.Add(route));
+            }            
+        }
 
+        private void AddRouteToVoyage()
+        {
+            if (String.IsNullOrEmpty(this.StationName) || String.IsNullOrEmpty(this.DepartureTime)
+                || String.IsNullOrEmpty(this.ArrivalTime) || String.IsNullOrEmpty(this.Distance))
+            {
+                return;
+            }
+            var newRoute = new Route();
+            newRoute.ArrivalTimeOffset = ParseTimeString(ArrivalTime);
+            newRoute.DepartureTimeOffset = ParseTimeString(DepartureTime);
+            newRoute.Distance = double.Parse(Distance);
+            newRoute.StationId = AddStation();
+            ContextKeeper.Routes.Add(newRoute);
+            VoyageBuilder.AddRouteToVoyage(_voyage.Id, newRoute.Id);
+            RefreshRoutesOfVoyage();
+            this.StationName = this.DepartureTime = this.ArrivalTime = this.Distance = null;
+        }
 
+        private void DeleteRouteFromVoyage()
+        {
+            if (_obsRoutesOfVoyage.Count != 0)
+            { 
+                VoyageBuilder.DeleteLastRouteOfVoyage(_voyage.Id);
+                RefreshRoutesOfVoyage();
+            }
+        }
+
+        private void SaveVoyageInfo(VoyageEditWindow window)
+        {
+            this._voyage.Periodicity = (byte?)(byte.Parse(this.Periodicity) + 1);
+            //this._voyage.DepartureDateTime = DateTime.ParseExact(
+            //    this.DepartureDate, 
+            //    "MM/dd/yyyy hh:mm:ss tt",
+            //    new System.Globalization.CultureInfo("en-US"));
+            this._voyage.DepartureDateTime = this.DepartureDate;
+            ContextKeeper.Voyages.Update(_voyage);
+            window.Close();
+        }
+
+        /// <summary>
+        /// Перевод строки с указаным временем в минуты.
+        /// </summary>
+        /// <param name="timeString"></param>
+        /// <returns></returns>
+        private int ParseTimeString(String timeString)
+        {
+            var time = TimeSpan.Parse(timeString);
+            var offset = time.Minutes + time.Hours * 60;
+            return offset;
+        }
+
+        /// <summary>
+        /// Проверка существования станции с заданным названием.
+        /// </summary>
+        /// <returns>Id станции, если существует. Id новой станции, если нет.</returns>
+        private int AddStation()
+        {
+            var station = ContextKeeper.Stations
+                .Where(_station => _station.StationName == StationName)
+                .Select(_station => _station).FirstOrDefault();
+            if (station == null)
+            {
+                var newStation = new Station();
+                newStation.StationName = StationName;
+                ContextKeeper.Stations.Add(newStation);
+                return newStation.Id;
+            }
+            return station.Id;
+        }
     }
 }

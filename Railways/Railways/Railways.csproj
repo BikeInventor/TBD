@@ -235,6 +235,7 @@
     <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
+    <Compile Include="ViewModel\Validation\StationValidation.cs" />
     <Compile Include="ViewModel\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />
     <Compile Include="View\TrainInfoWindow.xaml.cs">

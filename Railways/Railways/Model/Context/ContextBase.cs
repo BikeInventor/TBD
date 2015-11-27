@@ -59,8 +59,16 @@ namespace Railways.Model.Context
         /// </summary>
         public virtual void Add(TEntity entity)
         {
-            Repository.Add(entity);
-            ContextKeeper.DataBase.SaveChanges();
+            try
+            {
+                Repository.Add(entity);
+                ContextKeeper.DataBase.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e); 
+                throw; 
+            }
         }
 
         /// <summary>
@@ -77,7 +85,6 @@ namespace Railways.Model.Context
             _entity = entity;
 
             ContextKeeper.DataBase.Entry(_entity).State = EntityState.Modified;
-
             ContextKeeper.DataBase.SaveChanges();
         }
 
