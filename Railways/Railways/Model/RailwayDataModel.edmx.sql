@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/25/2015 22:51:38
--- Generated from EDMX file: D:\Work\TBD_CP\Railways\Railways\Model\RailwayDataModel.edmx
+-- Date Created: 11/28/2015 14:19:39
+-- Generated from EDMX file: D:\labs\TBD_CP\TBD\Railways\Railways\Model\RailwayDataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [D:\Work\TBD_CP\Railways\Railways\Model\RailwayDB.mdf];
+USE [D:\labs\TBD_CP\TBD\Railways\Railways\Model\RailwayDB.mdf];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -168,8 +168,8 @@ GO
 CREATE TABLE [dbo].[RouteSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Distance] float  NULL,
-    [DepartureTimeOffset] int  NULL,
-    [ArrivalTimeOffset] int  NULL,
+    [DepartureTimeOffset] datetime  NULL,
+    [ArrivalTimeOffset] datetime  NULL,
     [StationId] int  NULL
 );
 GO
@@ -290,6 +290,7 @@ ADD CONSTRAINT [FK_WagonWagon_Seat]
     REFERENCES [dbo].[WagonSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_WagonWagon_Seat'
 CREATE INDEX [IX_FK_WagonWagon_Seat]
@@ -304,6 +305,7 @@ ADD CONSTRAINT [FK_SeatWagon_Seat]
     REFERENCES [dbo].[SeatSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SeatWagon_Seat'
 CREATE INDEX [IX_FK_SeatWagon_Seat]
@@ -318,6 +320,7 @@ ADD CONSTRAINT [FK_TrainTrain_Wagon]
     REFERENCES [dbo].[TrainSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrainTrain_Wagon'
 CREATE INDEX [IX_FK_TrainTrain_Wagon]
@@ -332,6 +335,7 @@ ADD CONSTRAINT [FK_WagonTrain_Wagon]
     REFERENCES [dbo].[WagonSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_WagonTrain_Wagon'
 CREATE INDEX [IX_FK_WagonTrain_Wagon]
@@ -346,6 +350,7 @@ ADD CONSTRAINT [FK_TrainVoyage]
     REFERENCES [dbo].[TrainSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TrainVoyage'
 CREATE INDEX [IX_FK_TrainVoyage]
@@ -360,6 +365,7 @@ ADD CONSTRAINT [FK_RouteVoyage_Route]
     REFERENCES [dbo].[RouteSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RouteVoyage_Route'
 CREATE INDEX [IX_FK_RouteVoyage_Route]
@@ -374,6 +380,7 @@ ADD CONSTRAINT [FK_VoyageVoyage_Route]
     REFERENCES [dbo].[VoyageSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_VoyageVoyage_Route'
 CREATE INDEX [IX_FK_VoyageVoyage_Route]
@@ -388,6 +395,7 @@ ADD CONSTRAINT [FK_SeatTicket]
     REFERENCES [dbo].[SeatSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SeatTicket'
 CREATE INDEX [IX_FK_SeatTicket]
@@ -402,6 +410,7 @@ ADD CONSTRAINT [FK_ClientTicket]
     REFERENCES [dbo].[ClientSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ClientTicket'
 CREATE INDEX [IX_FK_ClientTicket]
@@ -416,6 +425,7 @@ ADD CONSTRAINT [FK_EmployeeTicket]
     REFERENCES [dbo].[EmployeeSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_EmployeeTicket'
 CREATE INDEX [IX_FK_EmployeeTicket]
@@ -430,6 +440,7 @@ ADD CONSTRAINT [FK_StationRoute]
     REFERENCES [dbo].[StationSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_StationRoute'
 CREATE INDEX [IX_FK_StationRoute]
@@ -444,6 +455,7 @@ ADD CONSTRAINT [FK_RouteTicket]
     REFERENCES [dbo].[RouteSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RouteTicket'
 CREATE INDEX [IX_FK_RouteTicket]
@@ -458,6 +470,7 @@ ADD CONSTRAINT [FK_RouteTicket1]
     REFERENCES [dbo].[RouteSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RouteTicket1'
 CREATE INDEX [IX_FK_RouteTicket1]

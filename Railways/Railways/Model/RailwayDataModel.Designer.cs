@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "D:\Work\TBD_CP\Railways\Railways\Model\RailwayDataModel.edmx" включено. 
+﻿// Создание кода T4 для модели "D:\labs\TBD_CP\TBD\Railways\Railways\Model\RailwayDataModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

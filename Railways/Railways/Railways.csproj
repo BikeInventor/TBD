@@ -172,6 +172,7 @@
     <Compile Include="Model\Context\VoyageContext.cs" />
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
+    <Compile Include="Model\Logic\VoyageSearchEngine.cs" />
     <Compile Include="Model\ModelBuilder\TripInfo.cs" />
     <Compile Include="Model\ModelBuilder\VoyageBuilder.cs" />
     <Compile Include="Model\Test\ModelTestingClass.cs" />
@@ -186,6 +187,7 @@
     </Compile>
     <Compile Include="Model\Logic\AdminFunctions.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\Converters\IdToStationNameConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToUserRoleConverter.cs" />
     <Compile Include="ViewModel\EmployeeInfoViewModel.cs" />
     <Compile Include="ViewModel\Converters\IntToWagonTypeConverter.cs" />
@@ -399,6 +401,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>RailwayDB.mdf</DependentUpon>
     </Content>
+    <Resource Include="View\Resources\left.png" />
+    <Resource Include="View\Resources\right.png" />
     <Resource Include="View\Resources\berth.png" />
     <Resource Include="View\Resources\coupe.png" />
     <Resource Include="View\Resources\lux.png" />

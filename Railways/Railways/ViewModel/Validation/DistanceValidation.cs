@@ -17,7 +17,7 @@ namespace Railways.ViewModel.Validation
             int distance;
             if (Int32.TryParse(value.ToString(), out distance))
             {
-                if (distance > 0 && distance < Int32.MaxValue)
+                if (distance >= 0 && distance < Int32.MaxValue)
                     return new ValidationResult(true, null);
             }
             return new ValidationResult(false, "Неверное значение расстояния!");

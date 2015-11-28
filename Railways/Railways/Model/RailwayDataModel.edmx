@@ -139,8 +139,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Distance" Type="float" Nullable="true" />
-    <Property Name="DepartureTimeOffset" Type="int" Nullable="true" />
-    <Property Name="ArrivalTimeOffset" Type="int" Nullable="true" />
+    <Property Name="DepartureTimeOffset" Type="datetime" Nullable="true" />
+    <Property Name="ArrivalTimeOffset" Type="datetime" Nullable="true" />
     <Property Name="StationId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="VoyageSet">
@@ -479,8 +479,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Distance" Type="Double" Nullable="true" />
-          <Property Name="DepartureTimeOffset" Type="Int32" Nullable="true" />
-          <Property Name="ArrivalTimeOffset" Type="Int32" Nullable="true" />
+          <Property Name="DepartureTimeOffset" Type="DateTime" Nullable="true" />
+          <Property Name="ArrivalTimeOffset" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Voyage_Route" Relationship="RailwayDataModel.RouteVoyage_Route" FromRole="Route" ToRole="Voyage_Route" />
           <NavigationProperty Name="Station" Relationship="RailwayDataModel.StationRoute" FromRole="Route" ToRole="Station" />
           <Property Name="StationId" Type="Int32" Nullable="true" />

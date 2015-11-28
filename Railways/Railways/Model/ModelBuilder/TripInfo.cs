@@ -27,6 +27,7 @@ namespace Railways.Model.ModelBuilder
         public Boolean isCoupeAvailible { get; private set; }
         public Boolean isLuxAvailible { get; private set; }
 
+
         /// <summary>
         /// Класс, предоставляющий информацию о конкретной поездке
         /// </summary>

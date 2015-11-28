@@ -23,11 +23,12 @@ namespace Railways.ViewModel
         private Voyage _voyage;
         private String _periodicity;
         private DateTime _departureDate;
-        private DateTime _generateToDate;
         private String _stationName;
         private String _arrivalTime;
         private String _departureTime;
         private String _distance;
+        private DateTime _departureOffset;
+        private DateTime _arrivalOffset;
 
         private ObservableCollection<Route> _obsRoutesOfVoyage;
         public ObservableCollection<Route> ObsRoutesOfVoyage
@@ -63,16 +64,7 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("DepartureDate");
             }
         }
-        
-        public DateTime GenerateToDate
-        {
-            get { return _generateToDate; }
-            set
-            {
-                _generateToDate = value;
-                RaisePropertyChanged("GenerateToDate");
-            }
-        }
+
         public String StationName
         {
             get { return _stationName; }
@@ -109,6 +101,16 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("Distance");
             }
         }
+        public DateTime DepartureOffset
+        {
+            get { return _departureOffset; }
+            set { _departureOffset = value; RaisePropertyChanged("DepartureOffset"); }
+        }
+        public DateTime ArrivalOffset
+        {
+            get { return _arrivalOffset; }
+            set { _arrivalOffset = value; RaisePropertyChanged("ArrivalOffset"); }
+        }
 
         public RelayCommand AddRouteCmd { get; private set; }
         public RelayCommand DeleteRouteCmd { get; private set; }
@@ -139,6 +141,8 @@ namespace Railways.ViewModel
                 .First();
             this.Periodicity = (this._voyage.Periodicity - 1).ToString();
             this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
+            this.DepartureOffset = this.DepartureDate;
+            this.ArrivalOffset = this.DepartureDate;
             RefreshRoutesOfVoyage();
         }
 
@@ -155,13 +159,15 @@ namespace Railways.ViewModel
         private void AddRouteToVoyage()
         {
             if (String.IsNullOrEmpty(this.StationName) || String.IsNullOrEmpty(this.DepartureTime)
-                || String.IsNullOrEmpty(this.ArrivalTime) || String.IsNullOrEmpty(this.Distance))
+                || String.IsNullOrEmpty(this.ArrivalTime) || String.IsNullOrEmpty(this.Distance)
+                || String.IsNullOrEmpty(DepartureOffset.ToString()) || String.IsNullOrEmpty(ArrivalOffset.ToString())
+                )
             {
                 return;
             }
             var newRoute = new Route();
-            newRoute.ArrivalTimeOffset = ParseTimeString(ArrivalTime);
-            newRoute.DepartureTimeOffset = ParseTimeString(DepartureTime);
+            newRoute.DepartureTimeOffset = DepartureOffset + TimeSpan.Parse(DepartureTime);
+            newRoute.ArrivalTimeOffset = ArrivalOffset + TimeSpan.Parse(ArrivalTime); 
             newRoute.Distance = double.Parse(Distance);
             newRoute.StationId = AddStation();
             ContextKeeper.Routes.Add(newRoute);
@@ -182,10 +188,6 @@ namespace Railways.ViewModel
         private void SaveVoyageInfo(VoyageEditWindow window)
         {
             this._voyage.Periodicity = (byte?)(byte.Parse(this.Periodicity) + 1);
-            //this._voyage.DepartureDateTime = DateTime.ParseExact(
-            //    this.DepartureDate, 
-            //    "MM/dd/yyyy hh:mm:ss tt",
-            //    new System.Globalization.CultureInfo("en-US"));
             this._voyage.DepartureDateTime = this.DepartureDate;
             ContextKeeper.Voyages.Update(_voyage);
             window.Close();

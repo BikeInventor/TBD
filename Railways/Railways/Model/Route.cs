@@ -23,8 +23,8 @@ namespace Railways.Model
     
         public int Id { get; set; }
         public Nullable<double> Distance { get; set; }
-        public Nullable<int> DepartureTimeOffset { get; set; }
-        public Nullable<int> ArrivalTimeOffset { get; set; }
+        public Nullable<System.DateTime> DepartureTimeOffset { get; set; }
+        public Nullable<System.DateTime> ArrivalTimeOffset { get; set; }
         public Nullable<int> StationId { get; set; }
     
         public virtual ICollection<VoyageRoute> Voyage_Route { get; set; }

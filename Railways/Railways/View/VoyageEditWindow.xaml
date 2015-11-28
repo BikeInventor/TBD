@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d" x:Class="Railways.View.VoyageEditWindow"
+     xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
      xmlns:admin="clr-namespace:Railways.ViewModel"
         Title="Рейс" 
         Name="VoyageWin"
@@ -14,10 +15,13 @@
         Width="900" 
         WindowStartupLocation="CenterScreen" 
         ResizeMode="NoResize" 
-        WindowStyle="None">
+        WindowStyle="None" Icon="Resources/RWLogo.png">
     <Window.DataContext>
         <admin:VoyageEditViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <conv:IdToStationNameConverter x:Key="IdToStationNameConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
@@ -27,11 +31,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="321*"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="384*"/>
             <RowDefinition Height="49*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="48*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
@@ -63,46 +66,37 @@
             	wpf:TextFieldAssist.HintOpacity="1"
             	wpf:TextFieldAssist.Hint="Дата отправления" 
             	Margin="50,0,0,0" 
-                
                 SelectedDate="{Binding DepartureDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                
-                
             	VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="185" Height="34" Foreground="Black" FontSize="16" Panel.ZIndex="3" HorizontalAlignment="Right"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" Text="Генерировать до " VerticalAlignment="Center" Width="142" Margin="400,0,0,0"/>
-            <DatePicker 
-        		wpf:TextFieldAssist.HintOpacity="1"
-        		wpf:TextFieldAssist.Hint="До заданной даты" 
-        		Margin="40,0,0,0" 
-        		HorizontalAlignment="Right" 
-        		VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="187" Height="34" Foreground="Black" FontSize="16"/>
+            <DatePicker/>
+            <Button Content="Button" Height="Auto" Width="75"/>
         </StackPanel>
         <ListView 
             ItemsSource="{Binding ObsRoutesOfVoyage}"
             Grid.Column="1" 
-            Grid.Row="3" SelectionChanged="ListView_SelectionChanged">
-            <ListView.View>  
+            Grid.Row="2" SelectionChanged="ListView_SelectionChanged">
+            <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Станция" DisplayMemberBinding="{Binding StationId}" Width = "200"/>
-                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTimeOffset}" Width = "150"/>
-                    <GridViewColumn Header="Время отправки" DisplayMemberBinding="{Binding DepartureTimeOffset}" Width = "150"/>
-                    <GridViewColumn Header="Расстояние до этой станции" DisplayMemberBinding="{Binding Distance}" Width = "250"/>
+                    <GridViewColumn Header="Станция" DisplayMemberBinding="{Binding StationId, Converter={StaticResource IdToStationNameConverter}}" Width = "250"/>
+                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTimeOffset}" Width = "200"/>
+                    <GridViewColumn Header="Время отправки" DisplayMemberBinding="{Binding DepartureTimeOffset}" Width = "200"/>
+                    <GridViewColumn Header="Расстояние" DisplayMemberBinding="{Binding Distance}" Width = "130"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Orientation="Horizontal" Width="787" Height="36">
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Orientation="Horizontal" Width="787" Height="36">
             <TextBox 
         		wpf:TextFieldAssist.HintOpacity="0.5"
         		wpf:TextFieldAssist.Hint="Станция" Background="Transparent" 
         		Height="36" 
         		TextWrapping="Wrap" 
-        		Width="200" Margin="0" 
+        		Width="240
+                " Margin="0,0,5,0" 
         		HorizontalAlignment="Center" 
         		VerticalAlignment="Center" 
                 BorderBrush="{DynamicResource AccentColorBrush4}" 
-                FontSize="16" Panel.ZIndex="1">
+                FontSize="16" Panel.ZIndex="1" MaxLines="1" MaxLength="100">
                 <TextBox.Text>
                     <Binding Path="StationName" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -111,48 +105,52 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-
             <TextBox 
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
             	Height="36" 
             	TextWrapping="Wrap" 
-            	Width="150" Margin="0" 
+            	Width="100" Margin="5,0,0,0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
-                <TextBox.Text>
-                    <Binding Path="ArrivalTime" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validation:TimeSpanValidation/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1" MaxLines="1" MaxLength="5">
+                <Binding Path="ArrivalTime" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TimeSpanValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox>
-            
+            <DatePicker 
+                Width=" 100" 
+                Background="{DynamicResource AccentColorBrush4}" 
+                SelectedDate="{Binding DepartureOffset, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Margin="0,0,5,0"/>
             <TextBox 
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="ЧЧ:ММ" Background="Transparent" 
             	Height="36" 
             	TextWrapping="Wrap" 
-            	Width="150" Margin="0" 
+            	Width="100" Margin="5,0,0,0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
-                <TextBox.Text>
-                    <Binding Path="DepartureTime" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validation:TimeSpanValidation/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1" MaxLines="1" MaxLength="5">
+                <Binding Path="DepartureTime" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TimeSpanValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox>
+            <DatePicker 
+                Width=" 100" 
+                SelectedDate="{Binding ArrivalOffset, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Background="{DynamicResource AccentColorBrush4}" 
+                Margin="0,0,5,0"/>
             <TextBox 
             	wpf:TextFieldAssist.HintOpacity="0.5"
             	wpf:TextFieldAssist.Hint="Расстояние" Background="Transparent" 
             	Height="36" 
             	TextWrapping="Wrap" 
-            	Width="284" Margin="0" 
+            	Width="116" Margin="5,0,0,0" 
             	HorizontalAlignment="Center" 
-            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1">
+            	VerticalAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush4}" FontSize="16" Panel.ZIndex="1" MaxLines="1" MaxLength="6">
                 <TextBox.Text>
                     <Binding Path="Distance" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -162,7 +160,7 @@
                 </TextBox.Text>
             </TextBox>
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="0,1,0,0" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Top" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" Margin="0,1,0,0" Grid.Row="4" VerticalAlignment="Top" Orientation="Horizontal" Height="32">
             <Button 
         		Content="Добавить" 
         		Command="{Binding AddRouteCmd}"
@@ -177,7 +175,7 @@
         	Command="{Binding SaveVoyageInfoCmd}"
         	CommandParameter="{Binding ElementName=VoyageWin}" 
         	Margin="630,10,0,0" 
-        	VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1" Grid.Column="1" Grid.Row="6"/>
+        	VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" RenderTransformOrigin="0.476,-1" Grid.Column="1" Grid.Row="5"/>
 
     </Grid>
 </Controls:MetroWindow>

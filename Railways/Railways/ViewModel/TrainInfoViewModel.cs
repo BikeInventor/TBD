@@ -146,8 +146,9 @@ namespace Railways.ViewModel
             {
                 var newVoyage = new Voyage();
                 newVoyage.DepartureDateTime = DateTime.Now;
+                newVoyage.TrainId = _trainToEdit.Id;
                 ContextKeeper.Voyages.Add(newVoyage);
-                VoyageBuilder.ConnectVoyageToTrain(newVoyage.Id, _trainToEdit.Id);             
+               // VoyageBuilder.ConnectVoyageToTrain(newVoyage.Id, _trainToEdit.Id);             
             }
             var voyageEditWin = new VoyageEditWindow();
             voyageEditWin.Show();
