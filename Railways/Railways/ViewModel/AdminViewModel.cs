@@ -115,6 +115,7 @@ namespace Railways.ViewModel
             RegisterTrainCmd = new RelayCommand(() => AddTrain());
             DeleteTrainCmd = new RelayCommand(() => DeleteTrain());
             EditTrainCmd = new RelayCommand(() => EditTrain());
+
         }
 
         /// <summary>
