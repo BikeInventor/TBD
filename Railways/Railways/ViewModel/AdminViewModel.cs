@@ -116,6 +116,10 @@ namespace Railways.ViewModel
             DeleteTrainCmd = new RelayCommand(() => DeleteTrain());
             EditTrainCmd = new RelayCommand(() => EditTrain());
 
+            //var t = new Ticket();
+            //t.DepartureDate = DateTime.Now.AddHours(3);
+            //t.ArrivalDate = DateTime.Now.AddHours(5);
+
         }
 
         /// <summary>

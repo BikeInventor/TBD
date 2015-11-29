@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        xmlns:admin="clr-namespace:Railways.ViewModel"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
+        Name="scheduleWin"
         Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
+    <Window.DataContext>
+        <admin:ScheduleWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
@@ -23,7 +28,8 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
 
             <TextBox 
-                wpf:TextFieldAssist.HintOpacity="0.8"
+                Text="{Binding StationFrom}"
+                wpf:TextFieldAssist.HintOpacity="0.5"
 			    wpf:TextFieldAssist.Hint="Откуда" Background="Transparent" 
                 HorizontalAlignment="Center" 
                 Height="36" TextWrapping="Wrap" 
@@ -34,7 +40,8 @@
                 FontSize="16"/>
 
             <TextBox 
-                wpf:TextFieldAssist.HintOpacity="0.8"
+                Text="{Binding StationTo}"
+                wpf:TextFieldAssist.HintOpacity="0.5"
 			    wpf:TextFieldAssist.Hint="Куда" Background="Transparent" 
                 Height="36" 
                 TextWrapping="Wrap" 
@@ -45,22 +52,31 @@
                 BorderBrush="{DynamicResource AccentColorBrush4}" 
                 FontSize="16"/>
 
-            <DatePicker 
-                wpf:TextFieldAssist.HintOpacity="1"
+            <DatePicker
+                SelectedDate="{Binding DesiredDepartureDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                wpf:TextFieldAssist.HintOpacity="0.5"
 			    wpf:TextFieldAssist.Hint="Когда" 
                 Margin="25,0,25,0"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" Background="{DynamicResource AccentColorBrush4}" Width="126" Height="34" Foreground="Black" FontSize="16"/>
             <Button 
+                Command="{Binding FindTrainsCmd}"
                 Content="Найти билеты" 
                 Width="136" Margin="75,0,0,0" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"/>
         </StackPanel>
-        <ListView Grid.Column="1" Grid.Row="2">
+        <ListView 
+            Grid.Column="1" 
+            Grid.Row="2"
+            ItemsSource="{Binding ObsTripInfo}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNumber}" Width = "170"/>
+                    <GridViewColumn Header="Станция отправления" DisplayMemberBinding="{Binding DepartureStation}" Width = "170"/>
+                    <GridViewColumn Header="Время отправления" DisplayMemberBinding="{Binding DepartureTime, StringFormat='dd-MM-yy hh:mm'}" Width = "170"/>
+                    <GridViewColumn Header="Станция прибытия" DisplayMemberBinding="{Binding ArrivalStation}" Width = "170"/>
+                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd-MM-yy hh:mm'}" Width = "170"/>
                 </GridView>
             </ListView.View>
         </ListView>

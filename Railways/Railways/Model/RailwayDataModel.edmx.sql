@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/28/2015 14:19:39
+-- Date Created: 11/29/2015 18:02:51
 -- Generated from EDMX file: D:\labs\TBD_CP\TBD\Railways\Railways\Model\RailwayDataModel.edmx
 -- --------------------------------------------------
 
@@ -199,7 +199,9 @@ CREATE TABLE [dbo].[TicketSet] (
     [EmployeeId] int  NULL,
     [Price] float  NULL,
     [DepartureRouteId] int  NULL,
-    [ArrivalRouteId] int  NULL
+    [ArrivalRouteId] int  NULL,
+    [DepartureDate] datetime  NULL,
+    [ArrivalDate] datetime  NULL
 );
 GO
 

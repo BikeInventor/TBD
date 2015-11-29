@@ -171,6 +171,8 @@
     <Property Name="Price" Type="float" Nullable="true" />
     <Property Name="DepartureRouteId" Type="int" Nullable="true" />
     <Property Name="ArrivalRouteId" Type="int" Nullable="true" />
+    <Property Name="DepartureDate" Type="datetime" Nullable="true" />
+    <Property Name="ArrivalDate" Type="datetime" Nullable="true" />
   </EntityType>
   <Association Name="WagonWagon_Seat">
     <End Role="Wagon" Type="RailwayDataModel.Store.WagonSet" Multiplicity="0..1" />
@@ -524,6 +526,8 @@
           <Property Name="DepartureRouteId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Route1" Relationship="RailwayDataModel.RouteTicket1" FromRole="Ticket" ToRole="Route" />
           <Property Name="ArrivalRouteId" Type="Int32" Nullable="true" />
+          <Property Name="DepartureDate" Type="DateTime" Nullable="true" />
+          <Property Name="ArrivalDate" Type="DateTime" Nullable="true" />
         </EntityType>
         <Association Name="WagonWagon_Seat">
           <End Type="RailwayDataModel.Wagon" Role="Wagon" Multiplicity="0..1" />
@@ -797,6 +801,8 @@
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="DepartureRouteId" ColumnName="DepartureRouteId" />
           <ScalarProperty Name="ArrivalRouteId" ColumnName="ArrivalRouteId" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

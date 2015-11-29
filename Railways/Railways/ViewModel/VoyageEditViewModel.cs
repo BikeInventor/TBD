@@ -140,6 +140,7 @@ namespace Railways.ViewModel
                 .Select(train => train.TrainNum)
                 .First();
             this.Periodicity = (this._voyage.Periodicity - 1).ToString();
+            if (this.Periodicity == null) this.Periodicity = 0.ToString();
             this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
             this.DepartureOffset = this.DepartureDate;
             this.ArrivalOffset = this.DepartureDate;

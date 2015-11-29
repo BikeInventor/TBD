@@ -17,8 +17,8 @@ namespace Railways.Model.ModelBuilder
         public String TrainNumber { get; private set; }
         public String DepartureStation { get; private set; }
         public String ArrivalStation { get; private set; }
-        public String DepartureTime { get; private set; }
-        public String ArrivalTime { get; private set; }
+        public DateTime DepartureTime { get; private set; }
+        public DateTime ArrivalTime { get; private set; }
         public String TripDuration { get; private set; }
         public Double BerthPrice { get; private set; }
         public Double CoupePrice { get; private set; }
@@ -26,15 +26,13 @@ namespace Railways.Model.ModelBuilder
         public Boolean isBerthAvailible { get; private set; }
         public Boolean isCoupeAvailible { get; private set; }
         public Boolean isLuxAvailible { get; private set; }
+        public int DateOffset { get; private set; }
 
 
         /// <summary>
         /// Класс, предоставляющий информацию о конкретной поездке
         /// </summary>
-        /// <param name="voyageId"></param>
-        /// <param name="depRouteId"></param>
-        /// <param name="arRouteId"></param>
-        public TripInfo(int voyageId, int depRouteId, int arRouteId)
+        public TripInfo(int voyageId, int depRouteId, int arRouteId, int dateOffset)
         {
             this._voyage = ContextKeeper.Voyages.First(v => v.Id == voyageId);
             this._depRoute = ContextKeeper.Routes.First(r => r.Id == depRouteId);
@@ -42,11 +40,22 @@ namespace Railways.Model.ModelBuilder
 
             this.TrainNumber = _voyage.Train.TrainNum;
             this.DepartureStation = _depRoute.Station.StationName;
-            this.ArrivalStation = _depRoute.Station.StationName;
+            this.ArrivalStation = _arRoute.Station.StationName;
 
-         //   this.ArrivalTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _arRoute.ArrivalTimeOffset);
-         //   this.DepartureTime = Utils.FormatDateOffset(_voyage.DepartureDateTime, _depRoute.ArrivalTimeOffset);
+            this.DepartureTime = ContextKeeper.Routes
+                .Where(r => r.Id == depRouteId)
+                .Select(r => r.DepartureTimeOffset.Value)
+                .First()
+                .AddDays(DateOffset);
 
+            this.ArrivalTime = ContextKeeper.Routes
+                .Where(r => r.Id == depRouteId)
+                .Select(r => r.ArrivalTimeOffset.Value)
+                .First();
+
+            this.ArrivalTime = this.ArrivalTime.AddDays(dateOffset);
+            this.DepartureTime = this.DepartureTime.AddDays(dateOffset);
+            
             CalculatePrice();
         }
 
@@ -81,9 +90,9 @@ namespace Railways.Model.ModelBuilder
         /// <param name="depRouteId">начальная точка маршрута</param>
         /// <param name="arRouteId">конечная точка маршрута</param>
         /// <returns></returns>
-        public static TripInfo BuildTripInfo(int voyageId, int depRouteId, int arRouteId)
+        public static TripInfo BuildTripInfo(int voyageId, int depRouteId, int arRouteId, int dateOffset)
         {
-            return new TripInfo(voyageId,depRouteId, arRouteId);
+            return new TripInfo(voyageId,depRouteId, arRouteId, dateOffset);
         }
     }
 }

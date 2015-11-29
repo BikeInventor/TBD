@@ -31,6 +31,40 @@
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="-10,0,10,0" Height="36" Grid.ColumnSpan="3" Grid.Row="1"/>
         <TabControl Grid.Column="1" HorizontalAlignment="Left" Width="820" Grid.Row="1" Margin="0,0,0,34">
+            <TabItem Header="Поезда" FontSize="16">
+                <Grid Background="White" Margin="0,0,0,-24">
+                    <ListView HorizontalAlignment="Left" 
+            			Width="810"
+            			ItemsSource="{Binding TrainList}" Margin="0,0,0,100"
+            			SelectedIndex="{Binding TrainSelectedIndex}" Height="330" VerticalAlignment="Bottom"
+                              >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width = "300"/>
+                                <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNum}" Width = "502"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Separator Height="30" Margin="0,376,0,0" VerticalAlignment="Top"/>
+                    <Button  Command ="{Binding RegisterTrainCmd}" HorizontalAlignment="Left" Margin="10,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Добавить"/>
+                    <Button Content="Удалить"  Command ="{Binding DeleteTrainCmd}" HorizontalAlignment="Left" Margin="600,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal"/>
+                    <Button  Command ="{Binding EditTrainCmd}" HorizontalAlignment="Left" Margin="300,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Редактировать" RenderTransformOrigin="-0.075,0.766"/>
+                    <TextBox 
+            			wpf:TextFieldAssist.HintOpacity="0.5"
+            			wpf:TextFieldAssist.Hint="Быстрый поиск..." Background="Transparent" Margin="40,0,0,435" 
+            			x:Name="TrainSearchString"
+            			TextWrapping="Wrap" 
+            			FontSize="16" 
+            			BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <cmd:EventToCommand Command="{Binding TrainSearchStringChangedCmd}" CommandParameter="{Binding ElementName=TrainSearchString}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,438" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Сотрудники" FontSize="16">
                 <Grid Background="White" Margin="0,-2,0,-36">
                     <Grid.ColumnDefinitions>
@@ -56,7 +90,7 @@
                     <TextBox 
                         wpf:TextFieldAssist.HintOpacity="0.5"
 			            wpf:TextFieldAssist.Hint="Быстрый поиск..." Background="Transparent" Margin="40,0,0,447" 
-                        Name="EmployeeSearchString"
+                        x:Name="EmployeeSearchString"
                         TextWrapping="Wrap" 
                         FontSize="16" 
                         BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
@@ -67,40 +101,6 @@
                         </i:Interaction.Triggers>
                     </TextBox>
                     <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,450" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Поезда" FontSize="16">
-                <Grid Background="White" Margin="0,0,0,-24">
-                    <ListView HorizontalAlignment="Left" 
-                              Width="810"
-                              ItemsSource="{Binding TrainList}" Margin="0,0,0,100"
-                              SelectedIndex="{Binding TrainSelectedIndex}" Height="330" VerticalAlignment="Bottom"
-                              >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width = "300"/>
-                                <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNum}" Width = "502"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Separator Height="30" Margin="0,376,0,0" VerticalAlignment="Top"/>
-                    <Button  Command ="{Binding RegisterTrainCmd}" HorizontalAlignment="Left" Margin="10,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Добавить"/>
-                    <Button Content="Удалить"  Command ="{Binding DeleteTrainCmd}" HorizontalAlignment="Left" Margin="600,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal"/>
-                    <Button  Command ="{Binding EditTrainCmd}" HorizontalAlignment="Left" Margin="300,414,0,0" VerticalAlignment="Top" Width="200" Height="47" FontSize="18" FontWeight="Normal" Content="Редактировать" RenderTransformOrigin="-0.075,0.766"/>
-                    <TextBox 
-                    	wpf:TextFieldAssist.HintOpacity="0.5"
-                    	wpf:TextFieldAssist.Hint="Быстрый поиск..." Background="Transparent" Margin="40,0,0,435" 
-                    	x:Name="TrainSearchString"
-                    	TextWrapping="Wrap" 
-                    	FontSize="16" 
-                    	BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <cmd:EventToCommand Command="{Binding TrainSearchStringChangedCmd}" CommandParameter="{Binding ElementName=TrainSearchString}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,438" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
                 </Grid>
             </TabItem>
         </TabControl>

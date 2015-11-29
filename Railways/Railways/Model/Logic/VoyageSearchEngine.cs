@@ -1,4 +1,5 @@
 ﻿using Railways.Model.Context;
+using Railways.Model.ModelBuilder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,62 +10,87 @@ namespace Railways.Model.Logic
 {
     public static class VoyageSearchEngine
     {
-        public static void FindVoyages(String depStationName, String arrStationName, DateTime depDate)
+
+        private static List<TripInfo> suitableTrains = new List<TripInfo>();
+
+        public static List<TripInfo> FindVoyages(String depStationName, String arrStationName, DateTime depDate)
         {
-            //var voyagesForThisDate = ContextKeeper.Voyages.Where(v => v.DepartureDateTime == depDate);
+            suitableTrains.Clear();
+
+            //Ищем id станций отправления и прибытия по их названиям
             var depStation = ContextKeeper.Stations.Where(station => station.StationName == depStationName).FirstOrDefault();
             var arrStation = ContextKeeper.Stations.Where(station => station.StationName == arrStationName).FirstOrDefault();
 
-            var depRoutes = ContextKeeper.Routes.Where(route => route.StationId == depStation.Id);
-            var depRoutesIds = depRoutes.Select(dr => dr.Id).ToList();
+            //Ищем id всех точек маршрута со станций отправления
+            var depRoutesIds = ContextKeeper.Routes
+                .Where(route => route.StationId == depStation.Id)
+                .Select(dr => dr.Id)
+                .ToList();
 
-            var arrRoutes = ContextKeeper.Routes.Where(route => route.StationId == arrStation.Id);
-            var arrRoutesIds = arrRoutes.Select(ar => ar.Id).ToList();
+            //Ищем id всех точек маршрута со станций прибытия
+            var arrRoutesIds = ContextKeeper.Routes
+                .Where(route => route.StationId == arrStation.Id)
+                .Select(ar => ar.Id)
+                .ToList();
             
+            //Ищем рейсы, в которых есть точки прибытия со станцией отправления
             var depVoyages = ContextKeeper.VoyageRoutes
                 .Where(vr => depRoutesIds.Contains((int)vr.RouteId))
                 .Select(vr => vr.VoyageId)
                 .ToList();
 
+            //Ищем рейсы, в которых есть точки прибытия со станцией прибытия
             var arrVoyages = ContextKeeper.VoyageRoutes
                 .Where(av => arrRoutesIds.Contains((int)av.RouteId))
                 .Select(av => av.VoyageId)
                 .ToList();
 
-            var bothVoyages = ContextKeeper.Voyages
-                .Where(voyage => (depVoyages.Contains(voyage.Id) && arrVoyages.Contains(voyage.Id)));
+            //Ищем рейсы, где есть обе точки
+            var bothVoyagesIds = ContextKeeper.Voyages
+                .Where(voyage => (depVoyages.Contains(voyage.Id) && arrVoyages.Contains(voyage.Id)))
+                .Select(v => v.Id).ToList();
 
-            var bothVoyagesIds = bothVoyages.Select(v => v.Id).ToList();
-
+            //Отсеиваем рейсы, у которых станции идут в неправильном порядке (ст. прибытия раньше ст. отправления)
+            //И рейсы с неподходящей датой
             var rightOrderVoyageIds = bothVoyagesIds.Where(vId =>
             {
-                 var voyageRoutesOfVoyage = ContextKeeper.VoyageRoutes.Where(vr => vr.VoyageId == vId);
-                 var routeIds = voyageRoutesOfVoyage.Select(vr => vr.RouteId);
+                // Ищем все маршруты для рейса c id vId
+                 var routeIds = ContextKeeper.VoyageRoutes
+                     .Where(vr => vr.VoyageId == vId)
+                     .Select(vr => vr.RouteId);
 
-                 int arrRouteId = ContextKeeper.Routes
+                // Ищем точку маршрута со станцией отправления
+                 var arrRoute = ContextKeeper.Routes
                      .Where(r => r.StationId == arrStation.Id)
                      .Where(r => routeIds.Contains(r.Id))
-                     .Select(r => r.Id)
                      .First();
 
-                 int depRouteId = ContextKeeper.Routes
+                // Ищем точку маршрута со станцией прибытия
+                 var depRoute = ContextKeeper.Routes
                      .Where(r => r.StationId == depStation.Id)
                      .Where(r => routeIds.Contains(r.Id))
-                     .Select(r => r.Id)
                      .First();
 
-                 if (depRouteId < arrRouteId) return true;
+                // Рейс подходит, если маршут отправления стоит раньше прибытия
+                 if (depRoute.Id > arrRoute.Id) return false;
+
+                // Ищем раницу (в днях) между желаемой датой отправки и датой отправки в текущем проверяемом рейсе
+                 var dateDifference = depDate.Date.Subtract(depRoute.DepartureTimeOffset.Value.Date).Days;
+
+                // Достаем саму поездку по ее Id
+                 var voyage = ContextKeeper.Voyages.Where(v => v.Id == vId).First();
+
+                // Рейс подходит, если разница в датах делится на периодичность рейса без остатка
+                 if (dateDifference % voyage.Periodicity == 0)
+                 {
+                     suitableTrains.Add(TripInfo.BuildTripInfo(vId, depRoute.Id, arrRoute.Id, dateDifference));
+                     return true;
+                 }
                  else return false;
              })
              .ToList();
 
-            var goodTrainsIds = ContextKeeper.Voyages.Where(v => rightOrderVoyageIds.Contains(v.Id)).Select(v => v.TrainId).ToList();
-
-            var goodTrains = ContextKeeper.Trains.Where(t => goodTrainsIds.Contains(t.Id)).ToList();
-
-            Console.WriteLine("ПОДОШЛИ ВОЯДЖИ ПОЕЗДОВ:");
-            goodTrains.ForEach(t => Console.WriteLine(t.TrainNum));
-
+            return suitableTrains;
         }
     }
 }

@@ -232,20 +232,37 @@ namespace Railways.Model.ModelBuilder
             return ContextKeeper.Tickets.Where(t => t.SeatId == seatId);
         }
 
-        //public bool SeatIsFree(IQueryable<Ticket> ticketsOfSeat, Route neededArrRoute, Route neededDepRoute)
-        //{
-        //    ticketsOfSeat.ToList().ForEach(ticket => 
-        //    {
-        //        var arrRoute = ticket.Route;
-        //        var depRoute = ticket.Route1;
+        public static bool CheckSeatAvailibility(int seatId, DateTime depDate, DateTime arrDate)
+        {
+            var ticketsOfThisSeat = ContextKeeper.Tickets.Where(t => t.SeatId == seatId).ToList();
 
-        //        var voyageRoute = 
+            if (ticketsOfThisSeat == null) return true;
+            
+            var ticketsOfThisDate = new List<Ticket>();
+            ticketsOfThisSeat.ForEach(t => 
+            {
+                if ((t.DepartureDate.Value.Date == depDate.Date) && (t.ArrivalDate.Value.Date == arrDate.Date))
+                {
+                    ticketsOfThisDate.Add(t);
+                }
+            });
 
-        //        //var voyage = ContextKeeper.Voyages.Where(voyage => voyage.
-                
-        //    });
-        //}
+            if (ticketsOfThisSeat.Count == 0) return true;
 
+            bool isAnyOverlaps = ticketsOfThisDate
+                .Any(t =>
+            {
+                if ((t.ArrivalDate > depDate) && (t.DepartureDate < arrDate))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+            return !isAnyOverlaps;
+        }
     }
 }
 

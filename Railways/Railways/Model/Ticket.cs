@@ -21,6 +21,8 @@ namespace Railways.Model
         public Nullable<double> Price { get; set; }
         public Nullable<int> DepartureRouteId { get; set; }
         public Nullable<int> ArrivalRouteId { get; set; }
+        public Nullable<System.DateTime> DepartureDate { get; set; }
+        public Nullable<System.DateTime> ArrivalDate { get; set; }
     
         public virtual Seat Seat { get; set; }
         public virtual Client Client { get; set; }
