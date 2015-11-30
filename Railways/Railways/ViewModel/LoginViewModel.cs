@@ -40,7 +40,7 @@ namespace Railways.ViewModel
         /// </summary>
         /// <param name="id"></param>
         /// <param name="password"></param>
-        public async void TryLogin(object pBox)
+        public void TryLogin(object pBox)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Railways.ViewModel
                     if (!_isConnected) return;
                 }
 
-                if (CorrectAuthInfo(int.Parse(Id), password) && String.IsNullOrEmpty(this.Id))
+                if (CorrectAuthInfo(int.Parse(Id), password) && !String.IsNullOrEmpty(this.Id))
                 {
                     LogIn(int.Parse(Id));
                 }

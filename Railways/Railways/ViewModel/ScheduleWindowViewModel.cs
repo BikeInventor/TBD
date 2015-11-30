@@ -48,26 +48,39 @@ namespace Railways.ViewModel
             set { _desiredDepartureDate = value; }
         }
 
+        public int SelectedTrip { get; set; }
+
         public ScheduleWindowViewModel() 
         {
             ContextKeeper.Initialize();
             _obsTripInfo = new ObservableCollection<TripInfo>();
             FindTrainsCmd = new RelayCommand(this.FindTrains);
+            OpenTripCmd = new RelayCommand(this.OpenTrip);
             this.DesiredDepartureDate = DateTime.Now.AddDays(1);
         }
 
         public RelayCommand FindTrainsCmd { get; private set; }
+
+        public RelayCommand OpenTripCmd { get; private set; }
 
         private void FindTrains()
         {
             var suitableVoyages = VoyageSearchEngine.FindVoyages(StationFrom, StationTo, DesiredDepartureDate);
             ObsTripInfo.Clear();
             suitableVoyages.ForEach(v => ObsTripInfo.Add(v));
+        }
 
-            if (ObsTripInfo.Count != 0)
+        private void OpenTrip()
+        {
+            if (this.SelectedTrip >= 0)
             {
-                var isFree = TrainBuilder.CheckSeatAvailibility(33, ObsTripInfo[0].ArrivalTime, ObsTripInfo[0].DepartureTime);
-                Console.WriteLine(isFree);
+                var wagonsInfoWin = new SeatSetWindow();
+                wagonsInfoWin.Show();
+
+                Messenger.Default.Send(new TripInfoMessage(ObsTripInfo[SelectedTrip].TrainId,
+                    ObsTripInfo[SelectedTrip].DepartureTime,
+                    ObsTripInfo[SelectedTrip].ArrivalTime));
+
             }
         }
     }

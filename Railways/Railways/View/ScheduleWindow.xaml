@@ -69,6 +69,7 @@
         <ListView 
             Grid.Column="1" 
             Grid.Row="2"
+            SelectedIndex="{Binding SelectedTrip}"
             ItemsSource="{Binding ObsTripInfo}">
             <ListView.View>
                 <GridView>
@@ -81,6 +82,7 @@
             </ListView.View>
         </ListView>
         <Button 
+            Command="{Binding OpenTripCmd}"
         	Content="Выбрать" 
         	Width="136" Margin="712,12,10,10" 
         	HorizontalAlignment="Center" 

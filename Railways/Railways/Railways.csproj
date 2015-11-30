@@ -173,7 +173,7 @@
     <Compile Include="Model\Context\WagonContext.cs" />
     <Compile Include="Model\Context\WagonSeatContext.cs" />
     <Compile Include="Model\Logic\VoyageSearchEngine.cs" />
-    <Compile Include="Model\ModelBuilder\BerthSeatsSet.cs" />
+    <Compile Include="Model\ModelBuilder\WagonSeatsSet.cs" />
     <Compile Include="Model\ModelBuilder\TripInfo.cs" />
     <Compile Include="Model\ModelBuilder\VoyageBuilder.cs" />
     <Compile Include="Model\Test\ModelTestingClass.cs" />
@@ -237,7 +237,9 @@
     </Compile>
     <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
+    <Compile Include="ViewModel\Messages\TripInfoMessage.cs" />
     <Compile Include="ViewModel\ScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\SeatSetViewModel.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\Validation\IdValidation.cs" />
     <Compile Include="ViewModel\Validation\DistanceValidation.cs" />

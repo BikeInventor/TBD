@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="Railways.View.SeatSeatWindow"
+﻿<Controls:MetroWindow x:Class="Railways.View.SeatSetWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -11,16 +11,16 @@
         Name="seatWin"
         Title="Выбор места" Height="620.5" Width="955.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
-        <admin:TrainInfoViewModel/>
+        <admin:SeatSetViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <conv:IntToWagonTypeConverter x:Key="IntToWagonTypeConverter" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="921*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="464*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="97*"/>
@@ -36,30 +36,172 @@
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/berth.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,0" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
-                        <Button Content="Button" d:LayoutOverrides="Height" HorizontalAlignment="Left" Margin="325,0,50,0"/>
-                        <Button Content="Button" d:LayoutOverrides="Height" HorizontalAlignment="Right" Margin="50,0,0,0"/>
+                        <Button Command ="{Binding NextBerthCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
+                            <Button.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Command ="{Binding PrevBerthCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                        </Button>
                     </StackPanel>
+                    <Button Content="1" Opacity="{Binding BerthSeatsVisibility[0]}"  HorizontalAlignment="Left" Margin="216,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="2" Opacity="{Binding BerthSeatsVisibility[1]}"  HorizontalAlignment="Left" Margin="216,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="3" Opacity="{Binding BerthSeatsVisibility[2]}"  HorizontalAlignment="Left" Margin="258,179,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="4" Opacity="{Binding BerthSeatsVisibility[3]}"  HorizontalAlignment="Left" Margin="258,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="5" Opacity="{Binding BerthSeatsVisibility[4]}"  HorizontalAlignment="Left" Margin="278,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="6" Opacity="{Binding BerthSeatsVisibility[5]}"  HorizontalAlignment="Left" Margin="278,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="7" Opacity="{Binding BerthSeatsVisibility[6]}"  HorizontalAlignment="Left" Margin="318,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="8" Opacity="{Binding BerthSeatsVisibility[7]}"  HorizontalAlignment="Left" Margin="318,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="9" Opacity="{Binding BerthSeatsVisibility[8]}"  HorizontalAlignment="Left" Margin="339,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="10" Opacity="{Binding BerthSeatsVisibility[9]}"  HorizontalAlignment="Left" Margin="339,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="11" Opacity="{Binding BerthSeatsVisibility[10]}"  HorizontalAlignment="Left" Margin="379,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="12" Opacity="{Binding BerthSeatsVisibility[11]}"  HorizontalAlignment="Left" Margin="379,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="13" Opacity="{Binding BerthSeatsVisibility[12]}"  HorizontalAlignment="Left" Margin="400,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="14" Opacity="{Binding BerthSeatsVisibility[13]}"  HorizontalAlignment="Left" Margin="400,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="15" Opacity="{Binding BerthSeatsVisibility[14]}"  HorizontalAlignment="Left" Margin="440,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="16" Opacity="{Binding BerthSeatsVisibility[15]}"  HorizontalAlignment="Left" Margin="440,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="17" Opacity="{Binding BerthSeatsVisibility[16]}"  HorizontalAlignment="Left" Margin="461,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="18" Opacity="{Binding BerthSeatsVisibility[17]}"  HorizontalAlignment="Left" Margin="461,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="19" Opacity="{Binding BerthSeatsVisibility[18]}"  HorizontalAlignment="Left" Margin="501,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="20" Opacity="{Binding BerthSeatsVisibility[19]}"  HorizontalAlignment="Left" Margin="501,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="21" Opacity="{Binding BerthSeatsVisibility[20]}"  HorizontalAlignment="Left" Margin="522,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="22" Opacity="{Binding BerthSeatsVisibility[21]}"  HorizontalAlignment="Left" Margin="522,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="23" Opacity="{Binding BerthSeatsVisibility[22]}"  HorizontalAlignment="Left" Margin="562,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="24" Opacity="{Binding BerthSeatsVisibility[23]}"  HorizontalAlignment="Left" Margin="562,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="25" Opacity="{Binding BerthSeatsVisibility[24]}"  HorizontalAlignment="Left" Margin="583,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="26" Opacity="{Binding BerthSeatsVisibility[25]}"  HorizontalAlignment="Left" Margin="583,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="27" Opacity="{Binding BerthSeatsVisibility[26]}"  HorizontalAlignment="Left" Margin="623,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="28" Opacity="{Binding BerthSeatsVisibility[27]}"  HorizontalAlignment="Left" Margin="623,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="29" Opacity="{Binding BerthSeatsVisibility[28]}"  HorizontalAlignment="Left" Margin="642,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="30" Opacity="{Binding BerthSeatsVisibility[29]}"  HorizontalAlignment="Left" Margin="642,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="31" Opacity="{Binding BerthSeatsVisibility[30]}"  HorizontalAlignment="Left" Margin="683,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="32" Opacity="{Binding BerthSeatsVisibility[31]}"  HorizontalAlignment="Left" Margin="683,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="33" Opacity="{Binding BerthSeatsVisibility[32]}"  HorizontalAlignment="Left" Margin="703,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="34" Opacity="{Binding BerthSeatsVisibility[33]}"  HorizontalAlignment="Left" Margin="703,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="35" Opacity="{Binding BerthSeatsVisibility[34]}"  HorizontalAlignment="Left" Margin="744,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="36" Opacity="{Binding BerthSeatsVisibility[35]}"  HorizontalAlignment="Left" Margin="744,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="37" Opacity="{Binding BerthSeatsVisibility[36]}"  HorizontalAlignment="Left" Margin="705,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="38" Opacity="{Binding BerthSeatsVisibility[37]}"  HorizontalAlignment="Left" Margin="723,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="39" Opacity="{Binding BerthSeatsVisibility[38]}"  HorizontalAlignment="Left" Margin="644,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="40" Opacity="{Binding BerthSeatsVisibility[39]}"  HorizontalAlignment="Left" Margin="662,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="41" Opacity="{Binding BerthSeatsVisibility[40]}"  HorizontalAlignment="Left" Margin="584,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="42" Opacity="{Binding BerthSeatsVisibility[41]}"  HorizontalAlignment="Left" Margin="602,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="43" Opacity="{Binding BerthSeatsVisibility[42]}"  HorizontalAlignment="Left" Margin="523,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="44" Opacity="{Binding BerthSeatsVisibility[43]}"  HorizontalAlignment="Left" Margin="541,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="45" Opacity="{Binding BerthSeatsVisibility[44]}"  HorizontalAlignment="Left" Margin="462,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="46" Opacity="{Binding BerthSeatsVisibility[45]}"  HorizontalAlignment="Left" Margin="480,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="47" Opacity="{Binding BerthSeatsVisibility[46]}"  HorizontalAlignment="Left" Margin="401,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="48" Opacity="{Binding BerthSeatsVisibility[47]}"  HorizontalAlignment="Left" Margin="419,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="49" Opacity="{Binding BerthSeatsVisibility[48]}"  HorizontalAlignment="Left" Margin="340,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="50" Opacity="{Binding BerthSeatsVisibility[49]}"  HorizontalAlignment="Left" Margin="358,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="51" Opacity="{Binding BerthSeatsVisibility[50]}"  HorizontalAlignment="Left" Margin="279,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="52" Opacity="{Binding BerthSeatsVisibility[51]}"  HorizontalAlignment="Left" Margin="296,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="53" Opacity="{Binding BerthSeatsVisibility[52]}"  HorizontalAlignment="Left" Margin="217,222,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="54" Opacity="{Binding BerthSeatsVisibility[53]}"  HorizontalAlignment="Left" Margin="234,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Купе">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="473*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/coupe.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
+                    <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
+                        <Button Content="" Height="45" Width="50" Margin="385,0,0,0">
+                            <Button.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                    <Button Content="1" Opacity="{Binding CoupeSeatsVisibility[0]}"  HorizontalAlignment="Left" Margin="215,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="2" Opacity="{Binding CoupeSeatsVisibility[1]}"  HorizontalAlignment="Left" Margin="215,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="3" Opacity="{Binding CoupeSeatsVisibility[2]}"  HorizontalAlignment="Left" Margin="258,179,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="4" Opacity="{Binding CoupeSeatsVisibility[3]}"  HorizontalAlignment="Left" Margin="258,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="5" Opacity="{Binding CoupeSeatsVisibility[4]}"  HorizontalAlignment="Left" Margin="276,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="6" Opacity="{Binding CoupeSeatsVisibility[5]}"  HorizontalAlignment="Left" Margin="276,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="7" Opacity="{Binding CoupeSeatsVisibility[6]}"  HorizontalAlignment="Left" Margin="318,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="8" Opacity="{Binding CoupeSeatsVisibility[7]}"  HorizontalAlignment="Left" Margin="318,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="9" Opacity="{Binding CoupeSeatsVisibility[8]}"  HorizontalAlignment="Left" Margin="337,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="10" Opacity="{Binding CoupeSeatsVisibility[9]}"  HorizontalAlignment="Left" Margin="337,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="11" Opacity="{Binding CoupeSeatsVisibility[10]}"  HorizontalAlignment="Left" Margin="379,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="12" Opacity="{Binding CoupeSeatsVisibility[11]}"  HorizontalAlignment="Left" Margin="379,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="13" Opacity="{Binding CoupeSeatsVisibility[12]}"  HorizontalAlignment="Left" Margin="398,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="14" Opacity="{Binding CoupeSeatsVisibility[13]}"  HorizontalAlignment="Left" Margin="398,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="15" Opacity="{Binding CoupeSeatsVisibility[14]}"  HorizontalAlignment="Left" Margin="440,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="16" Opacity="{Binding CoupeSeatsVisibility[15]}"  HorizontalAlignment="Left" Margin="440,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="17" Opacity="{Binding CoupeSeatsVisibility[16]}"  HorizontalAlignment="Left" Margin="459,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="18" Opacity="{Binding CoupeSeatsVisibility[17]}"  HorizontalAlignment="Left" Margin="459,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="19" Opacity="{Binding CoupeSeatsVisibility[18]}"  HorizontalAlignment="Left" Margin="501,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="20" Opacity="{Binding CoupeSeatsVisibility[19]}"  HorizontalAlignment="Left" Margin="501,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="21" Opacity="{Binding CoupeSeatsVisibility[20]}"  HorizontalAlignment="Left" Margin="520,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="22" Opacity="{Binding CoupeSeatsVisibility[21]}"  HorizontalAlignment="Left" Margin="520,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="23" Opacity="{Binding CoupeSeatsVisibility[22]}"  HorizontalAlignment="Left" Margin="562,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="24" Opacity="{Binding CoupeSeatsVisibility[23]}"  HorizontalAlignment="Left" Margin="562,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="25" Opacity="{Binding CoupeSeatsVisibility[24]}"  HorizontalAlignment="Left" Margin="581,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="26" Opacity="{Binding CoupeSeatsVisibility[25]}"  HorizontalAlignment="Left" Margin="581,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="27" Opacity="{Binding CoupeSeatsVisibility[26]}"  HorizontalAlignment="Left" Margin="623,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="28" Opacity="{Binding CoupeSeatsVisibility[27]}"  HorizontalAlignment="Left" Margin="623,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="29" Opacity="{Binding CoupeSeatsVisibility[28]}"  HorizontalAlignment="Left" Margin="642,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="30" Opacity="{Binding CoupeSeatsVisibility[29]}"  HorizontalAlignment="Left" Margin="642,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="31" Opacity="{Binding CoupeSeatsVisibility[30]}"  HorizontalAlignment="Left" Margin="684,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="32" Opacity="{Binding CoupeSeatsVisibility[31]}"  HorizontalAlignment="Left" Margin="684,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="33" Opacity="{Binding CoupeSeatsVisibility[32]}"  HorizontalAlignment="Left" Margin="703,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="34" Opacity="{Binding CoupeSeatsVisibility[33]}"  HorizontalAlignment="Left" Margin="703,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="35" Opacity="{Binding CoupeSeatsVisibility[34]}"  HorizontalAlignment="Left" Margin="744,179,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="36" Opacity="{Binding CoupeSeatsVisibility[35]}"  HorizontalAlignment="Left" Margin="744,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="37" Opacity="{Binding CoupeSeatsVisibility[36]}"  HorizontalAlignment="Left" Margin="197,179,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="38" Opacity="{Binding CoupeSeatsVisibility[37]}"  HorizontalAlignment="Left" Margin="197,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Люкс">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="475*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/lux.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
+                    <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
+                        <Button Command ="{Binding NextBerthCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
+                            <Button.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Command ="{Binding PrevBerthCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                    <Button Content="1" Opacity="{Binding LuxSeatsVisibility[0]}"  HorizontalAlignment="Left" Margin="171,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="2" Opacity="{Binding LuxSeatsVisibility[1]}"  HorizontalAlignment="Left" Margin="213,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="3" Opacity="{Binding LuxSeatsVisibility[2]}"  HorizontalAlignment="Left" Margin="232,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="4" Opacity="{Binding LuxSeatsVisibility[3]}"  HorizontalAlignment="Left" Margin="275,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="5" Opacity="{Binding LuxSeatsVisibility[4]}"  HorizontalAlignment="Left" Margin="293,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="6" Opacity="{Binding LuxSeatsVisibility[5]}"  HorizontalAlignment="Left" Margin="336,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="7" Opacity="{Binding LuxSeatsVisibility[6]}"  HorizontalAlignment="Left" Margin="354,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="8" Opacity="{Binding LuxSeatsVisibility[7]}"  HorizontalAlignment="Left" Margin="397,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="9" Opacity="{Binding LuxSeatsVisibility[8]}"  HorizontalAlignment="Left" Margin="415,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="10" Opacity="{Binding LuxSeatsVisibility[9]}"  HorizontalAlignment="Left" Margin="458,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="11" Opacity="{Binding LuxSeatsVisibility[10]}"  HorizontalAlignment="Left" Margin="475,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="12" Opacity="{Binding LuxSeatsVisibility[11]}"  HorizontalAlignment="Left" Margin="519,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="13" Opacity="{Binding LuxSeatsVisibility[12]}"  HorizontalAlignment="Left" Margin="537,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="14" Opacity="{Binding LuxSeatsVisibility[13]}"  HorizontalAlignment="Left" Margin="580,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="15" Opacity="{Binding LuxSeatsVisibility[14]}"  HorizontalAlignment="Left" Margin="598,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="16" Opacity="{Binding LuxSeatsVisibility[15]}"  HorizontalAlignment="Left" Margin="640,164,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="17" Opacity="{Binding LuxSeatsVisibility[16]}"  HorizontalAlignment="Left" Margin="659,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
+                    <Button Content="18" Opacity="{Binding LuxSeatsVisibility[17]}"  HorizontalAlignment="Left" Margin="702,164,0,0" VerticalAlignment="Top" Width="13" Height="12" Background="#FF5F2D1E" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="79" Width="910" Grid.Column="1"/>
-        <Button Content="Выбрать" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
+        <!--<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="79" Width="910" Grid.Column="1"/>-->
+        <Button Content="{Binding TrainInfo}" FontSize ="16" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
 
     </Grid>
 </Controls:MetroWindow>

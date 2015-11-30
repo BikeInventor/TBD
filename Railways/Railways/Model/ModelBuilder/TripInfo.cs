@@ -14,6 +14,8 @@ namespace Railways.Model.ModelBuilder
         private Voyage _voyage;
         private Route _depRoute;
         private Route _arRoute;
+
+        public int TrainId { get; private set; }
         public String TrainNumber { get; private set; }
         public String DepartureStation { get; private set; }
         public String ArrivalStation { get; private set; }
@@ -38,6 +40,8 @@ namespace Railways.Model.ModelBuilder
             this._depRoute = ContextKeeper.Routes.First(r => r.Id == depRouteId);
             this._arRoute = ContextKeeper.Routes.First(r => r.Id == arRouteId);
 
+            this.TrainId = _voyage.TrainId.Value;
+
             this.TrainNumber = _voyage.Train.TrainNum;
             this.DepartureStation = _depRoute.Station.StationName;
             this.ArrivalStation = _arRoute.Station.StationName;
@@ -49,7 +53,7 @@ namespace Railways.Model.ModelBuilder
                 .AddDays(DateOffset);
 
             this.ArrivalTime = ContextKeeper.Routes
-                .Where(r => r.Id == depRouteId)
+                .Where(r => r.Id == arRouteId)
                 .Select(r => r.ArrivalTimeOffset.Value)
                 .First();
 

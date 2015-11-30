@@ -18,9 +18,9 @@ namespace Railways.View
     /// <summary>
     /// Логика взаимодействия для SeatSeatWindow.xaml
     /// </summary>
-    public partial class SeatSeatWindow : MetroWindow
+    public partial class SeatSetWindow : MetroWindow
     {
-        public SeatSeatWindow()
+        public SeatSetWindow()
         {
             InitializeComponent();
         }

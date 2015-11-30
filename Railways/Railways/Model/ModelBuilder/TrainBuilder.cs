@@ -232,7 +232,7 @@ namespace Railways.Model.ModelBuilder
             return ContextKeeper.Tickets.Where(t => t.SeatId == seatId);
         }
 
-        public static bool CheckSeatAvailibility(int seatId, DateTime depDate, DateTime arrDate)
+        public static bool SeatAvailibility(int seatId, DateTime depDate, DateTime arrDate)
         {
             var ticketsOfThisSeat = ContextKeeper.Tickets.Where(t => t.SeatId == seatId).ToList();
 
@@ -252,7 +252,9 @@ namespace Railways.Model.ModelBuilder
             bool isAnyOverlaps = ticketsOfThisDate
                 .Any(t =>
             {
-                if ((t.ArrivalDate > depDate) && (t.DepartureDate < arrDate))
+                if (((t.ArrivalDate > depDate) && (t.DepartureDate < arrDate))
+                    || ((t.DepartureDate.Value.ToString() == arrDate.ToString()) 
+                    && (t.ArrivalDate.Value.ToString() == depDate.ToString())))
                 {
                     return true;
                 }
