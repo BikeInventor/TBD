@@ -9,7 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d" x:Class="Railways.EmployeeInfoWindow"
-        Title="Регистрация сотрудника" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
+        Title="Регистрация сотрудника" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:EmployeeInfoViewModel/>
     </Window.DataContext>

@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         mc:Ignorable="d"
         Name="seatWin"
-        Title="Выбор места" Height="620.5" Width="955.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="#FF144114">
+        Title="Выбор места" Height="620.5" Width="955.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:TrainInfoViewModel/>
     </Window.DataContext>

@@ -8,7 +8,7 @@
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
         Name="scheduleWin"
-        Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
+        Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderThickness="1" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}">
     <Window.DataContext>
         <admin:ScheduleWindowViewModel/>
     </Window.DataContext>

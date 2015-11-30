@@ -10,7 +10,7 @@
     xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
     xmlns:cmd="http://www.galasoft.ch/mvvmlight"
-        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png">
+        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:AdminViewModel/>
     </Window.DataContext>
