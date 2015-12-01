@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace Railways
 {  
-    public static class Utils
+    public static class ModelUtils
     {
 
         /// <summary>

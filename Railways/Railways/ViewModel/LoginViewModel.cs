@@ -16,7 +16,6 @@ using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-
 namespace Railways.ViewModel
 {
     public class LoginViewModel : ViewModelBase
@@ -28,11 +27,43 @@ namespace Railways.ViewModel
             private set;
         }
 
+        private bool _loginButtonAvailability;
+
+        public bool LogInButtonAvailability
+        {
+            get
+            {
+                return _loginButtonAvailability;
+            }
+            set
+            {
+                _loginButtonAvailability = value;
+                RaisePropertyChanged("LogInButtonAvailability");
+            }
+        }
+
+        private String _loadingVisibility;
+
+        public String LoadingVisibility
+        {
+            get
+            {
+                return _loadingVisibility;
+            }
+            set
+            {
+                _loadingVisibility = value;
+                RaisePropertyChanged("LoadingVisibility");
+            }
+        }
+
         private bool _isConnected;
 
         public LoginViewModel()
         {
             LoginCmd = new RelayCommand<object>(this.TryLogin);
+            LoadingVisibility = "0";
+            LogInButtonAvailability = true;
         }
 
         /// <summary>
@@ -40,16 +71,18 @@ namespace Railways.ViewModel
         /// </summary>
         /// <param name="id"></param>
         /// <param name="password"></param>
-        public void TryLogin(object pBox)
+        public async void TryLogin(object pBox)
         {
             try
             {
+                LoadingVisibility = "1";
+                LogInButtonAvailability = false;
                 var passwordBox = pBox as PasswordBox;
                 var password = passwordBox.Password;
 
                 if (!_isConnected)
                 {
-                    ConnectToDB();
+                    _isConnected = await ConnectToDB();
                     if (!_isConnected) return;
                 }
 
@@ -67,6 +100,11 @@ namespace Railways.ViewModel
                 // var controller = DialogService.ShowMessage("Неправильно указан id/пароль",
                 //    "Ошибка аутентификации", MessageDialogStyle.Affirmative);
             }
+            finally
+            {
+                LogInButtonAvailability = true;
+                LoadingVisibility = "0";
+            }
         }
 
         /// <summary>
@@ -76,7 +114,7 @@ namespace Railways.ViewModel
         private static Boolean CorrectAuthInfo(int id, String password)
         {
             var currentEmp = ContextKeeper.Employees.FindBy(emp => emp.Id == id).FirstOrDefault();
-            if (currentEmp != null && (Utils.CorrectHash(currentEmp.Password, password)))
+            if (currentEmp != null && (ModelUtils.CorrectHash(currentEmp.Password, password)))
             {
                 return true;
             }
@@ -102,11 +140,11 @@ namespace Railways.ViewModel
             Application.Current.MainWindow.Close();
         }
 
-        public bool ConnectToDB()
+        public async Task <bool> ConnectToDB()
         {
             try
             {
-                ContextKeeper.Initialize();
+                await ContextKeeper.Initialize();
                 _isConnected = true;
                 return true;
             }

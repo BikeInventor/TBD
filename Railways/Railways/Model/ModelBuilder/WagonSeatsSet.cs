@@ -15,6 +15,12 @@ namespace Railways.Model.ModelBuilder
 
         public List<int> SeatsIds { get; private set; }
 
+        public WagonSeatsSet()
+        {
+            Seats = new List<bool>();
+            SeatsIds = new List<int>();
+        }
+
         public WagonSeatsSet(int wagonId, DateTime depDate, DateTime arrDate)
         {
             this.Seats = new List<bool>();

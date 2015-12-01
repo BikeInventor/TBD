@@ -5,9 +5,10 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         xmlns:validation="clr-namespace:Railways.ViewModel.Validation"
+        xmlns:local="clr-namespace:Railways.View"
         xmlns:admin="clr-namespace:Railways.ViewModel"
         Title="Авторизация" 
-        Height="366" 
+        Height="390" 
         Width="300" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" 
@@ -17,7 +18,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         FontSize="15" WindowTitleBrush="#FF26C35F" WindowTransitionsEnabled="False" Icon="Resources/RWLogo.png" BorderThickness="1" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}"
         >
-    
+
     <Window.DataContext>
         <admin:LoginViewModel/>
     </Window.DataContext>
@@ -56,15 +57,18 @@
 			wpf:TextFieldAssist.Hint="Пароль" Background="Transparent" 
             Height="38" FontSize="18" MaxLength="12"/>
 
+
+
         <Button Content="Войти" 
+                IsEnabled="{Binding LogInButtonAvailability}"
                 Command="{Binding LoginCmd}"
                 CommandParameter="{Binding ElementName=passwordBox}"
                 Grid.Column="1" 
-                Margin="20,286,20,21" Height="Auto" 
+                Margin="20,303,20,0" Height="35" 
                 FontSize="18" 
                 FontWeight="Normal" 
                 Background="#FF26C357" 
-                BorderBrush="#FF0E550B"/>
+                BorderBrush="#FF0E550B" VerticalAlignment="Top"/>
 
         <Viewbox Grid.Column="1" 
                  Height="116" 
@@ -77,6 +81,10 @@
                 />
         </Viewbox>
 
+        <Viewbox Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="141,233,0,0" VerticalAlignment="Top" Width="100"/>
+        <Viewbox Grid.Column="1" Opacity ="{Binding LoadingVisibility}" HorizontalAlignment="Left" Margin="100,260,0,0" Width="64" Height="65" VerticalAlignment="Top" Stretch="UniformToFill">
+            <local:LoadingCircle Margin="4 ,4,4,0" Grid.Column="1" Height="82" Width="91" RenderTransformOrigin="0.624,0.08"/>
+        </Viewbox>
 
     </Grid>
 </Controls:MetroWindow>

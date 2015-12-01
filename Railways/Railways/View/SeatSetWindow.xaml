@@ -13,9 +13,6 @@
     <Window.DataContext>
         <admin:SeatSetViewModel/>
     </Window.DataContext>
-    <Window.Resources>
-        <conv:IntToWagonTypeConverter x:Key="IntToWagonTypeConverter" />
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -28,7 +25,9 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TabControl HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="930" Grid.Column="1" Grid.Row="1">
+        <TabControl 
+            SelectedIndex="{Binding CurrentTabIndex}"
+            HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="930" Grid.Column="1" Grid.Row="1">
             <TabItem Header="Плацкарт">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
@@ -36,12 +35,20 @@
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/berth.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,0" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
-                        <Button Command ="{Binding NextBerthCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
+                        <Button Command ="{Binding PrevWagonCmd}" 
+                                IsEnabled="{Binding PrevEnabled}"
+                                Content="" Height="45" Width="50" 
+                                Margin="385,0,0,0">
                             <Button.Background>
                                 <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Command ="{Binding PrevBerthCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                        <Button Command ="{Binding NextWagonCmd}" 
+                                IsEnabled="{Binding NextEnabled}"
+                                Content="" HorizontalAlignment="Center" 
+                                Margin="50,38,0,38"
+                                Width="50"
+                                Height="Auto">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
@@ -110,12 +117,12 @@
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/coupe.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
-                        <Button Content="" Height="45" Width="50" Margin="385,0,0,0">
+                        <Button IsEnabled="{Binding PrevEnabled}" Command="{Binding PrevWagonCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
                             <Button.Background>
                                 <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                        <Button IsEnabled="{Binding NextEnabled}" Command="{Binding NextWagonCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
@@ -168,12 +175,12 @@
                     </Grid.RowDefinitions>
                     <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/lux.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
-                        <Button Command ="{Binding NextBerthCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
+                        <Button IsEnabled="{Binding PrevEnabled}" Command="{Binding PrevWagonCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
                             <Button.Background>
                                 <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Command ="{Binding PrevBerthCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
+                        <Button IsEnabled="{Binding NextEnabled}" Command="{Binding NextWagonCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
@@ -200,8 +207,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <!--<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="79" Width="910" Grid.Column="1"/>-->
-        <Button Content="{Binding TrainInfo}" FontSize ="16" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
+        <TextBlock Text="{Binding WagonInfo}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="79" Width="910" Grid.Column="1" FontSize="16"/>
+        <Button Content="" FontSize ="16" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
 
     </Grid>
 </Controls:MetroWindow>

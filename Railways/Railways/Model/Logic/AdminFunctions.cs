@@ -14,7 +14,7 @@ namespace Railways.Model.Logic
         {
             var newEmp = new Employee();
             newEmp.FullName = fullName;
-            newEmp.Password = Utils.EncryptString(password);
+            newEmp.Password = ModelUtils.EncryptString(password);
             newEmp.UserRights = byte.Parse(adminRights);
 
             ContextKeeper.Employees.Add(newEmp);

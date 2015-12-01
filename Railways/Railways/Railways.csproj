@@ -106,11 +106,13 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Windows.Controls.Input.Toolkit">
-      <HintPath>..\packages\Infragistics.Themes.MetroLight.Wpf.1.0.0\lib\net40\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Windows.Controls.Layout.Toolkit">
-      <HintPath>..\packages\Infragistics.Themes.MetroLight.Wpf.1.0.0\lib\net40\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -127,8 +129,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFToolkit">
-      <HintPath>..\packages\Infragistics.Themes.MetroLight.Wpf.1.0.0\lib\net40\WPFToolkit.dll</HintPath>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
@@ -241,6 +244,7 @@
     <Compile Include="ViewModel\ScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\SeatSetViewModel.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
+    <Compile Include="ViewModel\Utils\AsyncObservableCollection.cs" />
     <Compile Include="ViewModel\Validation\IdValidation.cs" />
     <Compile Include="ViewModel\Validation\DistanceValidation.cs" />
     <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
@@ -248,6 +252,12 @@
     <Compile Include="ViewModel\Validation\TimeSpanValidation.cs" />
     <Compile Include="ViewModel\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\VoyageView.cs" />
+    <Compile Include="View\LoadingCircle.xaml.cs">
+      <DependentUpon>LoadingCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RotatingEllipse.xaml.cs">
+      <DependentUpon>RotatingEllipse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SeatSetWindow.xaml.cs">
       <DependentUpon>SeatSetWindow.xaml</DependentUpon>
     </Compile>
@@ -266,6 +276,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AdminWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LoadingCircle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\RotatingEllipse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

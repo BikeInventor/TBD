@@ -23,11 +23,52 @@ namespace Railways.ViewModel
         private List<WagonSeatsSet> _coupe;
         private List<WagonSeatsSet> _lux;
 
-        private bool _check;
-        public bool Check
+        private int _currentTabIndex;
+        public int CurrentTabIndex
         {
-            get { return _check; }
-            set { _check = value; RaisePropertyChanged("Check"); }
+            get { return _currentTabIndex; }
+            set 
+            { 
+                _currentTabIndex = value; 
+                RaisePropertyChanged("CurrentTabIndex"); 
+                SetCurrentWagonType();
+                SetCurrentWagonInfo();
+            }
+        }
+
+        private WagonType _currentWagonType;
+
+        private String _wagonInfo = "";
+        public String WagonInfo
+        {
+            get { return this._wagonInfo; }
+            set 
+            {
+                _wagonInfo = value;
+                RaisePropertyChanged("WagonInfo");
+            }
+        }
+        
+
+        private bool _nextEnabled;
+        private bool _prevEnabled;
+        public bool NextEnabled
+        {
+            get { return _nextEnabled; }
+            set 
+            {
+                _nextEnabled = value;
+                RaisePropertyChanged("NextEnabled");
+            }
+        }
+        public bool PrevEnabled
+        {
+            get { return _prevEnabled; }
+            set
+            {
+                _prevEnabled = value;
+                RaisePropertyChanged("PrevEnabled");
+            }
         }
 
         private int trainId;
@@ -35,6 +76,16 @@ namespace Railways.ViewModel
         private DateTime depDate;
 
         public WagonSeatsSet CurrentBerth
+        {
+            get;
+            private set;
+        }
+        public WagonSeatsSet CurrentCoupe
+        {
+            get;
+            private set;
+        }
+        public WagonSeatsSet CurrentLux
         {
             get;
             private set;
@@ -75,15 +126,8 @@ namespace Railways.ViewModel
             set { _luxSeatsVisibility = value; }
         }
 
-        public RelayCommand NextBerthCmd;
-        public RelayCommand PrevBerthCmd;
-
-        public RelayCommand NextCoupeCmd;
-        public RelayCommand PrevCoupeCmd;
-
-        public RelayCommand NextLuxCmd;
-        public RelayCommand PrevLuxCmd;
-                                
+        public RelayCommand NextWagonCmd { get; set; }
+        public RelayCommand PrevWagonCmd { get; set; }                              
 
         public SeatSetViewModel()
         {
@@ -91,12 +135,16 @@ namespace Railways.ViewModel
             _coupe = new List<WagonSeatsSet>();
             _lux = new List<WagonSeatsSet>();
 
+            CurrentBerth = new WagonSeatsSet();
+            CurrentCoupe = new WagonSeatsSet();
+            CurrentLux = new WagonSeatsSet();
+
             _berthSeatsVisibility = new ObservableCollection<String>();
             _coupeSeatsVisibility = new ObservableCollection<String>();
             _luxSeatsVisibility = new ObservableCollection<String>();
 
-            NextBerthCmd = new RelayCommand(() => NextBerth());
-            PrevBerthCmd = new RelayCommand(() => PrevBerth());
+            NextWagonCmd = new RelayCommand(() => NextWagon());
+            PrevWagonCmd = new RelayCommand(() => PrevWagon());
 
             Messenger.Default.Register<TripInfoMessage>(this, (msg) =>
             {
@@ -108,15 +156,11 @@ namespace Railways.ViewModel
         /// Формирование списков вагонов поезда по их типам
         /// </summary>
         /// <param name="trainId"></param>
-        public void SetTrainInfo(int trainId, DateTime depDate, DateTime arrDate)
+        private void SetTrainInfo(int trainId, DateTime depDate, DateTime arrDate)
         {
-            Check = false;
             this.trainId = trainId;
             this.depDate = depDate;
             this.arrDate = arrDate;
-
-           // this.TrainInfo += "Поезд № ";
-           // this.TrainInfo += ContextKeeper.Trains.Where(t => t.Id == trainId).Select(t => t.TrainNum).First() + "\n";
 
             var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
             wagonsOfTrain.ForEach(wagon =>
@@ -131,24 +175,30 @@ namespace Railways.ViewModel
                         }
                     case WagonType.COUPE:
                         {
-                            this.Berth.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
+                            this.Coupe.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
                             break;
                         }
                     case WagonType.LUX:
                         {
-                            this.Berth.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
+                            this.Lux.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
                             break;
                         }
                 }
-            });
 
+            });
             SetCurrentWagons();
-            SetWagonSeatsButtonsVisibility(CurrentBerth, BerthSeatsVisibility);
+
+          //  SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+            //SetWagonSeatsButtonsVisibility(CurrentCoupe, CoupeSeatsVisibility);
+            //SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
+
+            NextEnabled = true;  
+            CurrentTabIndex = 0;
+            SetCurrentWagonInfo();
         }
 
         private void SetWagonSeatsButtonsVisibility(WagonSeatsSet seats, ObservableCollection<String> visibility)
         {
-           //3 this.TrainInfo += "Вагон № ";
             visibility.Clear();
             seats.Seats.ForEach(seatIsFree => 
             {
@@ -168,35 +218,224 @@ namespace Railways.ViewModel
 
             if (this.Coupe.Count != 0)
             {
-                this.CurrentBerth = Coupe[0];
+                this.CurrentCoupe = Coupe[0];
             }
 
             if (this.Lux.Count != 0)
             {
-                this.CurrentBerth = Lux[0];
+                this.CurrentLux = Lux[0];
             }
         }
 
-        private void NextBerth()
+        private void NextWagon()
         {
-            var currentIndex = Berth.IndexOf(CurrentBerth);
 
-            if (Berth.Count > currentIndex)
+            switch (_currentTabIndex)
             {
-                CurrentBerth = Berth[++currentIndex];
-                SetWagonSeatsButtonsVisibility(CurrentBerth, BerthSeatsVisibility);
+                case 0:
+                    {
+                        var currentIndex = Berth.IndexOf(CurrentBerth);
+                        if (SetNext(Berth.Count, currentIndex))
+                        {
+                            CurrentBerth = Berth[++currentIndex];
+                            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+                            RaisePropertyChanged("BerthSeatsVisibility");
+                            SetCurrentWagonInfo();
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        var currentIndex = Coupe.IndexOf(CurrentCoupe);
+                        if (SetNext(Coupe.Count, currentIndex))
+                        {
+                            CurrentCoupe = Coupe[++currentIndex];
+                            SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                            SetCurrentWagonInfo();
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        var currentIndex = Lux.IndexOf(CurrentLux);
+                        if (SetNext(Lux.Count, currentIndex))
+                        {
+                            CurrentLux = Lux[++currentIndex];
+                            SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                            SetCurrentWagonInfo();
+                        }
+                        break;
+                    }
+                }
+        }
+           
+        private void PrevWagon()
+        {
+
+            switch (_currentTabIndex)
+            {
+                case 0:
+                    {
+                        var currentIndex = Berth.IndexOf(CurrentBerth);
+                        if (SetPrev(Berth.Count, currentIndex))
+                        {
+                            CurrentBerth = Berth[--currentIndex];
+                            //   SetWagonSeatsButtonsVisibility(currentWagon, BerthSeatsVisibility);
+                            SetCurrentWagonInfo();
+                        }                     
+                        break;
+                    }
+                case 1:
+                    {
+                        var currentIndex = Coupe.IndexOf(CurrentCoupe);
+                        if (SetPrev(Coupe.Count, currentIndex))
+                        {
+                            CurrentCoupe = Coupe[--currentIndex];
+                            //   SetWagonSeatsButtonsVisibility(currentWagon, CoupeSeatsVisibility);
+                            SetCurrentWagonInfo();
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        var currentIndex = Lux.IndexOf(CurrentLux);
+                        if (SetPrev(Lux.Count, currentIndex))
+                        {
+                            CurrentLux = Lux[--currentIndex];
+                            SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
+                            SetCurrentWagonInfo();
+                        }
+                        break;
+                    }
             }
         }
 
-        private void PrevBerth()
+        private bool SetNext(int count, int currentIndex)
         {
-            var currentIndex = Berth.IndexOf(CurrentBerth);
+            if (count == 1)
+            {
+                PrevEnabled = false;
+                NextEnabled = false;
+            }
+            if (count - 1 > currentIndex)
+            {
+                PrevEnabled = true;
+                if (currentIndex == count - 2)
+                {
+                    NextEnabled = false;
+                }
 
+                return true;
+            }
+            return false;
+        }
+
+        private bool SetPrev(int count, int currentIndex)
+        {
+            if (count == 1)
+            {
+                PrevEnabled = false;
+                NextEnabled = false;
+            }
             if (currentIndex != 0)
             {
-                CurrentBerth = Berth[--currentIndex];
-                SetWagonSeatsButtonsVisibility(CurrentBerth, BerthSeatsVisibility);
+                if (currentIndex == count - 1)
+                    NextEnabled = true;
+                PrevEnabled = true;
+                if (currentIndex == 1)
+                {
+                    PrevEnabled = false;
+                }
+                return true;
             }
+            else { PrevEnabled = false; }
+            return false;
         }
+
+        private void SetCurrentWagonType()
+        {
+            
+            switch (CurrentTabIndex)
+            {
+                case 0: 
+                    {
+                        _currentWagonType = WagonType.BERTH;
+                        if (Berth.Count != 0)
+                        {
+                            CurrentBerth = Berth[0];
+                            SetStartNextPrevButtons(Berth.Count);
+                        }
+                        break;
+                    }
+                case 1: 
+                    {
+                        _currentWagonType = WagonType.COUPE;
+                        if (Coupe.Count != 0)
+                        {
+                            CurrentCoupe = Coupe[0];
+                            SetStartNextPrevButtons(Coupe.Count);
+                        }
+                        break;
+                    }
+                case 2: 
+                    {
+                        if (Lux.Count != 0)
+                        {
+                            CurrentLux = Lux[0];
+                            SetStartNextPrevButtons(Lux.Count);
+                        }
+                        _currentWagonType = WagonType.LUX;
+                        break;
+                    }
+            }
+
+        }
+
+        private void SetCurrentWagonInfo()
+        {
+            this.WagonInfo = "";
+            this.WagonInfo += "Поезд № ";
+            this.WagonInfo += ContextKeeper.Trains
+                .Where(t => t.Id == trainId)
+                .Select(t => t.TrainNum)
+                .First() + "\n";
+            this.WagonInfo += "Вагон № ";
+            switch (_currentWagonType)
+            {
+                case WagonType.BERTH:
+                    {
+                        this.WagonInfo += ContextKeeper.Wagons
+                            .Where(w => w.Id == CurrentBerth.WagonId)
+                            .Select(w => w.WagonNum)
+                            .First();
+                        break;
+                    }
+                case WagonType.COUPE:
+                    {
+                        this.WagonInfo += ContextKeeper.Wagons
+                            .Where(w => w.Id == CurrentCoupe.WagonId)
+                            .Select(w => w.WagonNum)
+                            .First();
+                        break;
+                    }
+                case WagonType.LUX:
+                    {
+                        this.WagonInfo += ContextKeeper.Wagons
+                            .Where(w => w.Id == CurrentLux.WagonId)
+                            .Select(w => w.WagonNum)
+                            .First();
+                        break;
+                    }
+            }
+
+        }
+
+        private void SetStartNextPrevButtons(int wagonsCount)
+        {
+            PrevEnabled = false;
+            NextEnabled = (wagonsCount > 1) ? true : false;
+        }
+
+
     }
 }

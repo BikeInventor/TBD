@@ -34,37 +34,43 @@ namespace Railways.Model.Context
         public static WagonContext Wagons { get; private set; }
         public static WagonSeatContext WagonSeats { get; private set; }
 
-        public static void Initialize()
+        public static Task Initialize()
         {
-            _database = new RailwayDataModelContainer();
-            //_database.Database.Connection.Open();
+            return Task.Run(() =>
+            {
+                System.Threading.Thread.Sleep(2000);
+
+                _database = new RailwayDataModelContainer();
+                //_database.Database.Connection.Open();
+
+                Clients = new ClientContext();
+                Employees = new EmployeeContext();
+                Stations = new StationContext();
+                Seats = new SeatContext();
+                Tickets = new TicketContext();
+                TrainWagons = new TrainWagonContext();
+                Trains = new TrainContext();
+                Routes = new RouteContext();
+                VoyageRoutes = new VoyageRouteContext();
+                Voyages = new VoyageContext();
+                Wagons = new WagonContext();
+                WagonSeats = new WagonSeatContext();
+
+
+                Clients.Repository = _database.ClientSet;
+                Employees.Repository = _database.EmployeeSet;
+                Stations.Repository = _database.StationSet;
+                Seats.Repository = _database.SeatSet;
+                Tickets.Repository = _database.TicketSet;
+                TrainWagons.Repository = _database.TrainWagonSet;
+                Trains.Repository = _database.TrainSet;
+                VoyageRoutes.Repository = _database.VoyageRouteSet;
+                Routes.Repository = _database.RouteSet;
+                Voyages.Repository = _database.VoyageSet;
+                Wagons.Repository = _database.WagonSet;
+                WagonSeats.Repository = _database.WagonSeatSet;
+            });
             
-            Clients = new ClientContext();
-            Employees = new EmployeeContext();
-            Stations = new StationContext();
-            Seats = new SeatContext();
-            Tickets = new TicketContext();
-            TrainWagons = new TrainWagonContext();
-            Trains = new TrainContext();
-            Routes = new RouteContext();
-            VoyageRoutes = new VoyageRouteContext();
-            Voyages = new VoyageContext();
-            Wagons = new WagonContext();
-            WagonSeats = new WagonSeatContext();
-
-
-            Clients.Repository = _database.ClientSet;
-            Employees.Repository = _database.EmployeeSet;
-            Stations.Repository = _database.StationSet;
-            Seats.Repository = _database.SeatSet;
-            Tickets.Repository = _database.TicketSet;
-            TrainWagons.Repository = _database.TrainWagonSet;
-            Trains.Repository = _database.TrainSet;
-            VoyageRoutes.Repository = _database.VoyageRouteSet;
-            Routes.Repository = _database.RouteSet;
-            Voyages.Repository = _database.VoyageSet;
-            Wagons.Repository = _database.WagonSet;
-            WagonSeats.Repository = _database.WagonSeatSet;
         }
     }
 }
