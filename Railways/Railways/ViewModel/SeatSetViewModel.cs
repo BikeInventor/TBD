@@ -14,6 +14,8 @@ using GalaSoft.MvvmLight.Messaging;
 using Railways.View;
 using Railways.Model.ModelBuilder;
 using System.Windows.Controls;
+using Railways.ViewModel;
+using Railways.ViewModel.Utils;
 
 namespace Railways.ViewModel
 {
@@ -107,20 +109,20 @@ namespace Railways.ViewModel
             set { _lux = value; RaisePropertyChanged("Lux"); }
         }
         
-        private ObservableCollection<String> _berthSeatsVisibility;
-        public ObservableCollection<String> BerthSeatsVisibility
+        private ObservableRangeCollection<String> _berthSeatsVisibility;
+        public ObservableRangeCollection<String> BerthSeatsVisibility
         {
             get { return _berthSeatsVisibility; }
             set { _berthSeatsVisibility = value; }
         }
-        private ObservableCollection<String> _coupeSeatsVisibility;
-        public ObservableCollection<String> CoupeSeatsVisibility
+        private ObservableRangeCollection<String> _coupeSeatsVisibility;
+        public ObservableRangeCollection<String> CoupeSeatsVisibility
         {
             get { return _coupeSeatsVisibility; }
             set { _coupeSeatsVisibility = value; }
         }
-        private ObservableCollection<String> _luxSeatsVisibility;
-        public ObservableCollection<String> LuxSeatsVisibility
+        private ObservableRangeCollection<String> _luxSeatsVisibility;
+        public ObservableRangeCollection<String> LuxSeatsVisibility
         {
             get { return _luxSeatsVisibility; }
             set { _luxSeatsVisibility = value; }
@@ -139,9 +141,9 @@ namespace Railways.ViewModel
             CurrentCoupe = new WagonSeatsSet();
             CurrentLux = new WagonSeatsSet();
 
-            _berthSeatsVisibility = new ObservableCollection<String>();
-            _coupeSeatsVisibility = new ObservableCollection<String>();
-            _luxSeatsVisibility = new ObservableCollection<String>();
+            _berthSeatsVisibility = new ObservableRangeCollection<String>();
+            _coupeSeatsVisibility = new ObservableRangeCollection<String>();
+            _luxSeatsVisibility = new ObservableRangeCollection<String>();
 
             NextWagonCmd = new RelayCommand(() => NextWagon());
             PrevWagonCmd = new RelayCommand(() => PrevWagon());
@@ -188,7 +190,8 @@ namespace Railways.ViewModel
             });
             SetCurrentWagons();
 
-          //  SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+             SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+             BerthSeatsVisibility.Add(null);
             //SetWagonSeatsButtonsVisibility(CurrentCoupe, CoupeSeatsVisibility);
             //SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
 
@@ -197,16 +200,22 @@ namespace Railways.ViewModel
             SetCurrentWagonInfo();
         }
 
-        private void SetWagonSeatsButtonsVisibility(WagonSeatsSet seats, ObservableCollection<String> visibility)
+        private void SetWagonSeatsButtonsVisibility(WagonSeatsSet seats, ObservableRangeCollection<String> visibility)
         {
             visibility.Clear();
-            seats.Seats.ForEach(seatIsFree => 
+
+            visibility.AddRange(seats.Seats.Select(s => 
             {
-                if (seatIsFree)
-                    visibility.Add("0.3");
-                else
-                    visibility.Add("1");
-            });
+                return s ? "1" : "0.3";
+            }));
+
+            //seats.Seats.ForEach(seatIsFree => 
+            //{
+            //    if (seatIsFree)
+            //        visibility.Add("0.3");
+            //    else
+            //        visibility.Add("1");
+            //});
         }
 
         private void SetCurrentWagons()
@@ -239,7 +248,7 @@ namespace Railways.ViewModel
                         {
                             CurrentBerth = Berth[++currentIndex];
                             SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
-                            RaisePropertyChanged("BerthSeatsVisibility");
+                            BerthSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -250,7 +259,7 @@ namespace Railways.ViewModel
                         if (SetNext(Coupe.Count, currentIndex))
                         {
                             CurrentCoupe = Coupe[++currentIndex];
-                            SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentCoupe, CoupeSeatsVisibility);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -261,7 +270,7 @@ namespace Railways.ViewModel
                         if (SetNext(Lux.Count, currentIndex))
                         {
                             CurrentLux = Lux[++currentIndex];
-                            SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -280,7 +289,8 @@ namespace Railways.ViewModel
                         if (SetPrev(Berth.Count, currentIndex))
                         {
                             CurrentBerth = Berth[--currentIndex];
-                            //   SetWagonSeatsButtonsVisibility(currentWagon, BerthSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+                            BerthSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }                     
                         break;
@@ -291,7 +301,8 @@ namespace Railways.ViewModel
                         if (SetPrev(Coupe.Count, currentIndex))
                         {
                             CurrentCoupe = Coupe[--currentIndex];
-                            //   SetWagonSeatsButtonsVisibility(currentWagon, CoupeSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                            CoupeSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -302,7 +313,8 @@ namespace Railways.ViewModel
                         if (SetPrev(Lux.Count, currentIndex))
                         {
                             CurrentLux = Lux[--currentIndex];
-                            SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                            LuxSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -364,6 +376,8 @@ namespace Railways.ViewModel
                         {
                             CurrentBerth = Berth[0];
                             SetStartNextPrevButtons(Berth.Count);
+                            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+                            BerthSeatsVisibility.Add(null);
                         }
                         break;
                     }
@@ -374,6 +388,8 @@ namespace Railways.ViewModel
                         {
                             CurrentCoupe = Coupe[0];
                             SetStartNextPrevButtons(Coupe.Count);
+                            SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                            CoupeSeatsVisibility.Add(null);
                         }
                         break;
                     }
@@ -383,6 +399,8 @@ namespace Railways.ViewModel
                         {
                             CurrentLux = Lux[0];
                             SetStartNextPrevButtons(Lux.Count);
+                            SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                            LuxSeatsVisibility.Add(null);
                         }
                         _currentWagonType = WagonType.LUX;
                         break;

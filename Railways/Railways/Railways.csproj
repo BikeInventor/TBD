@@ -245,6 +245,7 @@
     <Compile Include="ViewModel\SeatSetViewModel.cs" />
     <Compile Include="ViewModel\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\Utils\AsyncObservableCollection.cs" />
+    <Compile Include="ViewModel\Utils\ObservableRangeCollection.cs" />
     <Compile Include="ViewModel\Validation\IdValidation.cs" />
     <Compile Include="ViewModel\Validation\DistanceValidation.cs" />
     <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
