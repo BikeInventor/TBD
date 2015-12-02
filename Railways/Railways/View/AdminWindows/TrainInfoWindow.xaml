@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         mc:Ignorable="d"
         Name="trainWin"
-        Title="Информация о поезде" Height="319" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
+        Title="Информация о поезде" Height="319" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/View/Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:TrainInfoViewModel/>
     </Window.DataContext>

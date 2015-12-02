@@ -10,7 +10,14 @@
         xmlns:local="clr-namespace:Railways.View"
     mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
         Name="scheduleWin"
-        Title="Выбор маршрута" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderThickness="1" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}">
+        Title="Выбор маршрута" 
+        Height="600" Width="900" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize" 
+        WindowStyle="None" 
+        Icon="/View/Resources/RWLogo.png"
+        BorderThickness="1" 
+        BorderBrush="{DynamicResource IdealForegroundDisabledBrush}">
     <Window.DataContext>
         <admin:ScheduleWindowViewModel/>
     </Window.DataContext>
@@ -78,9 +85,9 @@
                 <GridView>
                     <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNumber}" Width = "170"/>
                     <GridViewColumn Header="Станция отправления" DisplayMemberBinding="{Binding DepartureStation}" Width = "170"/>
-                    <GridViewColumn Header="Время отправления" DisplayMemberBinding="{Binding DepartureTime, StringFormat='dd-MM-yy hh:mm'}" Width = "170"/>
+                    <GridViewColumn Header="Время отправления" DisplayMemberBinding="{Binding DepartureTime, StringFormat='dd.MM.yy HH:mm'}" Width = "170"/>
                     <GridViewColumn Header="Станция прибытия" DisplayMemberBinding="{Binding ArrivalStation}" Width = "170"/>
-                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd-MM-yy hh:mm'}" Width = "170"/>
+                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd.MM.yy HH:mm'}" Width = "170"/>
                 </GridView>
             </ListView.View>
         </ListView>

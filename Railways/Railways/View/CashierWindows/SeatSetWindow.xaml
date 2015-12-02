@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
         mc:Ignorable="d"
         Name="seatWin"
-        Title="Выбор места" Height="620.5" Width="955.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
+        Title="Выбор места" Height="620.5" Width="955.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/View/Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:SeatSetViewModel/>
     </Window.DataContext>
@@ -33,14 +33,14 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/berth.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
+                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="/View/Resources/berth.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,0" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
                         <Button Command ="{Binding PrevWagonCmd}" 
                                 IsEnabled="{Binding PrevEnabled}"
                                 Content="" Height="45" Width="50" 
                                 Margin="385,0,0,0">
                             <Button.Background>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="/View/Resources/left.png"/>
                             </Button.Background>
                         </Button>
                         <Button Command ="{Binding NextWagonCmd}" 
@@ -50,7 +50,7 @@
                                 Width="50"
                                 Height="Auto">
                             <Button.Background>
-                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="/View/Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
                         </Button>
                     </StackPanel>
@@ -115,16 +115,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/coupe.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
+                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="/View/Resources/coupe.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
                         <Button IsEnabled="{Binding PrevEnabled}" Command="{Binding PrevWagonCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
                             <Button.Background>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="/View/Resources/left.png"/>
                             </Button.Background>
                         </Button>
                         <Button IsEnabled="{Binding NextEnabled}" Command="{Binding NextWagonCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
                             <Button.Background>
-                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="/View/Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
                         </Button>
                     </StackPanel>
@@ -173,16 +173,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="Resources/lux.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
+                    <Image HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="920" Source="/View/Resources/lux.png" Stretch="UniformToFill" Margin="0,61,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Height="122" Margin="0,275,0,-9" VerticalAlignment="Top" Width="920" Orientation="Horizontal">
                         <Button IsEnabled="{Binding PrevEnabled}" Command="{Binding PrevWagonCmd}" Content="" Height="45" Width="50" Margin="385,0,0,0">
                             <Button.Background>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="Resources/left.png"/>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="/View/Resources/left.png"/>
                             </Button.Background>
                         </Button>
                         <Button IsEnabled="{Binding NextEnabled}" Command="{Binding NextWagonCmd}" Content="" HorizontalAlignment="Center" Margin="50,38,0,38" Width="50" Height="Auto">
                             <Button.Background>
-                                <ImageBrush ImageSource="Resources/right.png" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="/View/Resources/right.png" Stretch="UniformToFill"/>
                             </Button.Background>
                         </Button>
                     </StackPanel>

@@ -9,7 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         mc:Ignorable="d" x:Class="Railways.EmployeeInfoWindow"
-        Title="Регистрация сотрудника" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
+        Title="Регистрация сотрудника" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="/View/Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:EmployeeInfoViewModel/>
     </Window.DataContext>
@@ -78,13 +78,13 @@
         
         <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" Text="Данные сотрудника" Margin="0,18,0,229"/>
         <Image 
-            Source="Resources/account.png"
+            Source="/View/Resources/account.png"
             Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="10,82,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30"/>
         <Image 
-        	Source="Resources/key.png"
+        	Source="/View/Resources/key.png"
         	Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="10,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="25"/>
         <Image 
-        	Source="Resources/rights.png"
+        	Source="/View/Resources/rights.png"
         	Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="5,213,0,0" Grid.Row="1" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.547,0.462"/>
 
     </Grid>

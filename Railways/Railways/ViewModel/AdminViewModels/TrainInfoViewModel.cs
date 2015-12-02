@@ -21,8 +21,9 @@ namespace Railways.ViewModel
     public class TrainInfoViewModel : ViewModelBase
     {
         private String _trainNum;
-
         private String _selectedWagonType;
+        private Train _trainToEdit;
+        private ObservableCollection<Wagon> _obsWagonList;
 
         public String SelectedWagonType
         {
@@ -48,12 +49,6 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("TrainNum");
             }
         }
-
-        private ObservableCollection<Wagon> _obsWagonList;
-
-        private bool isEditMode = false;
-        private Train _trainToEdit;
-
         public ObservableCollection<Wagon> WagonList
         {
             get { return _obsWagonList; }
@@ -84,19 +79,31 @@ namespace Railways.ViewModel
 
         }
 
+        /// <summary>
+        /// Установка данных текущего поезда
+        /// </summary>
+        /// <param name="trainId"></param>
         public void SetWagonInfo(int trainId)
         {
             this._trainToEdit = ContextKeeper.Trains.First(train => train.Id == trainId);
-            isEditMode = true;
             this.TrainNum = _trainToEdit.TrainNum;
             RefreshWagonsList();
         }
+
+        /// <summary>
+        /// Обновление списка вагонов поезда
+        /// </summary>
         public void RefreshWagonsList()
         {
             this.WagonList.Clear();
             var wagons = TrainBuilder.GetWagonsOfTrain(_trainToEdit.Id);
             wagons.ToList().ForEach(wagon => this.WagonList.Add(wagon));
         }
+        
+        /// <summary>
+        /// Добавление вагона к поезду
+        /// </summary>
+        /// <returns></returns>
         public async Task AddWagon() 
         {
             if (_trainToEdit == null)
@@ -118,6 +125,10 @@ namespace Railways.ViewModel
             }
 
         }
+        
+        /// <summary>
+        /// Удаление вагона из поезда
+        /// </summary>
         private void DeleteWagon() 
         {
             if (WagonList.Count != 0 && _trainToEdit != null)
@@ -126,6 +137,11 @@ namespace Railways.ViewModel
                 RefreshWagonsList();
             }
         }
+
+        /// <summary>
+        /// Сохранение изменений информации о поезде
+        /// </summary>
+        /// <param name="window"></param>
         private void SaveTrainInfo(TrainInfoWindow window) 
         {
             if (_trainToEdit == null)
@@ -138,6 +154,11 @@ namespace Railways.ViewModel
             ContextKeeper.Trains.Update(_trainToEdit);
             window.Close();
         }
+
+        /// <summary>
+        /// Отображение рейса текущего поезда для дальнейшего редактирования
+        /// </summary>
+        /// <param name="window"></param>
         private void EditVoyage(TrainInfoWindow window)
         {
             if (_trainToEdit == null) return;
@@ -147,8 +168,7 @@ namespace Railways.ViewModel
                 var newVoyage = new Voyage();
                 newVoyage.DepartureDateTime = DateTime.Now;
                 newVoyage.TrainId = _trainToEdit.Id;
-                ContextKeeper.Voyages.Add(newVoyage);
-               // VoyageBuilder.ConnectVoyageToTrain(newVoyage.Id, _trainToEdit.Id);             
+                ContextKeeper.Voyages.Add(newVoyage);         
             }
             var voyageEditWin = new VoyageEditWindow();
             voyageEditWin.Show();

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Railways.Model.ModelBuilder
 {
+    /// <summary>
+    /// Класс, отражающий свободные места заданного вагона на конкретную поездку
+    /// </summary>
     public class WagonSeatsSet
     {
         public List<bool> Seats { get; private set; }
-
         public int WagonId { get; private set; }
-
         public List<int> SeatsIds { get; private set; }
 
         public WagonSeatsSet()

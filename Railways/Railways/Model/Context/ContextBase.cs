@@ -84,7 +84,7 @@ namespace Railways.Model.Context
             }
             _entity = entity;
 
-            ContextKeeper.DataBase.Entry(_entity).State = EntityState.Modified;
+           // ContextKeeper.DataBase.Entry(_entity).State = EntityState.Modified;
             ContextKeeper.DataBase.SaveChanges();
         }
 

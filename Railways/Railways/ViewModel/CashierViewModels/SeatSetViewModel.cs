@@ -21,6 +21,9 @@ namespace Railways.ViewModel
 {
     public class SeatSetViewModel : ViewModelBase
     {
+        private const String freeSeatOpacity = "1";
+        private const String occupiedSeatOpacity = "0.3";
+
         private List<WagonSeatsSet> _berth;
         private List<WagonSeatsSet> _coupe;
         private List<WagonSeatsSet> _lux;
@@ -50,8 +53,7 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("WagonInfo");
             }
         }
-        
-
+      
         private bool _nextEnabled;
         private bool _prevEnabled;
         public bool NextEnabled
@@ -166,27 +168,33 @@ namespace Railways.ViewModel
 
             var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
             wagonsOfTrain.ForEach(wagon =>
-            {
-                var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
-                switch (wagonType)
+            {             
+                var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                if (newWag.Seats.Any(freeSeat => freeSeat == true))
                 {
-                    case WagonType.BERTH:
-                        {
-                            this.Berth.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
-                            break;
-                        }
-                    case WagonType.COUPE:
-                        {
-                            this.Coupe.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
-                            break;
-                        }
-                    case WagonType.LUX:
-                        {
-                            this.Lux.Add(new WagonSeatsSet(wagon.Id, depDate, arrDate));
-                            break;
-                        }
-                }
+                    var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                    switch (wagonType)
+                    {
+                        case WagonType.BERTH:
+                            {
 
+                                this.Berth.Add(newWag);
+                                break;
+                            }
+                        case WagonType.COUPE:
+                            {
+                                this.Coupe.Add(newWag);
+                                break;
+                            }
+                        case WagonType.LUX:
+                            {
+                                this.Lux.Add(newWag);
+                                break;
+                            }
+                    }
+
+                }
+               
             });
             SetCurrentWagons();
 
@@ -200,24 +208,25 @@ namespace Railways.ViewModel
             SetCurrentWagonInfo();
         }
 
+        /// <summary>
+        /// Установка видимости для кнопок, сответствующим местам в вагоне
+        /// Видимая - если место занято,
+        /// </summary>
+        /// <param name="seats"></param>
+        /// <param name="visibility"></param>
         private void SetWagonSeatsButtonsVisibility(WagonSeatsSet seats, ObservableRangeCollection<String> visibility)
         {
             visibility.Clear();
 
-            visibility.AddRange(seats.Seats.Select(s => 
+            visibility.AddRange(seats.Seats.Select(seatIsFree => 
             {
-                return s ? "1" : "0.3";
+                return seatIsFree ? freeSeatOpacity : occupiedSeatOpacity;
             }));
-
-            //seats.Seats.ForEach(seatIsFree => 
-            //{
-            //    if (seatIsFree)
-            //        visibility.Add("0.3");
-            //    else
-            //        visibility.Add("1");
-            //});
         }
 
+        /// <summary>
+        /// Установка текущего вагона для каждой вкладки при их переключении
+        /// </summary>
         private void SetCurrentWagons()
         {
             if (this.Berth.Count != 0)
@@ -236,6 +245,9 @@ namespace Railways.ViewModel
             }
         }
 
+        /// <summary>
+        /// Переход к следующему вагону на вкладке
+        /// </summary>
         private void NextWagon()
         {
 
@@ -278,6 +290,9 @@ namespace Railways.ViewModel
                 }
         }
            
+        /// <summary>
+        /// Переход к предыдущему вагону на вкладке
+        /// </summary>
         private void PrevWagon()
         {
 
@@ -322,6 +337,12 @@ namespace Railways.ViewModel
             }
         }
 
+        /// <summary>
+        /// Установка доступности кнопки перехода к следующему вагону на вкладке
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="currentIndex"></param>
+        /// <returns>Возвращает true, если переход осуществлён</returns>
         private bool SetNext(int count, int currentIndex)
         {
             if (count == 1)
@@ -341,7 +362,13 @@ namespace Railways.ViewModel
             }
             return false;
         }
-
+        
+        /// <summary>
+        /// Установка доступности кнопки перехода к предыдущему вагону на вкладке
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="currentIndex"></param>
+        /// <returns>Возвращает true, если переход осуществлён</returns>
         private bool SetPrev(int count, int currentIndex)
         {
             if (count == 1)
@@ -364,6 +391,9 @@ namespace Railways.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// Установка текущего типа вагонов поезда в зависимости от выбранной вкладки
+        /// </summary>
         private void SetCurrentWagonType()
         {
             
@@ -409,6 +439,9 @@ namespace Railways.ViewModel
 
         }
 
+        /// <summary>
+        /// Отображение на форме информации о текущем вагоне
+        /// </summary>
         private void SetCurrentWagonInfo()
         {
             this.WagonInfo = "";
@@ -448,12 +481,14 @@ namespace Railways.ViewModel
 
         }
 
+        /// <summary>
+        /// Установка кнопок перехода между вагонами вкладки в начальное состояник
+        /// </summary>
+        /// <param name="wagonsCount"></param>
         private void SetStartNextPrevButtons(int wagonsCount)
         {
             PrevEnabled = false;
             NextEnabled = (wagonsCount > 1) ? true : false;
         }
-
-
     }
 }

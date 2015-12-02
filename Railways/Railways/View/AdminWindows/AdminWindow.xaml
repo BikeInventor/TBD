@@ -10,15 +10,13 @@
     xmlns:conv="clr-namespace:Railways.ViewModel.Converters"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
     xmlns:cmd="http://www.galasoft.ch/mvvmlight"
-        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
+        Title="Панель управления" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Icon="/View/Resources/RWLogo.png" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" BorderThickness="1">
     <Window.DataContext>
         <admin:AdminViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <conv:IntToUserRoleConverter x:Key="IntToUserRoleConverter" />
     </Window.Resources>
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19*"/>
@@ -62,7 +60,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,438" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
+                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,438" VerticalAlignment="Bottom" Width="30" Source="/View/Resources/search.png"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Сотрудники" FontSize="16">
@@ -100,7 +98,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,450" VerticalAlignment="Bottom" Width="30" Source="Resources/search.png"/>
+                    <Image HorizontalAlignment="Right" Height="30" Margin="0,0,775,450" VerticalAlignment="Bottom" Width="30" Source="/View/Resources/search.png"/>
                 </Grid>
             </TabItem>
         </TabControl>
