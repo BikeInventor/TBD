@@ -21,8 +21,8 @@ namespace Railways.ViewModel
 {
     public class SeatSetViewModel : ViewModelBase
     {
-        private const String freeSeatOpacity = "1";
-        private const String occupiedSeatOpacity = "0.3";
+        private const String freeSeatOpacity = "0.3";
+        private const String occupiedSeatOpacity = "1";
 
         private List<WagonSeatsSet> _berth;
         private List<WagonSeatsSet> _coupe;

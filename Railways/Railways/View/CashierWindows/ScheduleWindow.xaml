@@ -8,9 +8,11 @@
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:local="clr-namespace:Railways.View"
+        xmlns:wpfctrl="http://wpfcontrols.com/"
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
     mc:Ignorable="d" x:Class="Railways.ScheduleWindow"
         Name="scheduleWin"
-        Title="Выбор маршрута" 
+        Title="Поиск билетов" 
         Height="600" Width="900" 
         WindowStartupLocation="CenterScreen" 
         ResizeMode="NoResize" 
@@ -38,6 +40,8 @@
 
             <TextBox 
                 Text="{Binding StationFrom}"
+                behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Stations}"
+                behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="InvariantCultureIgnoreCase"
                 wpf:TextFieldAssist.HintOpacity="0.5"
 			    wpf:TextFieldAssist.Hint="Откуда" Background="Transparent" 
                 HorizontalAlignment="Center" 
@@ -50,6 +54,8 @@
 
             <TextBox 
                 Text="{Binding StationTo}"
+                behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding Stations}"
+                behaviors:AutoCompleteBehavior.AutoCompleteStringComparison="InvariantCultureIgnoreCase"
                 wpf:TextFieldAssist.HintOpacity="0.5"
 			    wpf:TextFieldAssist.Hint="Куда" Background="Transparent" 
                 Height="36" 
@@ -90,22 +96,27 @@
                     <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd.MM.yy HH:mm'}" Width = "170"/>
                 </GridView>
             </ListView.View>
+
         </ListView>
         <Button 
+            Content="Открыть"
             Command="{Binding OpenTripCmd}" 
         	Width="136" Margin="712,12,10,10" 
         	HorizontalAlignment="Center" 
         	VerticalAlignment="Center" Grid.Column="1" Grid.Row="3">
-            <toolkit:AutoCompleteBox
-                wpf:TextFieldAssist.HintOpacity="0.5"
-			    wpf:TextFieldAssist.Hint="Откуда" 
-        		ItemsSource="{Binding Stations}"
-        		SelectedItem="{Binding SelectedStation, Mode=TwoWay}" Height="32" Width="139" Background="{DynamicResource IdealForegroundColorBrush}" BorderBrush="{DynamicResource IdealForegroundDisabledBrush}" FontSize="16" FontWeight="Normal" />
+
         </Button>
-
         <Viewbox Opacity ="{Binding LoadingVisibility}" Margin="138,34,45,70" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.552,1.404" Stretch="UniformToFill" Grid.RowSpan="2">
-            <local:LoadingCircle Margin="81,48,84,210" Grid.Column="1" Height="327" Width="275"/>
         </Viewbox>
-
+        <TextBlock 
+            FontSize ="20"
+            Opacity="{Binding NoTicketsFoundMsgVisibility}"
+            Margin="233,179,235,0" 
+            TextWrapping="Wrap"
+            Text="По данному запросу билетов не найдено" 
+            VerticalAlignment="Top" 
+            Grid.Column="1" 
+            Grid.Row="2" 
+            Height="39"/>
     </Grid>
 </Controls:MetroWindow>

@@ -35,6 +35,19 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("SearchButtonAvailability");
             }
         }
+        private String _noTicketsFoundMsgVisibility;
+        public String NoTicketsFoundMsgVisibility
+        {
+            get
+            {
+                return _noTicketsFoundMsgVisibility;
+            }
+            set
+            {
+                _noTicketsFoundMsgVisibility = value;
+                RaisePropertyChanged("NoTicketsFoundMsgVisibility");
+            }
+        }
         public IEnumerable<String> Stations 
         {
             get; private set; 
@@ -94,6 +107,7 @@ namespace Railways.ViewModel
         public ScheduleWindowViewModel() 
         {
             LoadingVisibility = "0";
+            NoTicketsFoundMsgVisibility = "0";
             SearchButtonAvailability = true;
 
             Stations = ContextKeeper.Stations
@@ -114,6 +128,7 @@ namespace Railways.ViewModel
         public async void FindTrains()
         {
             LoadingVisibility = "100";
+            NoTicketsFoundMsgVisibility = "0";
             SearchButtonAvailability = false;
             try
             {
@@ -121,13 +136,21 @@ namespace Railways.ViewModel
             }
             catch
             {
+                NoTicketsFoundMsgVisibility = "100";
                 Console.WriteLine("По данному запросу маршрутов не найдено!");
             }
             ObsTripInfo.Clear();
-            SuitableVoyages.ForEach(v => 
-            {     
-                ObsTripInfo.Add(v);
-            });
+            if (SuitableVoyages == null || SuitableVoyages.Count == 0)
+            {
+                LoadingVisibility = "0";
+                SearchButtonAvailability = true;
+                NoTicketsFoundMsgVisibility = "100";
+                return;
+            }
+                SuitableVoyages.ForEach(v => 
+                {     
+                    ObsTripInfo.Add(v);
+                });
             LoadingVisibility = "0";
             SearchButtonAvailability = true;
         }
