@@ -45,6 +45,23 @@ namespace Railways.ViewModel
             thisWindow.Close();
         }
 
+        public void SetUpInfoDialog(String title, String message)
+        {
+            this.FirstButtonVisibility = "0";
+            this.SecondButtonVisibility = "100";
+            this.SecondButtonText = "OK";
+            this.Title = title;
+            this.Message = message;
+        }
 
+        public void SetUpOptionDialog(String title, String message)
+        {
+            this.FirstButtonVisibility = "100";
+            this.SecondButtonVisibility = "100";
+            this.FirstButtonText = "ОК";
+            this.FirstButtonText = "Отмена";
+            this.Title = title;
+            this.Message = message;
+        }
     }
 }

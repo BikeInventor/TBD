@@ -70,8 +70,16 @@ namespace Railways.ViewModel
         {
             try
             {
+                var context = new DialogViewModel();
+                context.SetUpInfoDialog("Ошибка подключения", "Не удалось подключиться к серверу базы данных");
+                var view = new DialogWindow()
+                {
+                    DataContext = context
+                };
 
-                //var result = (bool)await DialogHost.Show("HELLO WORLD!", "LoginWindow");
+             
+
+                var result = (bool)await DialogHost.Show(view, "LoginWindow");
 
                 LoadingVisibility = "1";
                 LogInButtonAvailability = false;
@@ -93,10 +101,11 @@ namespace Railways.ViewModel
                     throw new InvalidOperationException();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // var controller = DialogService.ShowMessage("Неправильно указан id/пароль",
                 //    "Ошибка аутентификации", MessageDialogStyle.Affirmative);
+                DialogHost.Show(ex.Message, "LoginWindow");
             }
             finally
             {
