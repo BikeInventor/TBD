@@ -44,7 +44,7 @@
                 Text = "{Binding TrainNum}" 
                 VerticalAlignment="Center" 
                 Width="150" 
-                Height="36" Margin="20,0,50,0"/>
+                Height="30" Margin="20,18,50,12"/>
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" Text="Периодичность:" VerticalAlignment="Center" Width="142"/>
             <ComboBox 
                 Width="110"

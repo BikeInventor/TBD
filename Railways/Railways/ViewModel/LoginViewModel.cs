@@ -15,20 +15,15 @@ using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
 
 namespace Railways.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        public String Id { get; set; }
-        public RelayCommand<object> LoginCmd
-        {
-            get;
-            private set;
-        }
-
         private bool _loginButtonAvailability;
-
+        private String _loadingVisibility;
+        private bool _isConnected;
         public bool LogInButtonAvailability
         {
             get
@@ -41,9 +36,6 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("LogInButtonAvailability");
             }
         }
-
-        private String _loadingVisibility;
-
         public String LoadingVisibility
         {
             get
@@ -56,8 +48,12 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("LoadingVisibility");
             }
         }
-
-        private bool _isConnected;
+        public String Id { get; set; }
+        public RelayCommand<object> LoginCmd
+        {
+            get;
+            private set;
+        }
 
         public LoginViewModel()
         {
@@ -65,7 +61,6 @@ namespace Railways.ViewModel
             LoadingVisibility = "0";
             LogInButtonAvailability = true;
         }
-
         /// <summary>
         /// Осуществление входа сотрудника в систему
         /// </summary>
@@ -75,6 +70,9 @@ namespace Railways.ViewModel
         {
             try
             {
+
+                //var result = (bool)await DialogHost.Show("HELLO WORLD!", "LoginWindow");
+
                 LoadingVisibility = "1";
                 LogInButtonAvailability = false;
                 var passwordBox = pBox as PasswordBox;
