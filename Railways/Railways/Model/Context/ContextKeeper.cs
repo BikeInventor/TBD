@@ -41,7 +41,6 @@ namespace Railways.Model.Context
                 System.Threading.Thread.Sleep(2000);
 
                 _database = new RailwayDataModelContainer();
-                //_database.Database.Connection.Open();
 
                 Clients = new ClientContext();
                 Employees = new EmployeeContext();
