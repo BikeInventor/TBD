@@ -129,6 +129,14 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfControls, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfControls.AutoCompleteTextBox.1.0.0.7\lib\net35\WpfControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WPFTextBoxAutoComplete, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTextBoxAutoComplete.1.0.2\lib\net40\WPFTextBoxAutoComplete.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
       <Private>True</Private>
@@ -189,13 +197,14 @@
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Logic\AdminFunctions.cs" />
-    <Compile Include="ViewModel\AdminViewModels\AdminViewModel.cs" />
-    <Compile Include="ViewModel\AdminViewModels\EmployeeInfoViewModel.cs" />
-    <Compile Include="ViewModel\AdminViewModels\TrainInfoViewModel.cs" />
-    <Compile Include="ViewModel\AdminViewModels\VoyageEditViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\AdminViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\EmployeeInfoViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\TrainInfoViewModel.cs" />
+    <Compile Include="ViewModel\Administrator\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\Converters\IdToStationNameConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToUserRoleConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToWagonTypeConverter.cs" />
+    <Compile Include="ViewModel\DialogWindow\DialogViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Model\Employee.cs">
       <DependentUpon>RailwayDataModel.tt</DependentUpon>
@@ -242,8 +251,8 @@
     <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
     <Compile Include="ViewModel\Messages\TripInfoMessage.cs" />
-    <Compile Include="ViewModel\CashierViewModels\ScheduleWindowViewModel.cs" />
-    <Compile Include="ViewModel\CashierViewModels\SeatSetViewModel.cs" />
+    <Compile Include="ViewModel\Cashier\ScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\Cashier\SeatSetViewModel.cs" />
     <Compile Include="ViewModel\Utils\AsyncObservableCollection.cs" />
     <Compile Include="ViewModel\Utils\ObservableRangeCollection.cs" />
     <Compile Include="ViewModel\Validation\IdValidation.cs" />
@@ -251,6 +260,9 @@
     <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
     <Compile Include="ViewModel\Validation\StationValidation.cs" />
     <Compile Include="ViewModel\Validation\TimeSpanValidation.cs" />
+    <Compile Include="View\DialogWindow\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\LoadingCircle.xaml.cs">
       <DependentUpon>LoadingCircle.xaml</DependentUpon>
     </Compile>
@@ -271,6 +283,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AdminWindows\AdminWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DialogWindow\DialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

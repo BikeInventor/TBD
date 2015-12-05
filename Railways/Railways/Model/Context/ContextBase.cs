@@ -82,7 +82,9 @@ namespace Railways.Model.Context
             {
                 throw new NotImplementedException("Элемент с id " + entity.Id + " не найден в контексте");
             }
-            _entity = entity;
+         //   _entity = entity;
+
+            ContextKeeper.DataBase.Entry(_entity).CurrentValues.SetValues(entity);
 
            // ContextKeeper.DataBase.Entry(_entity).State = EntityState.Modified;
             ContextKeeper.DataBase.SaveChanges();
