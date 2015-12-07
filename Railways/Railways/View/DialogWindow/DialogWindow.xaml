@@ -1,58 +1,65 @@
-﻿<Controls:MetroWindow
-    x:Name="DialogWin"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:validation="clr-namespace:Railways.ViewModel.Validation"
-    xmlns:admin="clr-namespace:Railways.ViewModel"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-    mc:Ignorable="d" x:Class="Railways.DialogWindow"
-    Title="{Binding Title}" 
-    Height="221" 
-    Width="336" 
-    WindowStartupLocation="CenterScreen" 
-    ResizeMode="NoResize"
-    WindowStyle="None" 
-    Icon="/View/Resources/RWLogo.png" 
-    BorderBrush="{DynamicResource IdealForegroundDisabledBrush}"
-    BorderThickness="1">
+﻿<UserControl x:Class="Railways.View.DialogWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:admin="clr-namespace:Railways.ViewModel"
+             mc:Ignorable="d" Background="White" Width="286" Height="194">
 
-    <Window.DataContext>
-        <admin:DialogViewModel/>
-    </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="148*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
+    <UserControl.DataContext>
+        <admin:LoginViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid Margin="16">
         <Grid.RowDefinitions>
-            <RowDefinition Height="17*"/>
-            <RowDefinition Height="182*"/>
+            <RowDefinition Height="47*" />
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="27*" />
         </Grid.RowDefinitions>
-        <TextBlock 
-            FontSize="16" 
-            Grid.Row="1" 
-            TextWrapping="Wrap" 
-            Text="{Binding Message}" Grid.Column="1" Margin="0,42,0,91" VerticalAlignment="Center" Height="67"/>
-        <Button 
-            Content="{Binding FirstButtonText}"
-            Opacity="{Binding FirstButtonVisibility}"
-            Grid.Column="1" 
-            HorizontalAlignment="Left"
-            Margin="0,149,0,0"
-            Grid.Row="1" 
-            VerticalAlignment="Top"
-            Width="120"/>
-        
-        <Button
-            Content="{Binding SecondButtonText}"
-            Opacity="{Binding Sec}"
-            Grid.Column="1" Margin="176,149,0,0" 
-            Grid.Row="1" 
-            VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
 
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    Margin="10,0,10,-16">
+            <Button IsDefault="True" 
+                    Opacity="{Binding FirstButtonVisibility}"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{x:Static wpf:DialogHost.CloseDialogCommand}" 
+                    Content="{Binding FirstButtonText}"
+                    Background="{DynamicResource AccentColorBrush}" 
+                    Foreground="White"
+                    Margin="0,17"
+                    Width="90">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button IsCancel="True" 
+                    Margin="55,17,0,17" 
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+            	    Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
+                    Background="{DynamicResource AccentColorBrush}" 
+                    Opacity="{Binding SecondButtonVisibility}"
+                    Foreground="White" 
+                    Content="{Binding SecondButtonText}"
+                    Width="90">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+
+        </StackPanel>
+        <TextBlock FontWeight="Medium"
+        	TextWrapping="Wrap"  
+        	FontSize="16"
+        	Margin="0,20,46,0"
+        	Text="{Binding Message}"/>
     </Grid>
-</Controls:MetroWindow>
+</UserControl>

@@ -11,57 +11,118 @@ using Railways.Model.Context;
 using Microsoft.Practices.ServiceLocation;
 using Railways.ViewModel.Messages;
 using GalaSoft.MvvmLight.Messaging;
+using Railways.View;
 
 namespace Railways.ViewModel
 {
+    public enum DialogWindowType
+    {
+        INFODIALOG,
+        OPTIONDIALOG
+    }
+
     public class DialogViewModel : ViewModelBase
     {
-        public String Title { get; set; }
-        public String Message { get; set; }
-        public String FirstButtonText { get; set; }
-        public String SecondButtonText { get; set; }
-        public String FirstButtonVisibility { get; set; }
-        public String SecondButtonVisibility { get; set; }
-        public bool DialogResult { get; private set; }
+        private String _message;
+        private String _firstButtonText;
+        private String _secondButtonText;
+        private String _firstButtonVisibility;
+        private String _secondButtonVisibility;
 
-        public RelayCommand<DialogWindow> FirstButtonPressCmd {get; private set;}
-        public RelayCommand<DialogWindow> SecondButtonPressCmd { get; private set; }
-
-        public DialogViewModel()
+        public String Message
         {
-            FirstButtonPressCmd = new RelayCommand<DialogWindow>(this.FirstButtonPress);
-            SecondButtonPressCmd = new RelayCommand<DialogWindow>(this.FirstButtonPress);
+            get
+            {
+                return _message;
+            }
+            set
+            {
+                _message = value;
+                RaisePropertyChanged("Message");
+            }
+        }
+        public String FirstButtonText
+        {
+            get
+            {
+                return _firstButtonText;
+            }
+            set
+            {
+                _firstButtonText = value;
+                RaisePropertyChanged("FirstButtonText");
+            }
+        }
+        public String SecondButtonText
+        {
+            get
+            {
+                return _secondButtonText;
+            }
+            set
+            {
+                _secondButtonText = value;
+                RaisePropertyChanged("SecondButtonText");
+            }
+        }
+        public String FirstButtonVisibility
+        {
+            get
+            {
+                return _firstButtonVisibility;
+            }
+            set
+            {
+                _firstButtonVisibility = value;
+                RaisePropertyChanged("FirstButtonVisibility");
+            }
+        }
+        public String SecondButtonVisibility
+        {
+            get
+            {
+                return _secondButtonVisibility;
+            }
+            set
+            {
+                _secondButtonVisibility = value;
+                RaisePropertyChanged("SecondButtonVisibility");
+            }
         }
 
-        private void FirstButtonPress(DialogWindow thisWindow)
+
+        /// <summary>
+        /// Создание диалогового окна заданного типа с заданным собщением
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        /// <param name="dialogType">Тип диалогового окна</param>
+        public DialogViewModel(String message, DialogWindowType dialogType)
         {
-            this.DialogResult = true;
-            thisWindow.Close();
+            this.Message = message;
+
+            if (dialogType == DialogWindowType.INFODIALOG)
+            {
+                SetUpInfoDialog();
+            }
+            else
+            {
+                SetUpOptionDialog();
+            }
         }
 
-        private void SecondButtonPress(DialogWindow thisWindow)
-        {
-            this.DialogResult = false;
-            thisWindow.Close();
-        }
-
-        public void SetUpInfoDialog(String title, String message)
+        private void SetUpInfoDialog()
         {
             this.FirstButtonVisibility = "0";
             this.SecondButtonVisibility = "100";
             this.SecondButtonText = "OK";
-            this.Title = title;
-            this.Message = message;
         }
 
-        public void SetUpOptionDialog(String title, String message)
+        private void SetUpOptionDialog()
         {
             this.FirstButtonVisibility = "100";
             this.SecondButtonVisibility = "100";
-            this.FirstButtonText = "ОК";
-            this.FirstButtonText = "Отмена";
-            this.Title = title;
-            this.Message = message;
+            this.FirstButtonText = "ДА";
+            this.SecondButtonText = "НЕТ";
         }
     }
 }

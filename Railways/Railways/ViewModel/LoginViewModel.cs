@@ -16,6 +16,8 @@ using MahApps.Metro.Controls;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
+using Railways.View;
+using Railways.ViewModel.Services;
 
 namespace Railways.ViewModel
 {
@@ -69,19 +71,8 @@ namespace Railways.ViewModel
         public async void TryLogin(object pBox)
         {
             try
-            {
-                var context = new DialogViewModel();
-                context.SetUpInfoDialog("Ошибка подключения", "Не удалось подключиться к серверу базы данных");
-                var view = new DialogWindow()
-                {
-                    DataContext = context
-                };
-
-             
-
-                var result = (bool)await DialogHost.Show(view, "LoginWindow");
-
-                LoadingVisibility = "1";
+            {                
+                LoadingVisibility = "100";
                 LogInButtonAvailability = false;
                 var passwordBox = pBox as PasswordBox;
                 var password = passwordBox.Password;
@@ -89,7 +80,13 @@ namespace Railways.ViewModel
                 if (!_isConnected)
                 {
                     _isConnected = await ConnectToDB();
-                    if (!_isConnected) return;
+                    if (!_isConnected)
+                    {
+                        await DialogService.ShowDialog("LoginWindow", 
+                            "Не удалось подключиться к серверу базы данных", 
+                            DialogWindowType.INFODIALOG);
+                        return;
+                    }
                 }
 
                 if (CorrectAuthInfo(int.Parse(Id), password) && !String.IsNullOrEmpty(this.Id))
@@ -98,14 +95,14 @@ namespace Railways.ViewModel
                 }
                 else
                 {
-                    throw new InvalidOperationException();
+                    await DialogService.ShowDialog("LoginWindow", 
+                        "Пользователь не найден", 
+                        DialogWindowType.INFODIALOG);
                 }
             }
             catch (Exception ex)
             {
-                // var controller = DialogService.ShowMessage("Неправильно указан id/пароль",
-                //    "Ошибка аутентификации", MessageDialogStyle.Affirmative);
-                DialogHost.Show(ex.Message, "LoginWindow");
+                Console.WriteLine("Ошибка подключения");
             }
             finally
             {

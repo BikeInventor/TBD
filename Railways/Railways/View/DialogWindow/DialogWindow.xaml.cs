@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 
 
-namespace Railways
+namespace Railways.View
 {
-    public partial class DialogWindow : MetroWindow
+    public partial class DialogWindow : UserControl
     {
         public DialogWindow()
         {
