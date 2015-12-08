@@ -16,6 +16,7 @@ using Railways.Model.ModelBuilder;
 using System.Windows.Controls;
 using Railways.ViewModel;
 using Railways.ViewModel.Utils;
+using System.Windows.Media;
 
 namespace Railways.ViewModel
 {
@@ -23,6 +24,8 @@ namespace Railways.ViewModel
     {
         private const String freeSeatOpacity = "0.3";
         private const String occupiedSeatOpacity = "1";
+        private const Double selectedSeatOpacity = 0.5;
+        private  Brush selectedSeatColor  = Brushes.LawnGreen;
 
         private List<WagonSeatsSet> _berth;
         private List<WagonSeatsSet> _coupe;
@@ -38,6 +41,7 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("CurrentTabIndex"); 
                 SetCurrentWagonType();
                 SetCurrentWagonInfo();
+                ResetSelectedButton();
             }
         }
 
@@ -53,9 +57,28 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("WagonInfo");
             }
         }
+
+        private String _seatInfo = "";
+        public String SeatInfo
+        {
+            get
+            {
+                return _seatInfo;
+            }
+            set
+            {
+                _seatInfo = value;
+                RaisePropertyChanged("SeatInfo");
+            }
+        }
       
         private bool _nextEnabled;
         private bool _prevEnabled;
+
+        private Button _selectedSeatButton;
+        private int _selectedSeatNumber;
+        private Brush _selectedButtonColor;
+
         public bool NextEnabled
         {
             get { return _nextEnabled; }
@@ -130,6 +153,7 @@ namespace Railways.ViewModel
             set { _luxSeatsVisibility = value; }
         }
 
+        public RelayCommand<object> SelectSeatCmd { get; set; }
         public RelayCommand NextWagonCmd { get; set; }
         public RelayCommand PrevWagonCmd { get; set; }                              
 
@@ -147,6 +171,7 @@ namespace Railways.ViewModel
             _coupeSeatsVisibility = new ObservableRangeCollection<String>();
             _luxSeatsVisibility = new ObservableRangeCollection<String>();
 
+            SelectSeatCmd = new RelayCommand<object>(this.SelectSeat);
             NextWagonCmd = new RelayCommand(() => NextWagon());
             PrevWagonCmd = new RelayCommand(() => PrevWagon());
 
@@ -288,6 +313,7 @@ namespace Railways.ViewModel
                         break;
                     }
                 }
+            ResetSelectedButton();
         }
            
         /// <summary>
@@ -335,6 +361,7 @@ namespace Railways.ViewModel
                         break;
                     }
             }
+            ResetSelectedButton();
         }
 
         /// <summary>
@@ -489,6 +516,75 @@ namespace Railways.ViewModel
         {
             PrevEnabled = false;
             NextEnabled = (wagonsCount > 1) ? true : false;
+        }
+
+        /// <summary>
+        /// Выбор места для покупки билета
+        /// </summary>
+        /// <param name="button"></param>
+        private void SelectSeat(object button)
+        {
+            var selectedSeatButton = (Button)button;
+            var selectedSeatIndex = int.Parse(selectedSeatButton.Name
+                .Substring(1, selectedSeatButton.Name.Length - 1)) - 1;
+
+            switch (_currentTabIndex)
+            {
+                case 0:
+                    {
+                        if (CurrentBerth.Seats[selectedSeatIndex] == true 
+                            && selectedSeatButton != this._selectedSeatButton)
+                        {
+                            ShowSeatSelection(selectedSeatButton, selectedSeatIndex);
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        if (CurrentCoupe.Seats[selectedSeatIndex] == true
+                            && selectedSeatButton != this._selectedSeatButton)
+                        {
+                            ShowSeatSelection(selectedSeatButton, selectedSeatIndex);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        if (CurrentLux.Seats[selectedSeatIndex] == true
+                            && selectedSeatButton != this._selectedSeatButton)
+                        {
+                            ShowSeatSelection(selectedSeatButton, selectedSeatIndex);
+                        }
+                        break;
+                    }
+            }
+
+        }
+
+        private void ShowSeatSelection(Button selectedSeatButton, int selectedSeatIndex)
+        {
+            if (this._selectedSeatButton != null)
+            {
+                this._selectedSeatButton.Background = this._selectedButtonColor;
+            }
+
+            this._selectedButtonColor = selectedSeatButton.Background;
+            this._selectedSeatButton = selectedSeatButton;
+            this._selectedSeatButton.Background = selectedSeatColor;
+            this._selectedSeatButton.Opacity = selectedSeatOpacity;
+            this._selectedSeatNumber = selectedSeatIndex;
+            this.SeatInfo = "Место № " + this._selectedSeatNumber + 1;
+        }
+
+        private void ResetSelectedButton()
+        {
+            if (_selectedSeatButton != null)
+            {
+                this._selectedSeatButton.Background = this._selectedButtonColor;
+                this._selectedSeatNumber = -1;
+                this.SeatInfo = "";
+            }
+
         }
     }
 }
