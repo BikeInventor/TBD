@@ -208,7 +208,7 @@
             </TabItem>
         </TabControl>
         <TextBlock Text="{Binding WagonInfo}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="79" Width="910" Grid.Column="1" FontSize="16"/>
-        <Button Content="" FontSize ="16" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
+        <Button Content="Выбрать" FontSize ="16" Grid.Column="1" HorizontalAlignment="Left" Margin="775,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.507,0.531"/>
 
     </Grid>
 </Controls:MetroWindow>

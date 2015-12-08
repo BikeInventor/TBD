@@ -24,6 +24,7 @@ namespace Railways.ViewModel
 
         public EmployeeInfoViewModel()
         {
+            UserRights = "0";
             RegisterEmployee = new RelayCommand<EmployeeInfoWindow>(this.AddEmployee);
         }
 

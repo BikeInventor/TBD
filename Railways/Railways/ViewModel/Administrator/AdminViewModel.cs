@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Railways.View;
 using Railways.Model.ModelBuilder;
 using System.Windows.Controls;
+using Railways.ViewModel.Services;
 
 namespace Railways.ViewModel
 {
@@ -96,8 +97,6 @@ namespace Railways.ViewModel
 
         public AdminViewModel()
         {
-            ContextKeeper.Initialize();
-
             _obsEmpList = new ObservableCollection<Employee>();
             _employeeList = new List<Employee>();
 
@@ -115,10 +114,6 @@ namespace Railways.ViewModel
             RegisterTrainCmd = new RelayCommand(() => AddTrain());
             DeleteTrainCmd = new RelayCommand(() => DeleteTrain());
             EditTrainCmd = new RelayCommand(() => EditTrain());
-
-            //var t = new Ticket();
-            //t.DepartureDate = DateTime.Now.AddHours(3);
-            //t.ArrivalDate = DateTime.Now.AddHours(5);
 
         }
 
@@ -145,13 +140,23 @@ namespace Railways.ViewModel
         /// <summary>
         /// Удаление сотрудника из списка
         /// </summary>
-        private void DeleteEmployee()
+        private async void DeleteEmployee()
         {
             if (EmployeeSelectedIndex >= 0)
             {
                 var empToDelete = EmployeeList[EmployeeSelectedIndex];
-                ContextKeeper.Employees.Remove(empToDelete);
-                RefreshEmployeeList();
+
+                var dialogResult = await DialogService.ShowDialog("AdminWindow",
+                        "Вы уверены, что хотите удалить\n"
+                        + empToDelete.FullName + "?",
+                        DialogWindowType.OPTIONDIALOG);
+
+                if (dialogResult)
+                {
+                    ContextKeeper.Employees.Remove(empToDelete);
+                    RefreshEmployeeList();
+                }
+
             }
         }
         /// <summary>
@@ -175,14 +180,23 @@ namespace Railways.ViewModel
         /// <summary>
         /// Удаление поезда из списка
         /// </summary>
-        private void DeleteTrain()
+        private async void DeleteTrain()
         {
             if (TrainSelectedIndex >= 0)
             {
                 var trainToDelete = TrainList[TrainSelectedIndex];
                 TrainSelectedIndex = -1;
-                TrainBuilder.DeleteTrainWithWagons(trainToDelete.Id);
-                RefreshTrainList();
+
+                var dialogResult = await DialogService.ShowDialog("AdminWindow",
+                        "Вы уверены, что хотите удалить\nпоезд №"
+                        + trainToDelete.TrainNum + "?",
+                        DialogWindowType.OPTIONDIALOG);
+
+                if (dialogResult)
+                {
+                    TrainBuilder.DeleteTrainWithWagons(trainToDelete.Id);
+                    RefreshTrainList();
+                }
             }
         }
         /// <summary>

@@ -21,7 +21,7 @@ public enum WagonType
 public enum WagonSeatsAmount
 {
     BERTH = 54,
-    COUPE = 36,
+    COUPE = 38,
     LUX = 18,
 }
 
