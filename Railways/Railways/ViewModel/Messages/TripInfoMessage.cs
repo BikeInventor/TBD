@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Railways.Model.ModelBuilder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +9,11 @@ namespace Railways.ViewModel.Messages
 {
     public class TripInfoMessage
     {
-        public int TrainId { get; set; }
-        public DateTime DepDate { get; set; }
-        public DateTime ArrDate { get; set; }
+        public TripInfo CurrentTripInfo { get; set; }
 
-        public TripInfoMessage(int trainId, DateTime depDate, DateTime arrDate)
+        public TripInfoMessage(TripInfo currentTripInfo)
         {
-            this.ArrDate = arrDate;
-            this.DepDate = depDate;
-            this.TrainId = trainId;
+            this.CurrentTripInfo = currentTripInfo;
         }
     }
 }

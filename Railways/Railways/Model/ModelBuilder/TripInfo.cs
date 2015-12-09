@@ -12,9 +12,8 @@ namespace Railways.Model.ModelBuilder
     public class TripInfo
     {
         private Voyage _voyage;
-        private Route _depRoute;
-        private Route _arRoute;
-
+        public Route DepRoute { get; set; }
+        public Route ArrRoute { get; set; }
         public int TrainId { get; private set; }
         public String TrainNumber { get; private set; }
         public String DepartureStation { get; private set; }
@@ -25,9 +24,9 @@ namespace Railways.Model.ModelBuilder
         public Double BerthPrice { get; private set; }
         public Double CoupePrice { get; private set; }
         public Double LuxPrice { get; private set; }
-        public Boolean isBerthAvailible { get; private set; }
-        public Boolean isCoupeAvailible { get; private set; }
-        public Boolean isLuxAvailible { get; private set; }
+        public int BerthCount { get; private set; }
+        public int CoupeCount { get; private set; }
+        public int LuxCount { get; private set; }
         public int DateOffset { get; private set; }
 
 
@@ -37,14 +36,14 @@ namespace Railways.Model.ModelBuilder
         public TripInfo(int voyageId, int depRouteId, int arRouteId, int dateOffset)
         {
             this._voyage = ContextKeeper.Voyages.First(v => v.Id == voyageId);
-            this._depRoute = ContextKeeper.Routes.First(r => r.Id == depRouteId);
-            this._arRoute = ContextKeeper.Routes.First(r => r.Id == arRouteId);
+            this.DepRoute = ContextKeeper.Routes.First(r => r.Id == depRouteId);
+            this.ArrRoute = ContextKeeper.Routes.First(r => r.Id == arRouteId);
 
             this.TrainId = _voyage.TrainId.Value;
 
             this.TrainNumber = _voyage.Train.TrainNum;
-            this.DepartureStation = _depRoute.Station.StationName;
-            this.ArrivalStation = _arRoute.Station.StationName;
+            this.DepartureStation = DepRoute.Station.StationName;
+            this.ArrivalStation = ArrRoute.Station.StationName;
 
             this.DepartureTime = ContextKeeper.Routes
                 .Where(r => r.Id == depRouteId)
@@ -59,32 +58,71 @@ namespace Railways.Model.ModelBuilder
 
             this.ArrivalTime = this.ArrivalTime.AddDays(dateOffset);
             this.DepartureTime = this.DepartureTime.AddDays(dateOffset);
-            
+
+            SetEachTypeSeatsCount();
             CalculatePrice();
         }
 
+        /// <summary>
+        /// Подсчёт количества мест в вагонах каждого типа
+        /// </summary>
+        private void SetEachTypeSeatsCount()
+        {
+            var berth = new List<WagonSeatsSet>();
+            var coupe = new List<WagonSeatsSet>();
+            var lux = new List<WagonSeatsSet>();
+
+            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(_voyage.Train.Id).ToList();
+            wagonsOfTrain.ForEach(wagon =>
+            {
+                var currentWag = new WagonSeatsSet(wagon.Id, DepartureTime, ArrivalTime);
+
+                    var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                    switch (wagonType)
+                    {
+                        case WagonType.BERTH:
+                            {
+                                BerthCount += FreeSeatsOfWagonCount(currentWag);
+                                break;
+                            }
+                        case WagonType.COUPE:
+                            {
+                                CoupeCount += FreeSeatsOfWagonCount(currentWag);
+                                break;
+                            }
+                        case WagonType.LUX:
+                            {
+                                LuxCount += FreeSeatsOfWagonCount(currentWag);
+                                break;
+                            }
+                    }
+            });        
+        }
+
+        /// <summary>
+        /// Расчёт цены на места в зависимости от их типа
+        /// </summary>
         private void CalculatePrice()
         {
-            int berthCount = 0;
-            int coupeCount = 0;
-            int luxCount = 0;
+            var tripDistance = CalculateTripDistance();
+            this.BerthPrice = BusinessLogic.CalculatePrice(tripDistance, WagonType.BERTH);
+            this.CoupePrice = BusinessLogic.CalculatePrice(tripDistance, WagonType.COUPE);
+            this.LuxPrice = BusinessLogic.CalculatePrice(tripDistance, WagonType.LUX);
+        }
 
-            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(_voyage.Train.Id);
+        private double CalculateTripDistance()
+        {
+            return this.ArrRoute.Distance.Value - this.DepRoute.Distance.Value;
+        }
 
-            wagonsOfTrain.ToList().ForEach(w =>
+        private int FreeSeatsOfWagonCount(WagonSeatsSet wagonSeats)
+        {
+            int freeSeatsCount = 0;
+            wagonSeats.Seats.ForEach(freeSeat =>
             {
-                var seatsOfWagon = TrainBuilder.GetSeatsOfWagon(w.Id);
-
-                seatsOfWagon.ToList().ForEach(seat => 
-                {
-
-                    //var ticketsOfSeat = TrainBuilder.GetTicketsOfSeat(seat.Id).Where(t => );
-                     
-                    //ticketsOfSeat.ToList().ForEach(ticket => );
-                });
-                
+                if (freeSeat) freeSeatsCount++;
             });
-          
+            return freeSeatsCount;
         }
 
         /// <summary>
@@ -100,26 +138,3 @@ namespace Railways.Model.ModelBuilder
         }
     }
 }
-
-
-
-
-
-
-
-/*
-               var seatIds = ContextKeeper.Seats.All()
-                .Join(wagons,
-                    s => s.Wagon_Seat,
-                    w => w.Wagon_Seat,
-                    (s, w) => s.Id
-                ).ToList();
-
-
-            seatIds.ForEach(seatId =>
-            {
-                var allTicketsWithCurrentSeat = ContextKeeper.Tickets
-                    .Where(ticket => ticket.SeatId == seatId);
-
-            });
-*/

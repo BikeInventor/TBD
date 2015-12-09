@@ -27,6 +27,9 @@ namespace Railways.ViewModel
         private const Double selectedSeatOpacity = 0.5;
         private  Brush selectedSeatColor  = Brushes.LawnGreen;
 
+        private TripInfo _tripInfo;
+        private double _currentSeatPrice;
+
         private List<WagonSeatsSet> _berth;
         private List<WagonSeatsSet> _coupe;
         private List<WagonSeatsSet> _lux;
@@ -71,6 +74,20 @@ namespace Railways.ViewModel
                 RaisePropertyChanged("SeatInfo");
             }
         }
+
+        private String _currentTripInfo;
+        public String CurrentTripInfo
+        {
+            get 
+            {
+                return _currentTripInfo;
+            }
+            set
+            {
+                _currentTripInfo = value;
+                RaisePropertyChanged("CurrentTripInfo");
+            }
+        }
       
         private bool _nextEnabled;
         private bool _prevEnabled;
@@ -99,6 +116,7 @@ namespace Railways.ViewModel
         }
 
         private int trainId;
+
         private DateTime arrDate;
         private DateTime depDate;
 
@@ -155,7 +173,8 @@ namespace Railways.ViewModel
 
         public RelayCommand<object> SelectSeatCmd { get; set; }
         public RelayCommand NextWagonCmd { get; set; }
-        public RelayCommand PrevWagonCmd { get; set; }                              
+        public RelayCommand PrevWagonCmd { get; set; }
+        public RelayCommand ClientInfoInputCmd { get; set; }                    
 
         public SeatSetViewModel()
         {
@@ -174,10 +193,13 @@ namespace Railways.ViewModel
             SelectSeatCmd = new RelayCommand<object>(this.SelectSeat);
             NextWagonCmd = new RelayCommand(() => NextWagon());
             PrevWagonCmd = new RelayCommand(() => PrevWagon());
+            ClientInfoInputCmd = new RelayCommand(() => ClientInfoInput());
 
             Messenger.Default.Register<TripInfoMessage>(this, (msg) =>
             {
-                SetTrainInfo(msg.TrainId, msg.DepDate, msg.ArrDate);
+                this._tripInfo = msg.CurrentTripInfo;
+                SetTrainInfo();
+                SetCurrentTripInfo();
             });
         }
 
@@ -185,11 +207,15 @@ namespace Railways.ViewModel
         /// Формирование списков вагонов поезда по их типам
         /// </summary>
         /// <param name="trainId"></param>
-        private void SetTrainInfo(int trainId, DateTime depDate, DateTime arrDate)
+        private void SetTrainInfo()
         {
-            this.trainId = trainId;
-            this.depDate = depDate;
-            this.arrDate = arrDate;
+            this.trainId = this._tripInfo.TrainId; ;
+            this.depDate = this._tripInfo.DepartureTime;
+            this.arrDate = this._tripInfo.ArrivalTime;
+
+            Berth.Clear();
+            Coupe.Clear();
+            Lux.Clear();
 
             var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
             wagonsOfTrain.ForEach(wagon =>
@@ -202,7 +228,6 @@ namespace Railways.ViewModel
                     {
                         case WagonType.BERTH:
                             {
-
                                 this.Berth.Add(newWag);
                                 break;
                             }
@@ -217,16 +242,12 @@ namespace Railways.ViewModel
                                 break;
                             }
                     }
-
-                }
-               
+                }         
             });
-            SetCurrentWagons();
 
-             SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
-             BerthSeatsVisibility.Add(null);
-            //SetWagonSeatsButtonsVisibility(CurrentCoupe, CoupeSeatsVisibility);
-            //SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
+            SetCurrentWagons();
+            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+            BerthSeatsVisibility.Add(null);
 
             NextEnabled = true;  
             CurrentTabIndex = 0;
@@ -296,7 +317,8 @@ namespace Railways.ViewModel
                         if (SetNext(Coupe.Count, currentIndex))
                         {
                             CurrentCoupe = Coupe[++currentIndex];
-                            SetWagonSeatsButtonsVisibility(CurrentCoupe, CoupeSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                            CoupeSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -307,7 +329,8 @@ namespace Railways.ViewModel
                         if (SetNext(Lux.Count, currentIndex))
                         {
                             CurrentLux = Lux[++currentIndex];
-                            SetWagonSeatsButtonsVisibility(CurrentLux, LuxSeatsVisibility);
+                            SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                            LuxSeatsVisibility.Add(null);
                             SetCurrentWagonInfo();
                         }
                         break;
@@ -509,7 +532,7 @@ namespace Railways.ViewModel
         }
 
         /// <summary>
-        /// Установка кнопок перехода между вагонами вкладки в начальное состояник
+        /// Установка кнопок перехода между вагонами вкладки в начальное состояние
         /// </summary>
         /// <param name="wagonsCount"></param>
         private void SetStartNextPrevButtons(int wagonsCount)
@@ -532,8 +555,7 @@ namespace Railways.ViewModel
             {
                 case 0:
                     {
-                        if (CurrentBerth.Seats[selectedSeatIndex] == true 
-                            && selectedSeatButton != this._selectedSeatButton)
+                        if (CurrentBerth.Seats[selectedSeatIndex] == true)
                         {
                             ShowSeatSelection(selectedSeatButton, selectedSeatIndex);
                         }
@@ -561,6 +583,11 @@ namespace Railways.ViewModel
 
         }
 
+        /// <summary>
+        /// Отображение выбранного для покупки билета места в вагоне
+        /// </summary>
+        /// <param name="selectedSeatButton"></param>
+        /// <param name="selectedSeatIndex"></param>
         private void ShowSeatSelection(Button selectedSeatButton, int selectedSeatIndex)
         {
             if (this._selectedSeatButton != null)
@@ -571,11 +598,36 @@ namespace Railways.ViewModel
             this._selectedButtonColor = selectedSeatButton.Background;
             this._selectedSeatButton = selectedSeatButton;
             this._selectedSeatButton.Background = selectedSeatColor;
-            this._selectedSeatButton.Opacity = selectedSeatOpacity;
             this._selectedSeatNumber = selectedSeatIndex;
-            this.SeatInfo = "Место № " + this._selectedSeatNumber + 1;
+            this.SeatInfo = "Место № " + (this._selectedSeatNumber + 1);
+
+            switch (_currentTabIndex)
+            {
+                case 0:
+                    {
+                        _currentSeatPrice = this._tripInfo.BerthPrice;
+                        break;
+                    }
+                case 1:
+                    {
+                        _currentSeatPrice = this._tripInfo.CoupePrice;
+                        break;
+                    }
+                case 2:
+                    {
+                        _currentSeatPrice = this._tripInfo.LuxPrice;
+                        break;
+                    }
+            }
+
+            this.SeatInfo += "                   Цена билета: "
+                + String.Format("{0:0.00}", this._currentSeatPrice)
+                + "руб.";
         }
 
+        /// <summary>
+        /// Сброс выбранного места при переходе между вкладками/вагонами
+        /// </summary>
         private void ResetSelectedButton()
         {
             if (_selectedSeatButton != null)
@@ -585,6 +637,126 @@ namespace Railways.ViewModel
                 this.SeatInfo = "";
             }
 
+        }
+
+        /// <summary>
+        /// Задание содержания надписи о поездке, на которую покупается билет
+        /// </summary>
+        /// <param name="stationFrom"></param>
+        /// <param name="stationTo"></param>
+        /// <param name="depDate"></param>
+        /// <param name="arrDate"></param>
+        private void SetCurrentTripInfo()
+        {
+            CurrentTripInfo = this._tripInfo.DepartureStation + ": "
+                + this._tripInfo.DepartureTime.ToShortDateString() + " "
+                + this._tripInfo.DepartureTime.ToShortTimeString() + "\n" 
+                + this._tripInfo.ArrivalStation + ": " 
+                + this._tripInfo.ArrivalTime.ToShortDateString() + " "
+                + this._tripInfo.ArrivalTime.ToShortTimeString();
+        }
+
+        /// <summary>
+        /// Открытие окна ввода данных о покупателе
+        /// </summary>
+        private void ClientInfoInput()
+        {
+            if (_selectedSeatNumber > 0)
+            {
+                 var wagons = TrainBuilder.GetWagonsOfTrain(trainId);
+
+                 int currentWag = 0;
+
+                 switch (_currentTabIndex)
+                 {
+                     case 0:
+                         {
+                             currentWag = wagons
+                                 .Where(w => w.WagonType == (int)WagonType.BERTH)
+                                 .Where(w => w.Id == CurrentBerth.WagonId)
+                                 .Select(w => w.Id)
+                                 .First();
+                             break;
+                         }
+                     case 1:
+                         {
+                             currentWag = wagons
+                                 .Where(w => w.WagonType == (int)WagonType.COUPE)
+                                 .Where(w => w.Id == CurrentCoupe.WagonId)
+                                 .Select(w => w.Id)
+                                 .First();
+                             break;
+                         }
+                     case 2:
+                         {
+                             currentWag = wagons
+                                 .Where(w => w.WagonType == (int)WagonType.LUX)
+                                 .Where(w => w.Id == CurrentLux.WagonId)
+                                 .Select(w => w.Id)
+                                 .First();
+                             break;
+                         }
+                 }
+                
+
+                 var seatsOfWagon = TrainBuilder.GetSeatsOfWagon(currentWag).ToList();
+                 var selectedSeatId = seatsOfWagon[_selectedSeatNumber].Id;
+
+                var clientInfo = new ClientInfoWindow();
+                clientInfo.Show();
+                clientInfo.Closing += new System.ComponentModel.CancelEventHandler((a, b) =>
+                {
+           //пометить купленный
+                    SetTrainInfo();
+                });
+
+
+                Messenger.Default.Send(new TicketInfoMessage(
+                    this._tripInfo,
+                    selectedSeatId,
+                    1,                       ////////////////////////TODO: emp tracking
+                    0,
+                    _currentSeatPrice
+                ));
+            }
+        }
+
+        private void RefreshCurrentWagonSeats()
+        {
+            Berth.Clear();
+            Coupe.Clear();
+            Lux.Clear();
+
+            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
+            wagonsOfTrain.ForEach(wagon =>
+            {
+                var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                if (newWag.Seats.Any(freeSeat => freeSeat == true))
+                {
+                    var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                    switch (wagonType)
+                    {
+                        case WagonType.BERTH:
+                            {
+                                this.Berth.Add(newWag);
+                                break;
+                            }
+                        case WagonType.COUPE:
+                            {
+                                this.Coupe.Add(newWag);
+                                break;
+                            }
+                        case WagonType.LUX:
+                            {
+                                this.Lux.Add(newWag);
+                                break;
+                            }
+                    }
+                }
+            });
+
+            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+            BerthSeatsVisibility.Add(null);
         }
     }
 }

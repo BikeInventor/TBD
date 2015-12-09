@@ -165,9 +165,7 @@ namespace Railways.ViewModel
                 var wagonsInfoWin = new SeatSetWindow();
                 wagonsInfoWin.Show();
 
-                Messenger.Default.Send(new TripInfoMessage(ObsTripInfo[SelectedTrip].TrainId,
-                    ObsTripInfo[SelectedTrip].DepartureTime,
-                    ObsTripInfo[SelectedTrip].ArrivalTime));
+                Messenger.Default.Send(new TripInfoMessage(ObsTripInfo[SelectedTrip]));
 
             }
         }

@@ -202,6 +202,7 @@
     <Compile Include="ViewModel\Administrator\EmployeeInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\VoyageEditViewModel.cs" />
+    <Compile Include="ViewModel\Cashier\ClientInfoViewModel.cs" />
     <Compile Include="ViewModel\Converters\IdToStationNameConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToUserRoleConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToWagonTypeConverter.cs" />
@@ -251,6 +252,7 @@
     </Compile>
     <Compile Include="ViewModel\Messages\TrainInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TrainOfVoyageMessage.cs" />
+    <Compile Include="ViewModel\Messages\TicketInfoMessage.cs" />
     <Compile Include="ViewModel\Messages\TripInfoMessage.cs" />
     <Compile Include="ViewModel\Cashier\ScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\Cashier\SeatSetViewModel.cs" />
@@ -262,6 +264,9 @@
     <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
     <Compile Include="ViewModel\Validation\StationValidation.cs" />
     <Compile Include="ViewModel\Validation\TimeSpanValidation.cs" />
+    <Compile Include="View\CashierWindows\ClientInfoWindow.xaml.cs">
+      <DependentUpon>ClientInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DialogWindow\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -285,6 +290,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AdminWindows\AdminWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CashierWindows\ClientInfoWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

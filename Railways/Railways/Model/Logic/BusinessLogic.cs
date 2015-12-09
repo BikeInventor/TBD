@@ -26,9 +26,9 @@ namespace Railways.Model.Logic
         /// <summary>
         /// Коэффициент для рассчёта цены на конретный тип места
         /// </summary>
-        private static double priceCoefficient = 0.5;
+        private static double priceCoefficient = 0.2;
 
-        private static double _kilometerPrice;
+        private static double _kilometerPrice = 4;
         /// <summary>
         /// Цена за километр поездки
         /// </summary>
