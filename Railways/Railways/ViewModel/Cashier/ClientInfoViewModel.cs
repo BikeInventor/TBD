@@ -73,6 +73,7 @@ namespace Railways.ViewModel
                 BuyTicket();
                 var ticket = new TicketWindow();
                 ticket.Show();
+                Messenger.Default.Send(new TicketInfoMessage(message));
                 window.Close();
             }
         }

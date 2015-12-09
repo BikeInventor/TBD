@@ -648,11 +648,13 @@ namespace Railways.ViewModel
         /// <param name="arrDate"></param>
         private void SetCurrentTripInfo()
         {
-            CurrentTripInfo = this._tripInfo.DepartureStation + ": "
-                + this._tripInfo.DepartureTime.ToShortDateString() + " "
+            CurrentTripInfo = "Отправка: "
+                + this._tripInfo.DepartureStation + ", "
+                + this._tripInfo.DepartureTime.ToLongDateString() + " в "
                 + this._tripInfo.DepartureTime.ToShortTimeString() + "\n" 
-                + this._tripInfo.ArrivalStation + ": " 
-                + this._tripInfo.ArrivalTime.ToShortDateString() + " "
+                + "Прибытие: "
+                + this._tripInfo.ArrivalStation + ", " 
+                + this._tripInfo.ArrivalTime.ToLongDateString() + " в "
                 + this._tripInfo.ArrivalTime.ToShortTimeString();
         }
 

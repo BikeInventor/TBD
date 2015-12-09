@@ -265,6 +265,32 @@ namespace Railways.Model.ModelBuilder
             });
             return !isAnyOverlaps;
         }
+
+        public static String GetWagonNumOfSeat(int seatId)
+        {
+            var wagon = ContextKeeper.WagonSeats
+                .Where(ws => ws.SeatId == seatId)
+                .Select(ws => ws.WagonId)
+                .First();
+            var wagonNum = ContextKeeper.Wagons
+                .Where(w => w.Id == wagon)
+                .Select(w => w.WagonNum)
+                .First();
+            return wagonNum.Value.ToString();
+        }
+
+        public static WagonType GetWagonTypeOfSeat(int seatId)
+        {
+            var wagon = ContextKeeper.WagonSeats
+                .Where(ws => ws.SeatId == seatId)
+                .Select(ws => ws.WagonId)
+                .First();
+            var wagonType = ContextKeeper.Wagons
+                .Where(w => w.Id == wagon)
+                .Select(w => w.WagonType)
+                .First();
+            return (WagonType)wagonType.Value;
+        }
     }
 }
 

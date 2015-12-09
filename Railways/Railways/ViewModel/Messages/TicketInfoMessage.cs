@@ -24,5 +24,14 @@ namespace Railways.ViewModel.Messages
             this.ClientId = clientId;
             this.TicketPrice = ticketPrice;
         }
+
+        public TicketInfoMessage(TicketInfoMessage msg)
+        {
+            this.TripInfo = msg.TripInfo;
+            this.SeatId = msg.SeatId;
+            this.EmpId = msg.SeatId;
+            this.ClientId = msg.ClientId;
+            this.TicketPrice = msg.TicketPrice;
+        }
     }
 }
