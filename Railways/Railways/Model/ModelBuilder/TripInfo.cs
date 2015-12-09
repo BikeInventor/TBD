@@ -28,7 +28,9 @@ namespace Railways.Model.ModelBuilder
         public int CoupeCount { get; private set; }
         public int LuxCount { get; private set; }
         public int DateOffset { get; private set; }
-
+        public String FreeSeatsCount { get; private set; }
+        public String Cost { get; private set; }
+        public String WagonTypeTable { get; private set; }
 
         /// <summary>
         /// Класс, предоставляющий информацию о конкретной поездке
@@ -61,6 +63,7 @@ namespace Railways.Model.ModelBuilder
 
             SetEachTypeSeatsCount();
             CalculatePrice();
+            SetWagonTypeTableFields();
         }
 
         /// <summary>
@@ -135,6 +138,17 @@ namespace Railways.Model.ModelBuilder
         public static TripInfo BuildTripInfo(int voyageId, int depRouteId, int arRouteId, int dateOffset)
         {
             return new TripInfo(voyageId,depRouteId, arRouteId, dateOffset);
+        }
+
+        private void SetWagonTypeTableFields()
+        {
+            WagonTypeTable += "Плацкарт\nКупе\nЛюкс";
+            Cost += BerthPrice.ToString() + " РУБ.\n" +
+                CoupePrice.ToString() + " РУБ.\n" +
+                LuxPrice.ToString() + " РУБ.";
+            FreeSeatsCount += BerthCount.ToString() + "\n" +
+                CoupeCount.ToString() + "\n" +
+                LuxCount.ToString();
         }
     }
 }

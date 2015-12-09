@@ -22,11 +22,14 @@ namespace Railways.ViewModel
 {
     public class SeatSetViewModel : ViewModelBase
     {
+        #region Constants
         private const String freeSeatOpacity = "0.3";
         private const String occupiedSeatOpacity = "1";
         private const Double selectedSeatOpacity = 0.5;
         private  Brush selectedSeatColor  = Brushes.LawnGreen;
+        #endregion
 
+        #region Properties
         private TripInfo _tripInfo;
         private double _currentSeatPrice;
 
@@ -91,6 +94,47 @@ namespace Railways.ViewModel
       
         private bool _nextEnabled;
         private bool _prevEnabled;
+
+        private bool _berthAvailability;
+        private bool _coupeAvailability;
+        private bool _luxAvailability;
+
+        public bool BerthAvailability
+        {
+            get
+            {
+                return _berthAvailability;
+            }
+            set
+            {
+                _berthAvailability = value;
+                RaisePropertyChanged("BerthAvailability");
+            }
+        }
+        public bool CoupeAvailability
+        {
+            get
+            {
+                return _coupeAvailability;
+            }
+            set
+            {
+                _coupeAvailability = value;
+                RaisePropertyChanged("CoupeAvailability");
+            }
+        }
+        public bool LuxAvailability
+        {
+            get
+            {
+                return _luxAvailability;
+            }
+            set
+            {
+                _luxAvailability = value;
+                RaisePropertyChanged("LuxAvailability");
+            }
+        }
 
         private Button _selectedSeatButton;
         private int _selectedSeatNumber;
@@ -170,11 +214,14 @@ namespace Railways.ViewModel
             get { return _luxSeatsVisibility; }
             set { _luxSeatsVisibility = value; }
         }
+        #endregion
 
+        #region Commands
         public RelayCommand<object> SelectSeatCmd { get; set; }
         public RelayCommand NextWagonCmd { get; set; }
         public RelayCommand PrevWagonCmd { get; set; }
-        public RelayCommand ClientInfoInputCmd { get; set; }                    
+        public RelayCommand ClientInfoInputCmd { get; set; }
+        #endregion
 
         public SeatSetViewModel()
         {
@@ -207,51 +254,98 @@ namespace Railways.ViewModel
         /// Формирование списков вагонов поезда по их типам
         /// </summary>
         /// <param name="trainId"></param>
-        private void SetTrainInfo()
+        private async void SetTrainInfo()
         {
-            this.trainId = this._tripInfo.TrainId; ;
-            this.depDate = this._tripInfo.DepartureTime;
-            this.arrDate = this._tripInfo.ArrivalTime;
+            await Task.Run(() => 
+            {
+                this.trainId = this._tripInfo.TrainId; ;
+                this.depDate = this._tripInfo.DepartureTime;
+                this.arrDate = this._tripInfo.ArrivalTime;
 
-            Berth.Clear();
-            Coupe.Clear();
-            Lux.Clear();
+                Berth.Clear();
+                Coupe.Clear();
+                Lux.Clear();
 
-            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
-            wagonsOfTrain.ForEach(wagon =>
-            {             
-                var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
-                if (newWag.Seats.Any(freeSeat => freeSeat == true))
+                var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
+                wagonsOfTrain.ForEach(wagon =>
                 {
-                    var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
-                    switch (wagonType)
+                    var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                    if (newWag.Seats.Any(freeSeat => freeSeat == true))
                     {
-                        case WagonType.BERTH:
-                            {
-                                this.Berth.Add(newWag);
-                                break;
-                            }
-                        case WagonType.COUPE:
-                            {
-                                this.Coupe.Add(newWag);
-                                break;
-                            }
-                        case WagonType.LUX:
-                            {
-                                this.Lux.Add(newWag);
-                                break;
-                            }
+                        var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                        switch (wagonType)
+                        {
+                            case WagonType.BERTH:
+                                {
+                                    this.Berth.Add(newWag);
+                                    break;
+                                }
+                            case WagonType.COUPE:
+                                {
+                                    this.Coupe.Add(newWag);
+                                    break;
+                                }
+                            case WagonType.LUX:
+                                {
+                                    this.Lux.Add(newWag);
+                                    break;
+                                }
+                        }
                     }
-                }         
+                });
+
+                SetCurrentWagons();
+                SetCurrentTab();
+                NextEnabled = true;
+                SetCurrentWagonInfo();
             });
+           
+        }
 
-            SetCurrentWagons();
-            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
-            BerthSeatsVisibility.Add(null);
+        /// <summary>
+        /// Установка начальной вкладки, в зависимости от доступности мест конкретного типа
+        /// </summary>
+        private void SetCurrentTab()
+        {
+            BerthAvailability = true;
+            CoupeAvailability = true;
+            LuxAvailability = true;
 
-            NextEnabled = true;  
-            CurrentTabIndex = 0;
-            SetCurrentWagonInfo();
+            if (Lux.Count > 0) _currentTabIndex = 2;
+            else LuxAvailability = false;
+
+            if (Coupe.Count > 0) _currentTabIndex = 1;
+            else CoupeAvailability = false;
+
+            if (Berth.Count > 0) _currentTabIndex = 0;
+            else BerthAvailability = false;
+
+            switch (CurrentTabIndex)
+            {
+                case 0:
+                    {
+                        SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+                        BerthSeatsVisibility.Add(null);
+                        SetStartNextPrevButtons(Berth.Count);
+                        break;
+                    }
+                case 1:
+                    {
+                        SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                        CoupeSeatsVisibility.Add(null);
+                        SetStartNextPrevButtons(Coupe.Count);
+                        break;
+                    }
+                case 2:
+                    {
+                        SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                        LuxSeatsVisibility.Add(null);
+                        SetStartNextPrevButtons(Lux.Count);
+                        break;
+                    }
+            }
+
+            RaisePropertyChanged("CurrentTabIndex");
         }
 
         /// <summary>
@@ -505,26 +599,37 @@ namespace Railways.ViewModel
             {
                 case WagonType.BERTH:
                     {
-                        this.WagonInfo += ContextKeeper.Wagons
-                            .Where(w => w.Id == CurrentBerth.WagonId)
-                            .Select(w => w.WagonNum)
-                            .First();
+                        if (Berth.Count != 0)
+                        {
+                            this.WagonInfo += ContextKeeper.Wagons
+                                .Where(w => w.Id == CurrentBerth.WagonId)
+                                .Select(w => w.WagonNum)
+                                .First();
+                        }
                         break;
                     }
                 case WagonType.COUPE:
                     {
-                        this.WagonInfo += ContextKeeper.Wagons
-                            .Where(w => w.Id == CurrentCoupe.WagonId)
-                            .Select(w => w.WagonNum)
-                            .First();
+                        if (Coupe.Count != 0)
+                        {
+                            this.WagonInfo += ContextKeeper.Wagons
+                                .Where(w => w.Id == CurrentCoupe.WagonId)
+                                .Select(w => w.WagonNum)
+                                .First();
+                        }
                         break;
+
                     }
                 case WagonType.LUX:
                     {
-                        this.WagonInfo += ContextKeeper.Wagons
-                            .Where(w => w.Id == CurrentLux.WagonId)
-                            .Select(w => w.WagonNum)
-                            .First();
+                        if (Lux.Count != 0)
+                        {
+                            this.WagonInfo += ContextKeeper.Wagons
+                                .Where(w => w.Id == CurrentLux.WagonId)
+                                .Select(w => w.WagonNum)
+                                .First();
+
+                        }
                         break;
                     }
             }
@@ -584,7 +689,7 @@ namespace Railways.ViewModel
         }
 
         /// <summary>
-        /// Отображение выбранного для покупки билета места в вагоне
+        /// Отображение выбранного места в вагоне
         /// </summary>
         /// <param name="selectedSeatButton"></param>
         /// <param name="selectedSeatIndex"></param>
@@ -630,11 +735,18 @@ namespace Railways.ViewModel
         /// </summary>
         private void ResetSelectedButton()
         {
-            if (_selectedSeatButton != null)
+            try
             {
-                this._selectedSeatButton.Background = this._selectedButtonColor;
-                this._selectedSeatNumber = -1;
-                this.SeatInfo = "";
+                if (_selectedSeatButton != null)
+                {
+                    this._selectedSeatButton.Background = this._selectedButtonColor;
+                    this._selectedSeatNumber = -1;
+                    this.SeatInfo = "";
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Err while resetting selected button");
             }
 
         }
@@ -708,7 +820,7 @@ namespace Railways.ViewModel
                 clientInfo.Show();
                 clientInfo.Closing += new System.ComponentModel.CancelEventHandler((a, b) =>
                 {
-           //пометить купленный
+                    ResetSelectedButton();
                     SetTrainInfo();
                 });
 
@@ -723,42 +835,5 @@ namespace Railways.ViewModel
             }
         }
 
-        private void RefreshCurrentWagonSeats()
-        {
-            Berth.Clear();
-            Coupe.Clear();
-            Lux.Clear();
-
-            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
-            wagonsOfTrain.ForEach(wagon =>
-            {
-                var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
-                if (newWag.Seats.Any(freeSeat => freeSeat == true))
-                {
-                    var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
-                    switch (wagonType)
-                    {
-                        case WagonType.BERTH:
-                            {
-                                this.Berth.Add(newWag);
-                                break;
-                            }
-                        case WagonType.COUPE:
-                            {
-                                this.Coupe.Add(newWag);
-                                break;
-                            }
-                        case WagonType.LUX:
-                            {
-                                this.Lux.Add(newWag);
-                                break;
-                            }
-                    }
-                }
-            });
-
-            SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
-            BerthSeatsVisibility.Add(null);
-        }
     }
 }

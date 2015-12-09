@@ -38,7 +38,7 @@ namespace Railways.Model.Context
         {
             return Task.Run(() =>
             {
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(500);
 
                 _database = new RailwayDataModelContainer();
 
@@ -70,6 +70,12 @@ namespace Railways.Model.Context
                 WagonSeats.Repository = _database.WagonSeatSet;
             });
             
+        }
+
+        public static void ResetConnection()
+        {
+            DataBase.Database.Connection.Close();
+            DataBase.Database.Connection.Open();
         }
     }
 }

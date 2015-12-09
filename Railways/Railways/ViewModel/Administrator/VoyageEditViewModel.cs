@@ -139,9 +139,14 @@ namespace Railways.ViewModel
                 .Where(train => train.Id == trainId)
                 .Select(train => train.TrainNum)
                 .First();
+            if (this._voyage.Periodicity == null)
+            {
+                this.Periodicity = "1";
+            }
             this.Periodicity = (this._voyage.Periodicity - 1).ToString();
+
             if (this.Periodicity == null) this.Periodicity = 0.ToString();
-            this.DepartureDate = (DateTime)this._voyage.DepartureDateTime;
+            this.DepartureDate = (DateTime)this._voyage.DepartureDateTime.Value.Date;
             this.DepartureOffset = this.DepartureDate;
             this.ArrivalOffset = this.DepartureDate;
             RefreshRoutesOfVoyage();

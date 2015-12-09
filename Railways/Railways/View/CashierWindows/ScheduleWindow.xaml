@@ -50,7 +50,7 @@
                 Width="190" 
                 Margin="10,0, 25, 0" 
                 BorderBrush="{DynamicResource AccentColorBrush4}" 
-                FontSize="16"/>
+                FontSize="16" MaxLength="50" MaxLines="1"/>
 
             <TextBox 
                 Text="{Binding StationTo}"
@@ -65,7 +65,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 BorderBrush="{DynamicResource AccentColorBrush4}" 
-                FontSize="16"/>
+                FontSize="16" MaxLines="1" MaxLength="50"/>
 
             <DatePicker
                 SelectedDate="{Binding DesiredDepartureDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -89,11 +89,14 @@
             SelectedIndex="{Binding SelectedTrip}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNumber}" Width = "170"/>
-                    <GridViewColumn Header="Станция отправления" DisplayMemberBinding="{Binding DepartureStation}" Width = "170"/>
-                    <GridViewColumn Header="Время отправления" DisplayMemberBinding="{Binding DepartureTime, StringFormat='dd.MM.yy HH:mm'}" Width = "170"/>
-                    <GridViewColumn Header="Станция прибытия" DisplayMemberBinding="{Binding ArrivalStation}" Width = "170"/>
-                    <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd.MM.yy HH:mm'}" Width = "170"/>
+                    <GridViewColumn Header="Номер поезда" DisplayMemberBinding="{Binding TrainNumber}" Width = "105"/>
+                    <GridViewColumn Header="Станция отправления" DisplayMemberBinding="{Binding DepartureStation}" Width = "160"/>
+                    <GridViewColumn Header="Время отпр" DisplayMemberBinding="{Binding DepartureTime, StringFormat='dd.MM.yy HH:mm'}" Width = "90"/>
+                    <GridViewColumn Header="Станция прибытия" DisplayMemberBinding="{Binding ArrivalStation}" Width = "160"/>
+                    <GridViewColumn Header="Время приб" DisplayMemberBinding="{Binding ArrivalTime, StringFormat='dd.MM.yy HH:mm'}" Width = "90"/>
+                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding WagonTypeTable}" Width = "70"/>
+                    <GridViewColumn Header="Свободно" DisplayMemberBinding="{Binding FreeSeatsCount}" Width = "80"/>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Cost}" Width = "95"/>
                 </GridView>
             </ListView.View>
 
@@ -106,7 +109,8 @@
         	VerticalAlignment="Center" Grid.Column="1" Grid.Row="3">
 
         </Button>
-        <Viewbox Opacity ="{Binding LoadingVisibility}" Margin="138,34,45,70" Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.552,1.404" Stretch="UniformToFill" Grid.RowSpan="2">
+        <Viewbox Opacity ="{Binding LoadingVisibility}" Margin="369,179,369,95" Grid.Column="1" Grid.Row="2" RenderTransformOrigin="0.552,1.404" Stretch="UniformToFill">
+            <local:LoadingCircle Margin="4 ,4,4,0" Grid.Column="1" Height="82" Width="91" RenderTransformOrigin="0.624,0.08"/>
         </Viewbox>
         <TextBlock 
             FontSize ="20"

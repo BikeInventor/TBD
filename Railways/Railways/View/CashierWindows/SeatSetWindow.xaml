@@ -28,7 +28,7 @@
         <TabControl 
             SelectedIndex="{Binding CurrentTabIndex}"
             HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="930" Grid.Column="1" Grid.Row="1">
-            <TabItem Header="Плацкарт">
+            <TabItem Header="Плацкарт" IsEnabled="{Binding BerthAvailability}">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -110,7 +110,7 @@
                     <Button Name="b54" Command="{Binding SelectSeatCmd}" CommandParameter="{Binding ElementName=b54}" Opacity="{Binding BerthSeatsVisibility[53]}"  HorizontalAlignment="Left" Margin="234,222,0,0" VerticalAlignment="Top" Width="14" Height="12" Background="#FF1E73AA" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Купе">
+            <TabItem Header="Купе" IsEnabled="{Binding CoupeAvailability}">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -168,7 +168,7 @@
                     <Button Name="c38" Command="{Binding SelectSeatCmd}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Opacity="{Binding CoupeSeatsVisibility[37]}"  HorizontalAlignment="Left" Margin="197,164,0,0" VerticalAlignment="Top" Width="12" Height="12" Background="#FF3C505A" BorderBrush="#FF1E73AA" Foreground="#FF1E0FAA"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Люкс">
+            <TabItem Header="Люкс" IsEnabled="{Binding LuxAvailability}">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition/>

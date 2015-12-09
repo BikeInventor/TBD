@@ -100,7 +100,7 @@ namespace Railways.Model.Context
             catch (Exception e)
             {
                 Console.WriteLine(e); 
-         //       throw; 
+                throw; 
             }
         }
 

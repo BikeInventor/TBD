@@ -119,7 +119,7 @@ namespace Railways.ViewModel
             FindTrainsCmd = new RelayCommand(this.FindTrains);
             OpenTripCmd = new RelayCommand(this.OpenTrip);
             SuitableVoyages = new List<TripInfo>();
-            this.DesiredDepartureDate = DateTime.Now.AddDays(1);
+            this.DesiredDepartureDate = DateTime.Now.Date.AddDays(1);
         }
 
         /// <summary>
@@ -160,13 +160,14 @@ namespace Railways.ViewModel
         /// </summary>
         private void OpenTrip()
         {
+            ContextKeeper.ResetConnection();
+
             if (this.SelectedTrip >= 0)
             {
                 var wagonsInfoWin = new SeatSetWindow();
                 wagonsInfoWin.Show();
 
                 Messenger.Default.Send(new TripInfoMessage(ObsTripInfo[SelectedTrip]));
-
             }
         }
     }
