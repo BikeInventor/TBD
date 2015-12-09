@@ -661,7 +661,7 @@ namespace Railways.ViewModel
         /// </summary>
         private void ClientInfoInput()
         {
-            if (_selectedSeatNumber > 0)
+            if (_selectedSeatNumber >= 0)
             {
                  var wagons = TrainBuilder.GetWagonsOfTrain(trainId);
 

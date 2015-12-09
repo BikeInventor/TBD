@@ -203,6 +203,7 @@
     <Compile Include="ViewModel\Administrator\TrainInfoViewModel.cs" />
     <Compile Include="ViewModel\Administrator\VoyageEditViewModel.cs" />
     <Compile Include="ViewModel\Cashier\ClientInfoViewModel.cs" />
+    <Compile Include="ViewModel\Cashier\TicketViewModel.cs" />
     <Compile Include="ViewModel\Converters\IdToStationNameConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToUserRoleConverter.cs" />
     <Compile Include="ViewModel\Converters\IntToWagonTypeConverter.cs" />
@@ -264,6 +265,9 @@
     <Compile Include="ViewModel\Validation\FullNameValidation.cs" />
     <Compile Include="ViewModel\Validation\StationValidation.cs" />
     <Compile Include="ViewModel\Validation\TimeSpanValidation.cs" />
+    <Compile Include="View\CashierWindows\TicketWindow.xaml.cs">
+      <DependentUpon>TicketWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CashierWindows\ClientInfoWindow.xaml.cs">
       <DependentUpon>ClientInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -290,6 +294,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AdminWindows\AdminWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CashierWindows\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -444,6 +452,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>RailwayDB.mdf</DependentUpon>
     </Content>
+    <Resource Include="View\Resources\ticket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\passport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\left.png" />
     <Resource Include="View\Resources\right.png" />
     <Resource Include="View\Resources\berth.png" />

@@ -71,8 +71,8 @@
             Source="/View/Resources/account.png"
             Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="10,82,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30"/>
         <Image 
-        	Source="/View/Resources/key.png"
-        	Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="10,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="25"/>
+        	Source="/View/Resources/passport.png"
+        	Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="12,146,0,0" Grid.Row="1" VerticalAlignment="Top" Width="20" RenderTransformOrigin="0.48,0.526"/>
 
     </Grid>
 </Controls:MetroWindow>

@@ -71,6 +71,8 @@ namespace Railways.ViewModel
                 ContextKeeper.Clients.Add(client);
                 this.message.ClientId = client.Id;
                 BuyTicket();
+                var ticket = new TicketWindow();
+                ticket.Show();
                 window.Close();
             }
         }
