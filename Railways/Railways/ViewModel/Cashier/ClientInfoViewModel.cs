@@ -63,7 +63,7 @@ namespace Railways.ViewModel
 
         private void SaveClientInfo(ClientInfoWindow window)
         {
-            if (!String.IsNullOrEmpty(FIO) || !String.IsNullOrEmpty(PassportNum))
+            if (!String.IsNullOrEmpty(FIO) && !String.IsNullOrEmpty(PassportNum))
             {
                 var client = new Client();
                 client.FullName = this.FIO;
@@ -73,7 +73,9 @@ namespace Railways.ViewModel
                 BuyTicket();
                 var ticket = new TicketWindow();
                 ticket.Show();
-                Messenger.Default.Send(new TicketInfoMessage(message));
+                var printTicketMsg = new TicketInfoMessage(message);
+                printTicketMsg.IsForPrint = true;
+                Messenger.Default.Send(printTicketMsg);
                 window.Close();
             }
         }

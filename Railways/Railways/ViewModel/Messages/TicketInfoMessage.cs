@@ -9,6 +9,7 @@ namespace Railways.ViewModel.Messages
 {
     public class TicketInfoMessage
     {
+        public bool IsForPrint { get; set; }
         public TripInfo TripInfo { get; set; }
         public int SeatId { get; set; }
         public int EmpId { get; set; }

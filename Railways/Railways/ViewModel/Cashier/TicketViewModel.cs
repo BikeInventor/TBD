@@ -15,12 +15,13 @@ using Railways.Model.ModelBuilder;
 using Railways.View;
 using Railways.ViewModel.Utils;
 using System.Windows.Data;
+using System.Windows.Controls;
 
 namespace Railways.ViewModel
 {
     public class TicketViewModel : ViewModelBase
     {
-        public RelayCommand<TicketWindow> PrintTicketCmd { get; set; }
+        public RelayCommand<object> PrintTicketCmd { get; set; }
         private TicketInfoMessage ticketMessage;
 
         private String _tripInfoText;
@@ -97,17 +98,26 @@ namespace Railways.ViewModel
 
         public TicketViewModel() 
         {
-            PrintTicketCmd = new RelayCommand<TicketWindow>(PrintTicket);
+            PrintTicketCmd = new RelayCommand<object>(PrintTicket);
             Messenger.Default.Register<TicketInfoMessage>(this, (msg) =>
             {
-                ticketMessage = msg;
-                SetTicketInfo();
+                if (msg.IsForPrint)
+                {
+                    ticketMessage = msg;
+                    SetTicketInfo();
+                }
             });
         }
 
-        private void PrintTicket(TicketWindow window)
+        private void PrintTicket(object grid)
         {
-            window.Close();
+            Grid area = (Grid)grid;
+            var printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() != true)
+            {
+                return;
+            }
+            printDialog.PrintVisual(area, "Печать билета");
         }
 
         private String WagonTypePrefix()
@@ -150,6 +160,12 @@ namespace Railways.ViewModel
                 .First();
         }
 
+        private String TicketNumber()
+        {
+            var currentTicket = ContextKeeper.Tickets.Select(ticket => ticket.Id).Max();
+            return "HK" + DateTime.Now.Year * 1000 + currentTicket;
+        }
+
         private void SetTicketInfo()
         {
             var client = ClientInfo();
@@ -171,6 +187,7 @@ namespace Railways.ViewModel
             ArrivalText = "ПРИБЫТИЕ " + String.Format("{0:dd.MM}", ticketMessage.TripInfo.ArrivalTime) +
                 " В " + ticketMessage.TripInfo.ArrivalTime.ToShortTimeString() + 
                 "\n" + "ВРЕМЯ ОТПР И ПРИБ МОСКОВСКОЕ";
+            TicketNumText = TicketNumber();
         }
     }
 }

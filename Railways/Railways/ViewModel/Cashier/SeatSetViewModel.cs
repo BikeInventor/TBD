@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using Railways.ViewModel;
 using Railways.ViewModel.Utils;
 using System.Windows.Media;
+using Railways.ViewModel.Services;
 
 namespace Railways.ViewModel
 {
@@ -820,20 +821,85 @@ namespace Railways.ViewModel
                 clientInfo.Show();
                 clientInfo.Closing += new System.ComponentModel.CancelEventHandler((a, b) =>
                 {
-                    ResetSelectedButton();
-                    SetTrainInfo();
+                    UpdateWagonSeats();
                 });
 
 
                 Messenger.Default.Send(new TicketInfoMessage(
                     this._tripInfo,
                     selectedSeatId,
-                    1,                       ////////////////////////TODO: emp tracking
+                    AuthorizationService.CurrentEmployeeId,
                     0,
                     _currentSeatPrice
                 ));
             }
         }
 
+        /// <summary>
+        /// Обновление информации о свободных местах в данном вагоне после покупки билета
+        /// </summary>
+        private void UpdateWagonSeats()
+        {
+            var wagonsOfTrain = TrainBuilder.GetWagonsOfTrain(trainId).ToList();
+
+            switch (_currentTabIndex)
+            {
+                case 0:
+                    {
+                        var currentBerthIndex = Berth.IndexOf(CurrentBerth);
+                        Berth.Clear();
+                        wagonsOfTrain.ForEach(wagon =>
+                        {
+                            var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                            var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                            if (wagonType == WagonType.BERTH)
+                            {
+                                this.Berth.Add(newWag);
+                            }
+                        });
+                        CurrentBerth = Berth[currentBerthIndex];
+                        SetWagonSeatsButtonsVisibility(CurrentBerth, _berthSeatsVisibility);
+                        BerthSeatsVisibility.Add(null);
+                        break;
+                    }
+                case 1:
+                    {
+                        var currentCoupeIndex = Coupe.IndexOf(CurrentCoupe);
+                        Coupe.Clear();
+                        wagonsOfTrain.ForEach(wagon =>
+                        {
+                            var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                            var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                            if (wagonType == WagonType.COUPE)
+                            {
+                                this.Coupe.Add(newWag);
+                            }
+                        });
+                        CurrentCoupe = Coupe[currentCoupeIndex];
+                        SetWagonSeatsButtonsVisibility(CurrentCoupe, _coupeSeatsVisibility);
+                        CoupeSeatsVisibility.Add(null);
+                        break;
+                    }
+                case 2:
+                    {
+                        var currentLuxIndex = Lux.IndexOf(CurrentLux);
+                        Lux.Clear();
+                        wagonsOfTrain.ForEach(wagon =>
+                        {
+                            var newWag = new WagonSeatsSet(wagon.Id, depDate, arrDate);
+                            var wagonType = (WagonType)ContextKeeper.Wagons.Where(w => w.Id == wagon.Id).Select(w => w.WagonType.Value).First();
+                            if (wagonType == WagonType.LUX)
+                            {
+                                this.Lux.Add(newWag);
+                            }
+                        });
+                        CurrentLux = Lux[currentLuxIndex];
+                        SetWagonSeatsButtonsVisibility(CurrentLux, _luxSeatsVisibility);
+                        LuxSeatsVisibility.Add(null);
+                        break;
+                    }
+            }
+            ResetSelectedButton();
+        }
     }
 }

@@ -257,6 +257,7 @@
     <Compile Include="ViewModel\Messages\TripInfoMessage.cs" />
     <Compile Include="ViewModel\Cashier\ScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\Cashier\SeatSetViewModel.cs" />
+    <Compile Include="ViewModel\Services\AuthorizationService.cs" />
     <Compile Include="ViewModel\Services\DialogService.cs" />
     <Compile Include="ViewModel\Utils\AsyncObservableCollection.cs" />
     <Compile Include="ViewModel\Utils\ObservableRangeCollection.cs" />

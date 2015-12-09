@@ -131,6 +131,7 @@ namespace Railways.ViewModel
         public void LogIn(int id)
         {
             var loggedInEmployee = ContextKeeper.Employees.Where(emp => emp.Id == id).First();
+            AuthorizationService.CurrentEmployeeId = loggedInEmployee.Id;
             if (loggedInEmployee.UserRights == 0)
             {
                 var scheduleWin = new ScheduleWindow();
