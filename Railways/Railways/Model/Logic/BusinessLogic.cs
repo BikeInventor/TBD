@@ -28,6 +28,11 @@ namespace Railways.Model.Logic
         /// </summary>
         private static double priceCoefficient = 0.2;
 
+        /// <summary>
+        /// Цена на верхнее место в процентах от цены на нижнее
+        /// </summary>
+        private static double upperSeatCoefficient = 0.95;
+
         private static double _kilometerPrice = 4;
         /// <summary>
         /// Цена за километр поездки
@@ -68,6 +73,26 @@ namespace Railways.Model.Logic
                     }
             }
 
+        }
+
+        /// <summary>
+        /// Установка цены на верхнее место в купе
+        /// </summary>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        public static double SetUpperSeatPrice(double price)
+        {
+            return price * upperSeatCoefficient;
+        }
+
+        /// <summary>
+        /// Установка цены на нижнее место в купе
+        /// </summary>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        public static double SetLowerSeatPrice(double price)
+        {
+            return price / upperSeatCoefficient;
         }
 
 

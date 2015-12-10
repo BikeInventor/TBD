@@ -629,7 +629,6 @@ namespace Railways.ViewModel
                                 .Where(w => w.Id == CurrentLux.WagonId)
                                 .Select(w => w.WagonNum)
                                 .First();
-
                         }
                         break;
                     }
@@ -712,11 +711,28 @@ namespace Railways.ViewModel
                 case 0:
                     {
                         _currentSeatPrice = this._tripInfo.BerthPrice;
+                        if (_selectedSeatNumber % 2 != 0)
+                        {
+                            _currentSeatPrice = BusinessLogic.SetUpperSeatPrice(_currentSeatPrice);
+                        }
+                        else
+                        {
+                            _currentSeatPrice = BusinessLogic.SetLowerSeatPrice(_currentSeatPrice);
+                        }
                         break;
                     }
                 case 1:
                     {
                         _currentSeatPrice = this._tripInfo.CoupePrice;
+                        if (_selectedSeatNumber % 2 != 0)
+                        {
+                            _currentSeatPrice = BusinessLogic.SetUpperSeatPrice(_currentSeatPrice);
+                        }
+                        else
+                        {
+                            _currentSeatPrice = BusinessLogic.SetLowerSeatPrice(_currentSeatPrice);
+                        }
+                        break;
                         break;
                     }
                 case 2:
