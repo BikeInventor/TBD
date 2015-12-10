@@ -24,7 +24,7 @@
         	TextWrapping="Wrap" 
         	wpf:TextFieldAssist.HintOpacity="0.5"
         	wpf:TextFieldAssist.Hint="Номер" Background="Transparent" 
-        	VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.83,0.615" MaxLength="4" MaxLines="1"/>
+        	VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.83,0.615" MaxLength="5" MaxLines="1"/>
 
         <ListView 
             ItemsSource="{Binding WagonList}"

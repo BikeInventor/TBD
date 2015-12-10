@@ -20,12 +20,26 @@ namespace Railways.ViewModel
 {
     public class ScheduleWindowViewModel : ViewModelBase
     {
+        #region Properties
         private AsyncObservableCollection<TripInfo> _obsTripInfo;
         private String _stationFrom;
         private String _stationTo;
         private String _loadingVisibility;
         private DateTime _desiredDepartureDate;
+        private bool _openTripButtonAvailability;
         private bool _searchButtonAvailability;
+        public bool OpenTripButtonAvailability
+        {
+            get
+            {
+                return _openTripButtonAvailability;
+            }
+            set
+            {
+                _openTripButtonAvailability = value;
+                RaisePropertyChanged("OpenTripButtonAvailability");
+            }
+        }
         public bool SearchButtonAvailability
         {
             get { return _searchButtonAvailability; }
@@ -93,6 +107,9 @@ namespace Railways.ViewModel
             get { return _obsTripInfo; }
             set { _obsTripInfo = value; }
         }
+        #endregion
+
+        #region Commands
         public RelayCommand FindTrainsCmd 
         { 
             get;
@@ -103,11 +120,13 @@ namespace Railways.ViewModel
             get;
             private set; 
         }
+        #endregion
 
         public ScheduleWindowViewModel() 
         {
             LoadingVisibility = "0";
             NoTicketsFoundMsgVisibility = "0";
+            OpenTripButtonAvailability = true;
             SearchButtonAvailability = true;
 
             Stations = ContextKeeper.Stations
@@ -160,15 +179,31 @@ namespace Railways.ViewModel
         /// </summary>
         private void OpenTrip()
         {
-            ContextKeeper.ResetConnection();
-
             if (this.SelectedTrip >= 0)
             {
+                ContextKeeper.ResetConnection();
+
+                HideOpenTripButton();
+
                 var wagonsInfoWin = new SeatSetWindow();
                 wagonsInfoWin.Show();
 
                 Messenger.Default.Send(new TripInfoMessage(ObsTripInfo[SelectedTrip]));
             }
+        }
+
+        /// <summary>
+        /// Установка кнопки выбора поезда в неактивное состояние
+        /// для предотвращения повторных нажатий
+        /// </summary>
+        private async void HideOpenTripButton()
+        {
+            await Task.Run(() =>
+            {
+                OpenTripButtonAvailability = false;
+                System.Threading.Thread.Sleep(3000);
+                OpenTripButtonAvailability = true;
+            });
         }
     }
 }

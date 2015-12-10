@@ -76,7 +76,7 @@ namespace Railways.Model.Logic
         }
 
         /// <summary>
-        /// Установка цены на верхнее место в купе
+        /// Установка цены на верхнее место
         /// </summary>
         /// <param name="price"></param>
         /// <returns></returns>
@@ -86,7 +86,7 @@ namespace Railways.Model.Logic
         }
 
         /// <summary>
-        /// Установка цены на нижнее место в купе
+        /// Установка цены на нижнее место
         /// </summary>
         /// <param name="price"></param>
         /// <returns></returns>

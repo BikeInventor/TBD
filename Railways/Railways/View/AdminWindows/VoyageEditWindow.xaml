@@ -52,7 +52,8 @@
             	wpf:TextFieldAssist.Hint="Периодичность" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
-                Margin="5,0,10,0" SelectedIndex="{Binding Periodicity}">
+                Margin="5,0,10,0" 
+                SelectedIndex="{Binding Periodicity}">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>

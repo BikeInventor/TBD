@@ -144,6 +144,7 @@ namespace Railways.ViewModel
         /// <param name="window"></param>
         private void SaveTrainInfo(TrainInfoWindow window) 
         {
+            if (String.IsNullOrEmpty(TrainNum)) return;
             if (_trainToEdit == null)
             {
                 _trainToEdit = new Train();
@@ -161,7 +162,7 @@ namespace Railways.ViewModel
         /// <param name="window"></param>
         private void EditVoyage(TrainInfoWindow window)
         {
-            if (_trainToEdit == null) return;
+            if (_trainToEdit == null || String.IsNullOrEmpty(TrainNum)) return;
             var voyage = VoyageBuilder.GetVoyageOfTrain(_trainToEdit.Id);
             if (voyage == null)
             {

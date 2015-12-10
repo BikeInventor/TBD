@@ -54,7 +54,7 @@
             			x:Name="TrainSearchString"
             			TextWrapping="Wrap" 
             			FontSize="16" 
-            			BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
+            			BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom" MaxLength="50" MaxLines="1">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <cmd:EventToCommand Command="{Binding TrainSearchStringChangedCmd}" CommandParameter="{Binding ElementName=TrainSearchString}" />
@@ -92,7 +92,7 @@
                         x:Name="EmployeeSearchString"
                         TextWrapping="Wrap" 
                         FontSize="16" 
-                        BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom">
+                        BorderBrush="{DynamicResource AccentColorBrush3}" Height="39" VerticalAlignment="Bottom" MaxLength="50" MaxLines="1">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <cmd:EventToCommand Command="{Binding EmployeeSearchStringChangedCmd}" CommandParameter="{Binding ElementName=EmployeeSearchString}" />

@@ -62,7 +62,26 @@ namespace Railways.ViewModel
             LoginCmd = new RelayCommand<object>(this.TryLogin);
             LoadingVisibility = "0";
             LogInButtonAvailability = true;
+            Connect();
+
         }
+
+
+        public async void Connect()
+        {
+            if (!_isConnected)
+            {
+                _isConnected = await ConnectToDB();
+                if (!_isConnected)
+                {
+                    await DialogService.ShowDialog("LoginWindow",
+                        "Не удалось подключиться к серверу базы данных",
+                        DialogWindowType.INFODIALOG);
+                    return;
+                }
+            }
+        }
+
         /// <summary>
         /// Осуществление входа сотрудника в систему
         /// </summary>
@@ -77,17 +96,7 @@ namespace Railways.ViewModel
                 var passwordBox = pBox as PasswordBox;
                 var password = passwordBox.Password;
 
-                if (!_isConnected)
-                {
-                    _isConnected = await ConnectToDB();
-                    if (!_isConnected)
-                    {
-                        await DialogService.ShowDialog("LoginWindow", 
-                            "Не удалось подключиться к серверу базы данных", 
-                            DialogWindowType.INFODIALOG);
-                        return;
-                    }
-                }
+                ///коннекшон был здесь
 
                 if (CorrectAuthInfo(int.Parse(Id), password) && !String.IsNullOrEmpty(this.Id))
                 {
@@ -100,7 +109,7 @@ namespace Railways.ViewModel
                         DialogWindowType.INFODIALOG);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Ошибка подключения");
             }
@@ -153,13 +162,8 @@ namespace Railways.ViewModel
                 _isConnected = true;
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                //var msg = DialogService.ShowMessage("Не удалось поключиться к базе данных\n" + ex.Message,
-                //   "Ошибка подключения", MessageDialogStyle.Affirmative);
-
-
                 return false;
             }
         }

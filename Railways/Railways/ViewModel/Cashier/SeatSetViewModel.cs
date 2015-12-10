@@ -733,7 +733,6 @@ namespace Railways.ViewModel
                             _currentSeatPrice = BusinessLogic.SetLowerSeatPrice(_currentSeatPrice);
                         }
                         break;
-                        break;
                     }
                 case 2:
                     {

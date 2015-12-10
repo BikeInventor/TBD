@@ -141,9 +141,12 @@ namespace Railways.ViewModel
                 .First();
             if (this._voyage.Periodicity == null)
             {
-                this.Periodicity = "1";
+                this.Periodicity = "0";
             }
-            this.Periodicity = (this._voyage.Periodicity - 1).ToString();
+            else
+            {
+                this.Periodicity = (this._voyage.Periodicity - 1).ToString();
+            }
 
             if (this.Periodicity == null) this.Periodicity = 0.ToString();
             this.DepartureDate = (DateTime)this._voyage.DepartureDateTime.Value.Date;

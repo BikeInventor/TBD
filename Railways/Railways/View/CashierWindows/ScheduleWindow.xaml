@@ -102,6 +102,7 @@
 
         </ListView>
         <Button 
+            IsEnabled="{Binding OpenTripButtonAvailability}"
             Content="Открыть"
             Command="{Binding OpenTripCmd}" 
         	Width="136" Margin="712,12,10,10" 
