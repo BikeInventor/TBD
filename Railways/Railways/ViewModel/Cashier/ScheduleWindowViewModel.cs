@@ -179,7 +179,7 @@ namespace Railways.ViewModel
         /// </summary>
         private void OpenTrip()
         {
-            if (this.SelectedTrip >= 0)
+            if (this.SelectedTrip >= 0 && SuitableVoyages.Count != 0)
             {
                 ContextKeeper.ResetConnection();
 

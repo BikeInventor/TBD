@@ -181,7 +181,7 @@ namespace Railways.ViewModel
             SeatText = "МЕСТА 0" + SeatNum() + " ФПК ДАЛЬНОВОСТОЧНЫЙ";
             ClientInfoText = "ПН " + client.PassportNum.ToUpper() +
                 "/" + client.FullName.ToUpper();
-            CostText = "W-" + ticketMessage.TicketPrice +
+            CostText = "W-" + String.Format("{0:0.00}", ticketMessage.TicketPrice) +
                 " РУБ В Т.Ч.СТР.2.3; ТАРИФ РФ 496.5 В Т.Ч.НДС 71.62 РУБ" +
                 "\n" + "СЕРВИС 83.8 В Т.Ч.НДС 12.78 РУБ С БЕЛЬЕМ УО ЭЛ.ДОК.347238532/4";
             ArrivalText = "ПРИБЫТИЕ " + String.Format("{0:dd.MM}", ticketMessage.TripInfo.ArrivalTime) +

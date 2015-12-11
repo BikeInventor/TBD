@@ -93,6 +93,7 @@ namespace Railways.Model.ModelBuilder
 
             wagonsOfTrain.ToList().ForEach(wag => ContextKeeper.TrainWagons.Remove(wag));
 
+            ContextKeeper.Voyages.Remove(ContextKeeper.Voyages.First(v => v.TrainId == trainId));
             ContextKeeper.Trains.Remove(ContextKeeper.Trains.First(train => train.Id == trainId));
         }
 

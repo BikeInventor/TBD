@@ -743,7 +743,7 @@ namespace Railways.ViewModel
 
             this.SeatInfo += "                   Цена билета: "
                 + String.Format("{0:0.00}", this._currentSeatPrice)
-                + "руб.";
+                + " руб.";
         }
 
         /// <summary>
@@ -791,7 +791,7 @@ namespace Railways.ViewModel
         /// </summary>
         private void ClientInfoInput()
         {
-            if (_selectedSeatNumber >= 0)
+            if (_selectedSeatNumber >= 0 && _selectedButtonColor != null)
             {
                  var wagons = TrainBuilder.GetWagonsOfTrain(trainId);
 
