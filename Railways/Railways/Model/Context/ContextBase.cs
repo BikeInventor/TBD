@@ -94,7 +94,8 @@ namespace Railways.Model.Context
         {
             try
             {
-                Repository.Remove(entity);
+                var _entity = Repository.Find(entity.Id);
+                Repository.Remove(_entity);
                 ContextKeeper.DataBase.SaveChanges();
             }
             catch (Exception e)

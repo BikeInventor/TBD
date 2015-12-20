@@ -19,14 +19,14 @@ namespace Railways.Model.Logic
         /// </summary>
         private enum PriceMultiplyers
         {
-            BERTH = 2,
-            COUPE = 3,
-            LUX = 4,
+            BERTH = 20,
+            COUPE = 28,
+            LUX = 41,
         }
         /// <summary>
         /// Коэффициент для рассчёта цены на конретный тип места
         /// </summary>
-        private static double priceCoefficient = 0.2;
+        private static double priceCoefficient = 0.02;
 
         /// <summary>
         /// Цена на верхнее место в процентах от цены на нижнее
@@ -57,15 +57,15 @@ namespace Railways.Model.Logic
             {
                 case WagonType.BERTH:
                     {
-                        return basePrice * (double)PriceMultiplyers.BERTH;
+                        return Math.Round(basePrice * (double)PriceMultiplyers.BERTH);
                     }
                 case WagonType.COUPE:
                     {
-                        return basePrice * (double)PriceMultiplyers.COUPE;
+                        return Math.Round(basePrice * (double)PriceMultiplyers.COUPE);
                     }
                 case WagonType.LUX:
                     {
-                        return basePrice * (double)PriceMultiplyers.LUX;
+                        return Math.Round(basePrice * (double)PriceMultiplyers.LUX);
                     }
                 default:
                     {
@@ -82,7 +82,7 @@ namespace Railways.Model.Logic
         /// <returns></returns>
         public static double SetUpperSeatPrice(double price)
         {
-            return price * upperSeatCoefficient;
+            return Math.Round(price * upperSeatCoefficient);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Railways.Model.Logic
         /// <returns></returns>
         public static double SetLowerSeatPrice(double price)
         {
-            return price / upperSeatCoefficient;
+            return Math.Round(price / upperSeatCoefficient);
         }
 
 

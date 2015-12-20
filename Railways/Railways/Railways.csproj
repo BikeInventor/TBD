@@ -453,6 +453,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>RailwayDB.mdf</DependentUpon>
     </Content>
+    <Resource Include="View\Resources\left-barcode.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\right_barcode.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\ticket.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

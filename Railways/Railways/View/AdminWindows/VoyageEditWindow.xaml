@@ -81,7 +81,7 @@
                     <GridViewColumn Header="Станция" DisplayMemberBinding="{Binding StationId, Converter={StaticResource IdToStationNameConverter}}" Width = "250"/>
                     <GridViewColumn Header="Время прибытия" DisplayMemberBinding="{Binding ArrivalTimeOffset, StringFormat='dd-MM-yy HH:mm'}" Width = "200"/>
                     <GridViewColumn Header="Время отправки" DisplayMemberBinding="{Binding DepartureTimeOffset, StringFormat='dd-MM-yy HH:mm'}" Width = "200"/>
-                    <GridViewColumn Header="Расстояние" DisplayMemberBinding="{Binding Distance}" Width = "130"/>
+                    <GridViewColumn Header="Расстояние" DisplayMemberBinding="{Binding Distance}" Width = "110"/>
                 </GridView>
             </ListView.View>
         </ListView>

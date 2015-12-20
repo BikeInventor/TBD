@@ -31,7 +31,17 @@ namespace Railways.ViewModel
         private String _costText;
         private String _arrivalText;
         private String _ticketNumText;
+        private String _controlText;
 
+        public String ControlText
+        {
+            get { return _controlText; }
+            set 
+            {
+                _controlText = value;
+                RaisePropertyChanged("ControlText");
+            }
+        }
         public String TripInfoText
         {
             get { return _tripInfoText; }
@@ -169,6 +179,7 @@ namespace Railways.ViewModel
         private void SetTicketInfo()
         {
             var client = ClientInfo();
+
             TripInfoText = ticketMessage.TripInfo.TrainNumber.ToUpper() +
                 "  " + String.Format("{0:dd.MM}",ticketMessage.TripInfo.DepartureTime) +
                 " " + ticketMessage.TripInfo.DepartureTime.ToShortTimeString() +
@@ -178,7 +189,7 @@ namespace Railways.ViewModel
             DirectionText = ticketMessage.TripInfo.DepartureStation.ToUpper() +
                 " - " + ticketMessage.TripInfo.ArrivalStation.ToUpper()
                 + "(2000002-2010090)" + "КЛ.ОБСЛ.ЗП";
-            SeatText = "МЕСТА 0" + SeatNum() + " ФПК ДАЛЬНОВОСТОЧНЫЙ";
+            SeatText = "МЕСТА 0" + SeatNum() + " ФПК/20 1797 21 2130";
             ClientInfoText = "ПН " + client.PassportNum.ToUpper() +
                 "/" + client.FullName.ToUpper();
             CostText = "W-" + String.Format("{0:0.00}", ticketMessage.TicketPrice) +
@@ -188,6 +199,20 @@ namespace Railways.ViewModel
                 " В " + ticketMessage.TripInfo.ArrivalTime.ToShortTimeString() + 
                 "\n" + "ВРЕМЯ ОТПР И ПРИБ МОСКОВСКОЕ";
             TicketNumText = TicketNumber();
+
+            ControlText = ticketMessage.TripInfo.TrainNumber.ToUpper() +
+                " " + String.Format("{0:dd.MM}", ticketMessage.TripInfo.DepartureTime) +
+                " " + ticketMessage.TripInfo.DepartureTime.ToShortTimeString() +
+                " " + TrainBuilder.GetWagonNumOfSeat(ticketMessage.SeatId) +
+                " " + WagonTypePrefix() + "\n\n" +
+                ticketMessage.TripInfo.DepartureStation.ToUpper() + "\n" +
+                ticketMessage.TripInfo.ArrivalStation.ToUpper() + "\n\n" +
+                "ПН" + client.PassportNum.ToUpper() + "\n" +
+                client.FullName.ToUpper() + "\n\n" +
+                "СУММА " + String.Format("{0:0.00}", ticketMessage.TicketPrice) + "\n\n" +
+                "20.4 С БЕЛЬЕМ УО" + "\n" +
+                "20 1797 21 2130" + "\n" +
+                "347238532/4";
         }
     }
 }

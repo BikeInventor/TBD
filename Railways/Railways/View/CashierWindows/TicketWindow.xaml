@@ -34,6 +34,10 @@
             <Label Content="{Binding CostText}" HorizontalAlignment="Left" Margin="101,265,0,0" VerticalAlignment="Top" Height="40" Width="511" FontFamily="OCR A Extended" Foreground="#BF000000" FontSize="13"/>
             <Label Content="{Binding ArrivalText}" HorizontalAlignment="Left" Margin="101,305,0,0" VerticalAlignment="Top" Height="40" Width="511" FontFamily="OCR A Extended" Foreground="#BF000000" FontSize="13"/>
             <Label Content="{Binding TicketNumText}" HorizontalAlignment="Left" Margin="468,54,0,0" VerticalAlignment="Top" Height="32" Width="144" FontFamily="OCR A Extended" Foreground="#BF000000" FontSize="20" FontWeight="Bold"/>
+            <Image HorizontalAlignment="Left" Height="280" Margin="617,65,0,0" VerticalAlignment="Top" Width="42" Source="/Railways;component/View/Resources/right_barcode.jpg"/>
+            <Image HorizontalAlignment="Left" Height="280" Margin="41,65,0,0" VerticalAlignment="Top" Width="55" Source="/Railways;component/View/Resources/left-barcode.jpg"/>
+            <Label Content="{Binding ControlText}" HorizontalAlignment="Left" Margin="683,112,0,0" VerticalAlignment="Top" Height="233" Width="144"  FontFamily="OCR A Extended" Foreground="#BF000000" FontSize="13"/>
+            <Label Content="{Binding TicketNumText}" HorizontalAlignment="Left" Margin="683,75,0,0" VerticalAlignment="Top" Height="32" Width="144" FontFamily="OCR A Extended" Foreground="#BF000000" FontSize="20" FontWeight="Bold"/>
         </Grid>
         <Button 
                 Command="{Binding PrintTicketCmd}" 
