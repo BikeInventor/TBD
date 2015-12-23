@@ -208,7 +208,7 @@ namespace Railways.ViewModel
                 ticketMessage.TripInfo.DepartureStation.ToUpper() + "\n" +
                 ticketMessage.TripInfo.ArrivalStation.ToUpper() + "\n\n" +
                 "ПН" + client.PassportNum.ToUpper() + "\n" +
-                client.FullName.ToUpper() + "\n\n" +
+                NameCutter.MakeShorter(client.FullName).ToUpper() + "\n\n" +
                 "СУММА " + String.Format("{0:0.00}", ticketMessage.TicketPrice) + "\n\n" +
                 "20.4 С БЕЛЬЕМ УО" + "\n" +
                 "20 1797 21 2130" + "\n" +

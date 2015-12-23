@@ -14,7 +14,6 @@ public enum WagonType
     COUPE = 1,
     LUX = 2,
 }
-
 /// <summary>
 /// Количество мест в вагоне, в зависимости от его типа
 /// </summary>

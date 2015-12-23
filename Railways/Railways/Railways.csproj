@@ -260,6 +260,7 @@
     <Compile Include="ViewModel\Services\AuthorizationService.cs" />
     <Compile Include="ViewModel\Services\DialogService.cs" />
     <Compile Include="ViewModel\Utils\AsyncObservableCollection.cs" />
+    <Compile Include="ViewModel\Utils\NameCutter.cs" />
     <Compile Include="ViewModel\Utils\ObservableRangeCollection.cs" />
     <Compile Include="ViewModel\Validation\IdValidation.cs" />
     <Compile Include="ViewModel\Validation\DistanceValidation.cs" />
